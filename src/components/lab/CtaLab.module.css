@@ -1,0 +1,410 @@
+.section {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.sectionTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  letter-spacing: var(--tracking-label);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: var(--leading-heading);
+  margin-bottom: var(--space-3);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 75ch;
+  line-height: var(--leading-body);
+}
+
+/* Surface Selector */
+.surfaceSelector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+}
+
+@media (min-width: 768px) {
+  .surfaceSelector {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.selectorLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-brand-red);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.surfaceBtn {
+  background: var(--color-ink-800);
+  border: 1px solid var(--color-ink-700);
+  color: var(--color-ink-300);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: var(--radius-1);
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.surfaceBtn:hover {
+  color: var(--color-white);
+  border-color: var(--color-ink-500);
+}
+
+.surfaceBtn.active {
+  background: var(--color-ink-700);
+  border-color: var(--color-brand-red);
+  color: var(--color-white);
+  box-shadow: 0 0 0 1px var(--color-brand-red);
+}
+
+/* CTA Stage */
+.ctaStage {
+  position: relative;
+  padding: var(--space-6);
+  border-radius: var(--radius-1);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-6);
+  overflow: hidden;
+  transition: background-color var(--dur-base) var(--ease-standard);
+}
+
+.light {
+  background-color: var(--color-surface-0);
+  color: var(--color-charcoal);
+}
+
+.dark {
+  background-color: var(--color-ink-900);
+  border-color: var(--color-line-dark);
+  color: var(--color-white);
+}
+
+.photo {
+  background-color: #000;
+  border-color: var(--color-line-dark);
+  color: var(--color-white);
+}
+
+.machinery {
+  background-color: var(--color-ink-800);
+  border-color: var(--color-line-dark);
+  color: var(--color-white);
+  background-image: 
+    linear-gradient(to right, #252525 1px, transparent 1px),
+    linear-gradient(to bottom, #252525 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.photoBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.bgImg {
+  object-fit: cover;
+}
+
+.photoScrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 18, 18, 0.78);
+  backdrop-filter: blur(2px);
+}
+
+.ctaGrid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .ctaGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ctaCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: var(--space-5);
+  border-radius: var(--radius-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(4px);
+}
+
+.light .ctaCard {
+  background: var(--color-surface-1);
+  border-color: var(--color-line-light);
+}
+
+.ctaMeta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  border-bottom: 1px solid rgba(150, 150, 150, 0.2);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.tierTag {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.tierTagUrgent {
+  color: var(--color-brand-red);
+  font-weight: 700;
+}
+
+.intentTag {
+  color: var(--color-ink-300);
+}
+
+.light .intentTag {
+  color: var(--color-ink-500);
+}
+
+.ctaButtonWrapper {
+  margin-bottom: var(--space-4);
+}
+
+/* Button 1: Primary */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  background-color: var(--color-brand-red-action);
+  color: var(--color-white);
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1.4rem;
+  min-height: var(--touch-target);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.btnPrimary:hover {
+  background-color: var(--color-brand-red-strong);
+  transform: translateY(-1px);
+}
+
+.btnArrow {
+  font-size: 1.1rem;
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+
+.btnPrimary:hover .btnArrow {
+  transform: translateX(3px);
+}
+
+/* Button 2: Secondary */
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  background-color: transparent;
+  color: var(--color-white);
+  border: 1px solid var(--color-line-dark);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1.4rem;
+  min-height: var(--touch-target);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.light .btnSecondary {
+  color: var(--color-charcoal);
+  border-color: var(--color-line-light);
+}
+
+.btnSecondary:hover {
+  border-color: var(--color-brand-red);
+  background-color: rgba(237, 28, 36, 0.05);
+}
+
+.light .btnSecondary:hover {
+  background-color: var(--color-surface-2);
+}
+
+/* Button 3: Urgent */
+.btnUrgent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  background-color: var(--color-charcoal);
+  color: var(--color-white);
+  border: 1px solid var(--color-brand-red);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.4rem;
+  min-height: var(--touch-target);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.btnUrgent:hover {
+  background-color: var(--color-brand-red);
+  color: var(--color-white);
+}
+
+.urgentDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-brand-red);
+  box-shadow: 0 0 8px var(--color-brand-red);
+}
+
+.btnUrgent:hover .urgentDot {
+  background-color: #fff;
+  box-shadow: 0 0 8px #fff;
+}
+
+/* Button 4: Utility */
+.btnUtility {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  background-color: var(--color-ink-800);
+  color: var(--color-white);
+  border: 1px solid var(--color-ink-600);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 0.85rem 1.4rem;
+  min-height: var(--touch-target);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.light .btnUtility {
+  background-color: var(--color-surface-2);
+  color: var(--color-charcoal);
+  border-color: var(--color-line-light);
+}
+
+.btnUtility:hover {
+  border-color: var(--color-white);
+}
+
+.light .btnUtility:hover {
+  border-color: var(--color-charcoal);
+}
+
+.utilityIcon {
+  color: var(--color-brand-red);
+}
+
+.ctaNotes {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  opacity: 0.8;
+  line-height: 1.4;
+  margin-top: var(--space-2);
+}
+
+/* State Matrix Grid */
+.stateMatrixGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .stateMatrixGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stateCard {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+}
+
+.stateTitle {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  margin-bottom: var(--space-2);
+}
+
+.stateCard p {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.stateCard code {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  background: var(--bg-page);
+  padding: 0.1rem 0.3rem;
+}

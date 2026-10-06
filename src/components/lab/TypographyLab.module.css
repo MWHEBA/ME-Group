@@ -1,0 +1,400 @@
+.section {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.sectionTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  letter-spacing: var(--tracking-label);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: var(--leading-heading);
+  margin-bottom: var(--space-3);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 75ch;
+  line-height: var(--leading-body);
+}
+
+/* Switcher */
+.switcherBar {
+  background-color: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .switcherBar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.switcherLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-brand-red);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.switchBtn {
+  background: var(--color-ink-800);
+  border: 1px solid var(--color-ink-600);
+  color: var(--color-ink-300);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  transition: all var(--dur-fast) var(--ease-standard);
+  text-align: left;
+}
+
+.switchBtn:hover {
+  border-color: var(--color-white);
+  color: var(--color-white);
+}
+
+.switchBtn.active {
+  background: var(--color-ink-700);
+  border-color: var(--color-brand-red);
+  color: var(--color-white);
+  box-shadow: 0 0 0 1px var(--color-brand-red);
+}
+
+.btnTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-brand-red);
+}
+
+.btnFonts {
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+}
+
+/* Logo Lockup Card */
+.logoLockupCard {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+
+.cardHeader {
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.monoLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+}
+
+.statusPill {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  background: var(--color-ink-700);
+  color: var(--color-brand-red);
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+}
+
+.logoComparisonGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: var(--space-6);
+  gap: var(--space-6);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .logoComparisonGrid {
+    grid-template-columns: 320px 1fr;
+    border-left: none;
+  }
+}
+
+.logoColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.logoFrame {
+  background: #ffffff;
+  padding: var(--space-4);
+  border: 1px solid var(--color-line-light);
+  display: inline-flex;
+}
+
+.realLogo {
+  width: 220px;
+  height: auto;
+  object-fit: contain;
+}
+
+.logoCaption {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.specimenColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  letter-spacing: var(--tracking-label);
+  font-weight: 600;
+}
+
+.heroHeadline {
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+.subHeadline {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Font Variables applied via container classes */
+.useHypo1 .heroHeadline,
+.useHypo1 .giantDisplay,
+.useHypo1 .sectionTitle,
+.useHypo1 .sectionTitleAlt {
+  font-family: var(--font-display);
+}
+
+.useHypo1 .subHeadline,
+.useHypo1 .bodySpecimen {
+  font-family: var(--font-body);
+}
+
+.useHypo2 .heroHeadline,
+.useHypo2 .giantDisplay,
+.useHypo2 .sectionTitle,
+.useHypo2 .sectionTitleAlt {
+  font-family: var(--font-alt-display);
+}
+
+.useHypo2 .subHeadline,
+.useHypo2 .bodySpecimen {
+  font-family: var(--font-alt-body);
+}
+
+/* Specimen Grid */
+.specimenGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 900px) {
+  .specimenGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.specimenCard {
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.specimenHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.specimenLevel {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.specimenFamily {
+  color: var(--text-secondary);
+}
+
+.giantDisplay {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 0.95;
+  margin-bottom: var(--space-4);
+}
+
+.sectionTitle {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.sectionTitleAlt {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.bodySpecimen {
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-4);
+}
+
+.equipmentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.equipTag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  padding: var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-primary);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-brand-red);
+}
+
+.specimenMeta {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border);
+  padding-top: var(--space-2);
+}
+
+/* Evaluation Box */
+.evaluationSummary {
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  border-left: 4px solid var(--color-brand-red);
+  padding: var(--space-5);
+  color: var(--color-white);
+  border-radius: var(--radius-1);
+}
+
+.evalTitle {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-brand-red);
+  margin-bottom: var(--space-4);
+}
+
+.evalGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .evalGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.evalItemHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  margin-bottom: var(--space-2);
+  color: var(--color-white);
+}
+
+.checkIcon {
+  color: var(--color-brand-red);
+  font-weight: bold;
+}
+
+.evalItem p {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--color-ink-300);
+}

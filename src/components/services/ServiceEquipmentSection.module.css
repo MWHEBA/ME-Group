@@ -1,0 +1,151 @@
+.equipmentSection {
+  background-color: var(--bg-alt);
+  color: var(--text-primary);
+  padding: var(--section-y) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.headerRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .headerRow {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--accent-action);
+  letter-spacing: var(--tracking-label);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.headerRight {
+  flex-shrink: 0;
+}
+
+.matrixLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--accent-action);
+  letter-spacing: var(--tracking-label);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  background-color: var(--bg-page);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+    background-color var(--dur-fast) var(--ease-standard);
+}
+
+.matrixLink:hover {
+  border-color: var(--accent-action);
+  background-color: var(--bg-alt);
+}
+
+.equipmentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .equipmentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .equipmentGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.equipmentCard {
+  background-color: var(--bg-page);
+  border: 1px solid var(--border);
+  padding: var(--space-5);
+  border-radius: var(--radius-btn);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: border-color var(--dur-fast) var(--ease-standard);
+}
+
+.equipmentCard:hover {
+  border-color: var(--color-ink-500);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categoryBadge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.statusIndicator {
+  color: var(--status-ok);
+  font-size: var(--text-xs);
+}
+
+.equipmentName {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: var(--leading-heading);
+}
+
+.equipmentNotes {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  line-height: var(--leading-body);
+  margin: 0;
+}

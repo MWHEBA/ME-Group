@@ -1,0 +1,18 @@
+.section {
+  padding-block: var(--section-y);
+}
+
+.default {
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+
+.alt {
+  background: var(--bg-alt);
+  color: var(--text-primary);
+}
+
+.inverse {
+  background: var(--bg-inverse);
+  color: var(--text-inverse);
+}

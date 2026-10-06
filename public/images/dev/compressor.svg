@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="comp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111215" />
+      <stop offset="100%" stop-color="#1a1c22" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#comp-bg)" />
+  
+  <!-- Air Receiver Bottle & 2-Stage Compressor -->
+  <g stroke="#3a404d" stroke-width="2" fill="#20242c">
+    <!-- Air Receiver Tank Vertical -->
+    <rect x="180" y="160" width="220" height="500" rx="40" />
+    <!-- Pressure relief valve on top -->
+    <rect x="260" y="110" width="60" height="50" fill="#181a1f" stroke="#ed1c24" stroke-width="2" />
+    <!-- Pressure gauge -->
+    <circle cx="290" cy="240" r="32" fill="#0c0d0e" stroke="#ed1c24" stroke-width="2" />
+    <line x1="290" y1="240" x2="310" y2="225" stroke="#ed1c24" stroke-width="2" />
+
+    <!-- 2-Stage Compressor Unit -->
+    <!-- Motor Base -->
+    <rect x="520" y="440" width="300" height="220" rx="6" fill="#181a1f" />
+    <!-- High-Pressure Stage -->
+    <rect x="840" y="300" width="160" height="360" rx="8" fill="#1f232b" stroke="#ed1c24" stroke-width="2" />
+    <circle cx="920" cy="240" r="50" fill="#181a1f" stroke="#555" stroke-width="2" />
+    <!-- Intercooler Tube Bundle -->
+    <rect x="560" y="280" width="240" height="120" rx="4" fill="#16181d" stroke="#4b5263" />
+  </g>
+
+  <!-- High-Pressure Copper/Steel Lines -->
+  <g stroke="#ed1c24" stroke-width="3" fill="none">
+    <path d="M 920 190 L 920 150 L 320 150 L 320 160" />
+    <path d="M 800 340 L 840 340" />
+  </g>
+
+  <!-- Labels -->
+  <g font-family="monospace" font-size="11" fill="#8b949e">
+    <text x="80" y="70" font-size="16" fill="#fff" font-weight="bold">ME GROUP // HIGH PRESSURE STARTING AIR COMPRESSOR &amp; RECEIVER</text>
+    <text x="80" y="95" fill="#ed1c24">30 BAR WORKING PRESSURE // AUTOMATIC DRAIN UNLOADER // PNEUM-30B</text>
+    
+    <text x="210" y="420" fill="#abb2bf">RECEIVER: 500L / 30 BAR</text>
+    <text x="560" y="550" fill="#abb2bf">ELECTRIC MOTOR: 18.5 kW</text>
+    <text x="860" y="480" fill="#ed1c24">STAGE 2 HP HEAD</text>
+  </g>
+
+  <rect x="950" y="40" width="200" height="36" fill="#1f1f1f" stroke="#333" />
+  <text x="1050" y="63" font-family="monospace" font-size="11" fill="#ed1c24" text-anchor="middle" font-weight="bold">DEVELOPMENT MEDIA</text>
+</svg>

@@ -1,0 +1,154 @@
+.hubContainer {
+  width: 100%;
+}
+
+.hubGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 1024px) {
+  .hubGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+}
+
+.hubCard {
+  background-color: var(--bg-alt);
+  border: var(--border-hair);
+  border-top: 3px solid var(--border);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.hubCard:hover {
+  border-top-color: var(--text-primary);
+  background-color: var(--color-surface-2);
+}
+
+.primaryCard {
+  border-top-color: var(--text-primary);
+}
+
+.primaryCard:hover {
+  border-top-color: var(--accent-action);
+}
+
+.urgentCard {
+  background-color: var(--color-ink-900);
+  border: 1px solid var(--border-inverse);
+  border-top: 3px solid var(--accent-action);
+  color: var(--text-inverse);
+}
+
+.urgentCard:hover {
+  background-color: var(--color-ink-800);
+  border-top-color: var(--accent-action);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: var(--space-3);
+}
+
+.urgentCard .cardTop {
+  border-bottom-color: var(--border-inverse);
+}
+
+.cardCode {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-action);
+}
+
+.cardTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  color: var(--text-secondary);
+}
+
+.urgentCard .cardTag {
+  color: var(--text-inverse-muted);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.urgentCard .cardTitle {
+  color: var(--text-inverse);
+}
+
+.cardDesc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.urgentCard .cardDesc {
+  color: var(--text-inverse-muted);
+}
+
+.cardFooter {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: var(--border-hair);
+}
+
+.urgentCard .cardFooter {
+  border-top-color: var(--border-inverse);
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-primary);
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--text-primary);
+  padding-bottom: 2px;
+  transition: color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+  min-height: var(--touch-target);
+}
+
+.actionBtn:hover {
+  color: var(--accent-action);
+  border-color: var(--accent-action);
+}
+
+.urgentCard .actionBtn {
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.urgentCard .actionBtn:hover {
+  color: var(--accent-action);
+  border-color: var(--accent-action);
+}

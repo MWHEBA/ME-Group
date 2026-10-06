@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <!-- Cinematic Machinery Lighting -->
+    <radialGradient id="machinery-spot" cx="65%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#2a2e38" stop-opacity="1" />
+      <stop offset="45%" stop-color="#15171d" stop-opacity="1" />
+      <stop offset="100%" stop-color="#08090b" stop-opacity="1" />
+    </radialGradient>
+    <!-- Directional Gradient Scrim: Strongest behind headline (left & bottom), lighter toward machinery (top-right) -->
+    <linearGradient id="directional-scrim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#08090b" stop-opacity="0.85" />
+      <stop offset="40%" stop-color="#08090b" stop-opacity="0.65" />
+      <stop offset="75%" stop-color="#08090b" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#08090b" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="bottom-ground-scrim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#08090b" stop-opacity="0" />
+      <stop offset="50%" stop-color="#08090b" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#08090b" stop-opacity="0.95" />
+    </linearGradient>
+    <pattern id="film-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#1c1f26" stroke-width="0.5" />
+    </pattern>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1920" height="1080" fill="url(#machinery-spot)" />
+  <rect width="1920" height="1080" fill="url(#film-grid)" opacity="0.25" />
+
+  <!-- Engine Room Heavy Machinery Silhouettes & Mechanical Detail -->
+  <g stroke="#3e4554" stroke-width="2" fill="none">
+    <!-- Massive Main Engine Block -->
+    <rect x="420" y="220" width="1280" height="620" rx="8" fill="#14161b" stroke="#485061" stroke-width="2.5" />
+    
+    <!-- Cylinder Heads Bank -->
+    <rect x="520" y="270" width="160" height="300" rx="4" fill="#191c23" stroke="#5a6478" stroke-width="1.5" />
+    <rect x="720" y="270" width="160" height="300" rx="4" fill="#191c23" stroke="#5a6478" stroke-width="1.5" />
+    <rect x="920" y="270" width="160" height="300" rx="4" fill="#191c23" stroke="#5a6478" stroke-width="1.5" />
+    <rect x="1120" y="270" width="160" height="300" rx="4" fill="#191c23" stroke="#5a6478" stroke-width="1.5" />
+    <rect x="1320" y="270" width="160" height="300" rx="4" fill="#191c23" stroke="#5a6478" stroke-width="1.5" />
+    <rect x="1520" y="270" width="140" height="300" rx="4" fill="#191c23" stroke="#5a6478" stroke-width="1.5" />
+
+    <!-- Turbocharger Assembly High-Pressure Volute -->
+    <circle cx="420" cy="400" r="150" fill="#181a20" stroke="#ed1c24" stroke-width="3" />
+    <circle cx="420" cy="400" r="90" fill="#101215" stroke="#4a5263" stroke-width="2" />
+    <path d="M 420 250 L 420 160 L 320 100" stroke="#ed1c24" stroke-width="3" />
+
+    <!-- High-Pressure Piping & Exhaust Manifolds -->
+    <line x1="420" y1="360" x2="1680" y2="360" stroke="#ed1c24" stroke-width="3.5" />
+    <line x1="420" y1="460" x2="1680" y2="460" stroke="#687285" stroke-width="2.5" />
+    <line x1="520" y1="640" x2="1660" y2="640" stroke="#323846" stroke-width="5" />
+
+    <!-- Valve Actuators & Common Rail Injectors -->
+    <g fill="#242832" stroke="#485061" stroke-width="1">
+      <rect x="570" y="240" width="60" height="30" rx="2" />
+      <rect x="770" y="240" width="60" height="30" rx="2" />
+      <rect x="970" y="240" width="60" height="30" rx="2" />
+      <rect x="1170" y="240" width="60" height="30" rx="2" />
+      <rect x="1370" y="240" width="60" height="30" rx="2" />
+    </g>
+  </g>
+
+  <!-- Ambient Light Reflection on Machined Metal -->
+  <path d="M 300 0 L 800 0 L 1350 1080 L 150 1080 Z" fill="white" opacity="0.018" />
+
+  <!-- Directional Gradient Scrims: Keeping Left/Bottom Dark for Typography while Machinery on Right Remains Visible -->
+  <rect width="1920" height="1080" fill="url(#directional-scrim)" />
+  <rect width="1920" height="1080" fill="url(#bottom-ground-scrim)" />
+
+  <!-- Restrained Identification Stamp -->
+  <g font-family="monospace" font-size="12" fill="#7d8799">
+    <text x="80" y="1030" fill="#ffffff" font-weight="600">ME GROUP // CINEMATIC FILM POSTER</text>
+    <text x="80" y="1050" fill="#ed1c24">SYSTEM REF: SYS-ENG-01 // MACHINERY FIELD</text>
+  </g>
+</svg>

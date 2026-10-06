@@ -1,0 +1,17 @@
+.sm {
+  font-size: var(--text-sm);
+}
+
+.base {
+  font-size: var(--text-base);
+  max-inline-size: 68ch;
+}
+
+.lg {
+  font-size: var(--text-lg);
+  max-inline-size: 60ch;
+}
+
+.muted {
+  color: var(--text-secondary);
+}

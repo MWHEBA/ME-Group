@@ -1,0 +1,196 @@
+.taxonomySection {
+  background-color: var(--bg-page);
+  padding: var(--section-y) 0;
+  border-bottom: var(--border-hair);
+}
+
+.sectionHeader {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  border-bottom: var(--border-hair);
+  padding-bottom: var(--space-6);
+}
+
+@media (min-width: 1024px) {
+  .sectionHeader {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: flex-end;
+    gap: var(--space-8);
+  }
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-action);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Taxonomy Grid */
+.taxonomyGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .taxonomyGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .taxonomyGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.taxonomyCard {
+  background-color: var(--bg-alt);
+  border: var(--border-hair);
+  border-radius: var(--radius-btn);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: var(--border-hair);
+  background-color: var(--color-surface-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.groupCode {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-action);
+}
+
+.groupTitle {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemRow {
+  padding: var(--space-3) var(--space-5);
+  border-bottom: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.itemRow:last-child {
+  border-bottom: none;
+}
+
+.itemTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  letter-spacing: var(--tracking-label);
+}
+
+.itemName {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+/* Action Bar */
+.actionBar {
+  margin-top: var(--space-8);
+  border: var(--border-hair);
+  border-radius: var(--radius-btn);
+  background-color: var(--bg-alt);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .actionBar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.actionNote {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-primary);
+  text-decoration: none;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--text-primary);
+  padding-bottom: 2px;
+  transition: color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+}
+
+.actionLink:hover {
+  color: var(--accent-action);
+  border-color: var(--accent-action);
+}

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="100%" height="100%">
+  <defs>
+    <pattern id="grid-vessel" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#252A30" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="hull-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#222830"/>
+      <stop offset="100%" stop-color="#14171C"/>
+    </linearGradient>
+    <linearGradient id="sea-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#11161B"/>
+      <stop offset="100%" stop-color="#0A0D10"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="#121519"/>
+  <rect width="1200" height="675" fill="url(#grid-vessel)"/>
+
+  <!-- Waterline / Sea Horizon -->
+  <rect y="440" width="1200" height="235" fill="url(#sea-grad)"/>
+  <line x1="0" y1="440" x2="1200" y2="440" stroke="#ED1C24" stroke-width="1.5" stroke-dasharray="8 4"/>
+
+  <!-- Technical Depth / Coordinate Lines -->
+  <g stroke="#3E4752" stroke-width="0.8" opacity="0.6">
+    <line x1="120" y1="50" x2="120" y2="600"/>
+    <line x1="600" y1="50" x2="600" y2="600"/>
+    <line x1="1080" y1="50" x2="1080" y2="600"/>
+    <circle cx="600" cy="360" r="180" fill="none" stroke-dasharray="4 6"/>
+  </g>
+
+  <!-- Vessel Profile Silhouette & Mechanical Lines -->
+  <g fill="url(#hull-grad)" stroke="#68768A" stroke-width="1.8">
+    <!-- Superstructure / Bridge -->
+    <polygon points="260,240 400,240 400,380 260,380"/>
+    <polygon points="280,180 370,180 370,240 280,240"/>
+    <polygon points="300,130 350,130 350,180 300,180"/>
+    <line x1="325" y1="80" x2="325" y2="130" stroke="#ED1C24" stroke-width="2"/>
+    <circle cx="325" cy="75" r="4" fill="#ED1C24"/>
+    <!-- Exhaust Funnel -->
+    <polygon points="430,220 480,200 495,200 485,380 430,380" fill="#1C2127"/>
+    <line x1="430" y1="240" x2="482" y2="240" stroke="#ED1C24" stroke-width="3"/>
+    <!-- Cargo Crane / Rigging -->
+    <line x1="640" y1="380" x2="640" y2="260" stroke="#8E9DAE" stroke-width="3"/>
+    <line x1="640" y1="270" x2="820" y2="340" stroke="#8E9DAE" stroke-width="2"/>
+    <line x1="880" y1="380" x2="880" y2="260" stroke="#8E9DAE" stroke-width="3"/>
+    <line x1="880" y1="270" x2="1020" y2="330" stroke="#8E9DAE" stroke-width="2"/>
+    <!-- Main Hull -->
+    <path d="M 160,380 L 1060,380 L 1120,410 L 1080,480 L 200,480 L 140,430 Z" fill="#1A1F26"/>
+    <!-- Bulbous Bow Outline -->
+    <path d="M 1080,480 Q 1150,490 1140,460 Q 1120,430 1060,380" fill="none" stroke="#ED1C24" stroke-width="2.5"/>
+  </g>
+
+  <!-- Technical Telemetry & Callouts -->
+  <g font-family="monospace" font-size="11" fill="#8E9DAE" letter-spacing="1">
+    <text x="60" y="70" fill="#ED1C24" font-weight="bold">DEV_MEDIA // SPECIMEN 01</text>
+    <text x="60" y="90">TYPE: COMMERCIAL VESSEL PROFILE</text>
+    <text x="60" y="110">SECTION: WATERLINE &amp; MAIN MACHINERY LEVEL</text>
+    
+    <text x="960" y="70" text-anchor="end">COORD: 31°12'N 29°54'E</text>
+    <text x="960" y="90" text-anchor="end" fill="#58A6FF">STATUS: TECHNICAL BENCHMARK</text>
+    
+    <!-- Dimension Marker -->
+    <line x1="160" y1="520" x2="1120" y2="520" stroke="#8E9DAE" stroke-width="1"/>
+    <line x1="160" y1="510" x2="160" y2="530" stroke="#8E9DAE" stroke-width="1"/>
+    <line x1="1120" y1="510" x2="1120" y2="530" stroke="#8E9DAE" stroke-width="1"/>
+    <text x="640" y="540" text-anchor="middle" fill="#C9D1D9">LENGTH OVERALL // SCHEMATIC REFERENCE</text>
+  </g>
+
+  <!-- Development Badge -->
+  <rect x="420" y="615" width="360" height="28" fill="#1E1E1E" stroke="#ED1C24" stroke-width="1"/>
+  <text x="600" y="634" font-family="monospace" font-size="10" fill="#ED1C24" font-weight="bold" text-anchor="middle" letter-spacing="1.5">DEVELOPMENT MEDIA — NOT ME GROUP WORK</text>
+</svg>

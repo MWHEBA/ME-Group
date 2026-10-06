@@ -1,0 +1,234 @@
+.triageSection {
+  background-color: var(--bg-page);
+  padding: var(--section-y) 0;
+  border-bottom: var(--border-hair);
+}
+
+.sectionHeader {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  border-bottom: var(--border-hair);
+  padding-bottom: var(--space-6);
+}
+
+@media (min-width: 1024px) {
+  .sectionHeader {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: flex-end;
+    gap: var(--space-8);
+  }
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-action);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Triage Grid */
+.triageGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .triageGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .triageGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+.triageCard {
+  background-color: var(--bg-alt);
+  border: var(--border-hair);
+  border-left: 3px solid var(--border);
+  border-radius: var(--radius-btn);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: border-left-color var(--dur-fast) var(--ease-standard),
+    background-color var(--dur-fast) var(--ease-standard);
+}
+
+.triageCard:hover {
+  background-color: var(--color-surface-2);
+  border-left-color: var(--accent-action);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardCode {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-secondary);
+}
+
+.triageCard:hover .cardCode {
+  color: var(--accent-action);
+}
+
+.indicator {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-line-light);
+  border-radius: var(--radius-pill);
+}
+
+.triageCard:hover .indicator {
+  background-color: var(--accent-action);
+}
+
+.cardTitle {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cardSummary {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  color: var(--text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.cardAction {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border);
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-primary);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.actionLink:hover {
+  color: var(--accent-action);
+}
+
+.arrow {
+  transition: transform var(--dur-fast) var(--ease-standard);
+}
+
+.actionLink:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Emergency Footer */
+.emergencyFooter {
+  margin-top: var(--space-8);
+  background-color: var(--color-charcoal);
+  color: var(--color-white);
+  border-radius: var(--radius-btn);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .emergencyFooter {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.emergencyPrompt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.emergencyDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-action);
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.emergencyText {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--text-inverse-muted);
+}
+
+.emergencyLink {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-white);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-white);
+  padding-bottom: 2px;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard);
+}
+
+.emergencyLink:hover {
+  color: var(--accent-action);
+  border-color: var(--accent-action);
+}

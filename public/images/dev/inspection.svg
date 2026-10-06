@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="insp-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121316" />
+      <stop offset="100%" stop-color="#1b1e24" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#insp-bg)" />
+  
+  <!-- Diagnostic Grid / Scope View -->
+  <g stroke="#2d333b" stroke-width="1">
+    <circle cx="600" cy="400" r="280" fill="none" stroke="#ed1c24" stroke-width="1.5" stroke-dasharray="6,4" />
+    <circle cx="600" cy="400" r="180" fill="none" stroke="#444c56" />
+    <circle cx="600" cy="400" r="80" fill="none" stroke="#444c56" />
+    <line x1="300" y1="400" x2="900" y2="400" stroke="#ed1c24" stroke-width="1" />
+    <line x1="600" y1="100" x2="600" y2="700" stroke="#ed1c24" stroke-width="1" />
+  </g>
+
+  <!-- Laser Alignment / Vibration Waveform overlay -->
+  <path d="M 320 400 Q 400 320 480 400 T 640 400 T 800 400 T 880 400" fill="none" stroke="#3fb950" stroke-width="3" />
+  <path d="M 320 400 Q 380 460 440 400 T 560 400 T 680 400 T 880 400" fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.7" />
+
+  <!-- Crosshair points & target markers -->
+  <g fill="#ed1c24">
+    <circle cx="600" cy="400" r="5" />
+    <rect x="585" y="310" width="30" height="3" />
+    <rect x="585" y="490" width="30" height="3" />
+    <rect x="510" y="385" width="3" height="30" />
+    <rect x="690" y="385" width="3" height="30" />
+  </g>
+
+  <!-- Labels & Metric Displays -->
+  <g font-family="monospace" font-size="12" fill="#adbac7">
+    <text x="80" y="70" font-size="16" fill="#fff" font-weight="bold">ME GROUP // LASER SHAFT ALIGNMENT &amp; VIBRATION ANALYSIS</text>
+    <text x="80" y="95" fill="#ed1c24">TOLERANCE: &lt; 0.04 MM // ACCREDITED CLASS INSPECTION // DIAG-ALIGN-01</text>
+    
+    <text x="100" y="320" fill="#3fb950">OFFSET V: +0.01 mm [PASS]</text>
+    <text x="100" y="350" fill="#3fb950">OFFSET H: -0.02 mm [PASS]</text>
+    <text x="100" y="380" fill="#58a6ff">ANGULARITY: 0.03 mm/m</text>
+    <text x="100" y="410" fill="#ed1c24">THERMAL GROWTH COMPENSATED</text>
+
+    <text x="880" y="320" fill="#fff">STATUS: VERIFIED</text>
+    <text x="880" y="350" fill="#adbac7">SENSOR ID: ME-OPT-04</text>
+    <text x="880" y="380" fill="#adbac7">ROTATION: 180 DEG</text>
+  </g>
+
+  <rect x="950" y="40" width="200" height="36" fill="#1f1f1f" stroke="#333" />
+  <text x="1050" y="63" font-family="monospace" font-size="11" fill="#ed1c24" text-anchor="middle" font-weight="bold">DEVELOPMENT MEDIA</text>
+</svg>

@@ -1,0 +1,16 @@
+.md {
+  font-size: var(--text-xl);
+}
+
+.lg {
+  font-size: var(--text-2xl);
+}
+
+.xl {
+  font-size: var(--text-3xl);
+}
+
+.display {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-display);
+}

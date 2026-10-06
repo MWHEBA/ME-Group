@@ -1,0 +1,139 @@
+/*
+ * ME Group design tokens — Phase 1.
+ * Hex values live ONLY in this file. Components consume semantic tokens.
+ * Breakpoints (CSS variables cannot be used in @media): 768 / 1024 / 1280 / 1680.
+ */
+:root {
+  /* ---- Brand (sampled directly from live megroup-eg.com) ---- */
+  --color-brand-red: #ed1c2e;
+  --color-brand-red-action: #d41424;
+  --color-brand-red-strong: #b9101e;
+  --color-charcoal: #221e20;
+  --color-white: #ffffff;
+
+  /* ---- Neutrals ---- */
+  --color-ink-900: #181516;
+  --color-ink-800: #221e20;
+  --color-ink-700: #342f31;
+  --color-ink-600: #494346;
+  --color-ink-500: #585254;
+  --color-ink-300: #d8d8d8;
+  --color-line-light: #e8e5e6;
+  --color-line-dark: #3a3537;
+  --color-surface-0: #ffffff;
+  --color-surface-1: #f5f5f5;
+  --color-surface-2: #ece9ea;
+  --color-status-ok: #2f7d4f;
+
+  /* ---- Semantic colors (components use these) ---- */
+  --bg-page: var(--color-surface-0);
+  --bg-alt: var(--color-surface-1);
+  --bg-inverse: var(--color-ink-900);
+  --text-primary: var(--color-charcoal);
+  --text-secondary: var(--color-ink-500);
+  --text-muted: var(--color-ink-300);
+  --text-inverse: var(--color-white);
+  --text-inverse-muted: var(--color-ink-300);
+  --accent: var(--color-brand-red);
+  --accent-action: var(--color-brand-red-action);
+  --accent-hover: var(--color-brand-red-strong);
+  --on-accent: var(--color-white);
+  --border: var(--color-line-light);
+  --border-inverse: var(--color-line-dark);
+  --focus-ring: var(--color-brand-red);
+  --status-error: var(--color-brand-red-strong);
+  --status-ok: var(--color-status-ok);
+  --overlay-scrim: rgb(24 21 22 / 0.65);
+  --overlay-scrim-heavy: rgb(24 21 22 / 0.88);
+
+  /* ---- Typography (Clean Minimal Stack) ---- */
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  /* ---- Typography (Hypothesis 2: Comparison Alternative) ---- */
+  --font-alt-display: var(--font-chakra-petch), sans-serif;
+  --font-alt-body: var(--font-space-grotesk), sans-serif;
+
+  --text-xs: 0.875rem; /* 14px */
+  --text-sm: 0.9375rem; /* 15px */
+  --text-base: 1.0625rem; /* 17px */
+  --text-lg: 1.1875rem; /* 19px */
+  --text-xl: 1.3125rem; /* 21px */
+  --text-2xl: clamp(1.35rem, 1.2rem + 0.6vw, 1.6rem);
+  --text-3xl: clamp(1.55rem, 1.35rem + 0.9vw, 2rem);
+  --text-4xl: clamp(1.85rem, 1.55rem + 1.2vw, 2.5rem);
+  --text-5xl: clamp(2.35rem, 1.95rem + 1.8vw, 3.45rem);
+
+  --leading-display: 1.05;
+  --leading-heading: 1.15;
+  --leading-body: 1.7;
+  --tracking-label: 0.08em;
+  --tracking-tight: -0.02em;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* ---- Layout ---- */
+  --container-sm: 45rem;
+  --container-md: 60rem;
+  --container-lg: 75rem;
+  --container-xl: 90rem;
+  --page-gutter: clamp(1rem, 4vw, 4rem);
+  --section-y: clamp(4rem, 10vw, 9rem);
+  --grid-cols: 4;
+  --grid-gutter: 1rem;
+  --header-height: 4.5rem;
+  --touch-target: 2.75rem;
+
+  /* ---- Borders / radii / shadows ---- */
+  --border-width: 1px;
+  --border-hair: var(--border-width) solid var(--border);
+  --radius-0: 0;
+  --radius-1: 2px;
+  --radius-2: 4px;
+  --radius-btn: 1rem;
+  --radius-pill: 999px;
+  --shadow-1: 0 6px 24px rgb(18 18 18 / 0.12);
+
+  /* ---- z-index ---- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-menu: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+
+  /* ---- Motion ---- */
+  --dur-fast: 120ms;
+  --dur-standard: 240ms;
+  --dur-base: 220ms;
+  --dur-slow: 480ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-mechanical: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --grid-cols: 8;
+    --grid-gutter: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --grid-cols: 12;
+    --grid-gutter: 1.5rem;
+    --header-height: 5rem;
+  }
+}

@@ -1,0 +1,141 @@
+.mapSidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Real Map Frame Card */
+.mapCard {
+  background-color: var(--bg-page);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-btn);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 480px;
+}
+
+.mapCardHeader {
+  background-color: var(--color-ink-900);
+  color: var(--text-inverse);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-inverse);
+}
+
+.customPinBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.pinIconWrap {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--accent-action);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pinHubTitle {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-inverse);
+  text-transform: uppercase;
+}
+
+.coordBadge {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent-action);
+  letter-spacing: var(--tracking-label);
+}
+
+/* Iframe Real Map */
+.mapIframeContainer {
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+  min-height: 290px;
+  background-color: var(--bg-alt);
+  overflow: hidden;
+}
+
+.realIframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 42px);
+  border: none;
+  display: block;
+}
+
+/* Location Meta Details Footer */
+.mapCardFooter {
+  padding: var(--space-4);
+  background-color: var(--bg-page);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.hubRole {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-action);
+}
+
+.hubAddress,
+.hubHours {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.hubHours {
+  color: var(--text-secondary);
+}
+
+.footerActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-3);
+  margin-top: var(--space-1);
+  border-top: 1px dashed var(--border);
+}
+
+.externalLink {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--accent-action);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+.externalLink:hover {
+  color: var(--accent-hover);
+}
+
+.activeStatus {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}

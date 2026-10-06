@@ -1,0 +1,314 @@
+.section {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.sectionTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  letter-spacing: var(--tracking-label);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: var(--leading-heading);
+  margin-bottom: var(--space-3);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 75ch;
+  line-height: var(--leading-body);
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+
+@media (min-width: 900px) {
+  .gridContainer {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.moduleCard {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.moduleHeader {
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moduleTag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--tracking-label);
+  font-weight: 600;
+}
+
+.statusLive {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  background: var(--color-ink-700);
+  color: var(--color-brand-red);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.moduleBody {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* Tags display */
+.tagsDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.sysTagItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-page);
+  border: 1px solid var(--border);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.tagCode {
+  color: var(--color-brand-red);
+  font-weight: 700;
+}
+
+.tagName {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.tagStatus {
+  font-size: var(--text-xs);
+  color: var(--color-ink-500);
+}
+
+/* Measurement Ruler */
+.measurementFrame {
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.rulerTop {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-500);
+  border-bottom: 1px dashed var(--color-line-dark);
+  padding-bottom: 0.3rem;
+}
+
+.measurementContent {
+  height: 90px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-4);
+}
+
+.crosshair {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.crosshairH {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-brand-red);
+}
+
+.crosshairV {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-brand-red);
+}
+
+.crosshairPoint {
+  position: absolute;
+  top: 45px;
+  left: -10px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-brand-red);
+  white-space: nowrap;
+}
+
+.caliperCallout {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+.caliperVal {
+  color: var(--color-white);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.caliperRef {
+  color: var(--color-brand-red);
+  font-size: var(--text-xs);
+}
+
+.rulerBottom {
+  border-top: 1px dashed var(--color-line-dark);
+  padding-top: 0.3rem;
+}
+
+.dimLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-300);
+}
+
+/* Brackets */
+.bracketsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.bracketBlock {
+  position: relative;
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-4);
+}
+
+.bracketCornerTL,
+.bracketCornerTR,
+.bracketCornerBL,
+.bracketCornerBR {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--color-brand-red);
+}
+
+.bracketCornerTL {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--color-brand-red);
+  border-left: 2px solid var(--color-brand-red);
+}
+
+.bracketCornerTR {
+  top: -1px;
+  right: -1px;
+  border-top: 2px solid var(--color-brand-red);
+  border-right: 2px solid var(--color-brand-red);
+}
+
+.bracketCornerBL {
+  bottom: -1px;
+  left: -1px;
+  border-bottom: 2px solid var(--color-brand-red);
+  border-left: 2px solid var(--color-brand-red);
+}
+
+.bracketCornerBR {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--color-brand-red);
+  border-right: 2px solid var(--color-brand-red);
+}
+
+.bracketContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.bracketKicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-brand-red);
+  font-weight: 700;
+}
+
+.bracketVal {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.bracketSub {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-300);
+}
+
+/* Schematic */
+.schematicCanvas {
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-2);
+}
+
+.schematicSvg {
+  width: 100%;
+  height: 120px;
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  border-top: 1px dashed var(--border);
+  padding-top: var(--space-2);
+}

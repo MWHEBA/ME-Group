@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="sw-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141416" />
+      <stop offset="100%" stop-color="#0b0c0e" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sw-bg)" />
+  
+  <!-- Switchboard Panels -->
+  <g stroke="#333842" stroke-width="2" fill="#1b1e24">
+    <!-- Panel 1: Main Incomer -->
+    <rect x="80" y="140" width="240" height="560" rx="3" />
+    <!-- Panel 2: Gen 1 & 2 Sync -->
+    <rect x="340" y="140" width="240" height="560" rx="3" />
+    <!-- Panel 3: Essential Bus -->
+    <rect x="600" y="140" width="240" height="560" rx="3" />
+    <!-- Panel 4: Distribution Feeders -->
+    <rect x="860" y="140" width="260" height="560" rx="3" />
+  </g>
+
+  <!-- Instruments, Busbars & Breakers -->
+  <g stroke="#444" fill="none">
+    <!-- Busbar run across top -->
+    <line x1="80" y1="200" x2="1120" y2="200" stroke="#ed1c24" stroke-width="3" />
+    <line x1="80" y1="215" x2="1120" y2="215" stroke="#e0e0e0" stroke-width="2" />
+    <line x1="80" y1="230" x2="1120" y2="230" stroke="#555" stroke-width="2" />
+
+    <!-- Analog / Digital Meters Panel 1 -->
+    <circle cx="150" cy="280" r="30" fill="#121212" stroke="#555" stroke-width="2" />
+    <circle cx="250" cy="280" r="30" fill="#121212" stroke="#555" stroke-width="2" />
+    <rect x="110" y="340" width="180" height="120" fill="#0d1117" stroke="#388bfd" stroke-width="1.5" />
+    <!-- Breaker handle -->
+    <rect x="160" y="520" width="80" height="100" fill="#222" stroke="#ed1c24" stroke-width="2" />
+    <circle cx="200" cy="570" r="16" fill="#ed1c24" />
+
+    <!-- Meters Panel 2 -->
+    <rect x="370" y="260" width="180" height="180" fill="#0d1117" stroke="#238636" stroke-width="1.5" />
+    <rect x="420" y="520" width="80" height="100" fill="#222" stroke="#333" stroke-width="2" />
+
+    <!-- Distribution Switches Panel 4 -->
+    <g fill="#2d333b">
+      <rect x="880" y="260" width="50" height="60" />
+      <rect x="960" y="260" width="50" height="60" />
+      <rect x="1040" y="260" width="50" height="60" />
+      <rect x="880" y="350" width="50" height="60" />
+      <rect x="960" y="350" width="50" height="60" />
+      <rect x="1040" y="350" width="50" height="60" />
+      <rect x="880" y="440" width="50" height="60" />
+      <rect x="960" y="440" width="50" height="60" />
+      <rect x="1040" y="440" width="50" height="60" />
+    </g>
+  </g>
+
+  <!-- Labels -->
+  <g font-family="monospace" font-size="11" fill="#999">
+    <text x="80" y="80" font-size="16" fill="#fff" font-weight="bold">ME GROUP // MAIN SWITCHBOARD &amp; SYNCHRONIZATION</text>
+    <text x="80" y="105" fill="#ed1c24">440V 60Hz 3-PHASE // BUS TIE BREAKER INTERLOCK // ELEC-SW-401</text>
+    
+    <text x="120" y="170" fill="#ed1c24">01: INCOMER MAIN</text>
+    <text x="380" y="170">02: GEN 1 &amp; GEN 2</text>
+    <text x="640" y="170">03: ESSENTIAL BUS</text>
+    <text x="900" y="170">04: FEEDER BANK</text>
+  </g>
+
+  <rect x="950" y="40" width="200" height="36" fill="#1f1f1f" stroke="#333" />
+  <text x="1050" y="63" font-family="monospace" font-size="11" fill="#ed1c24" text-anchor="middle" font-weight="bold">DEVELOPMENT MEDIA</text>
+</svg>

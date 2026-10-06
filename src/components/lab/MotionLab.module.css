@@ -1,0 +1,466 @@
+.section {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.sectionTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+  letter-spacing: var(--tracking-label);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: var(--leading-heading);
+  margin-bottom: var(--space-3);
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  max-width: 75ch;
+  line-height: var(--leading-body);
+}
+
+/* Control Strip */
+.controlStrip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+}
+
+@media (min-width: 1024px) {
+  .controlStrip {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.experimentTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.expBtn {
+  background: var(--color-ink-800);
+  border: 1px solid var(--color-ink-700);
+  color: var(--color-ink-300);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  border-radius: var(--radius-1);
+  transition: all var(--dur-fast) var(--ease-standard);
+}
+
+.expBtn:hover {
+  color: var(--color-white);
+  border-color: var(--color-ink-500);
+}
+
+.expBtn.active {
+  background: var(--color-ink-700);
+  border-color: var(--color-brand-red);
+  color: var(--color-white);
+  box-shadow: 0 0 0 1px var(--color-brand-red);
+}
+
+.actionControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.replayButton {
+  background: var(--color-brand-red-action);
+  color: var(--color-white);
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.45rem 0.8rem;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+}
+
+.reduceMotionToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-ink-300);
+  cursor: pointer;
+}
+
+/* Motion Stage */
+.motionStage {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-1);
+  overflow: hidden;
+}
+
+.expCanvas {
+  display: flex;
+  flex-direction: column;
+}
+
+.stageHeader {
+  background: var(--color-charcoal);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.expTitle {
+  font-weight: 600;
+}
+
+.timingTag {
+  color: var(--color-brand-red);
+  font-size: var(--text-xs);
+}
+
+.expFooter {
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-page);
+  border-top: 1px solid var(--border);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* Experiment A: Line Draw */
+.svgDrawContainer {
+  background: var(--color-ink-900);
+  padding: var(--space-6);
+  display: flex;
+  justify-content: center;
+}
+
+.drawingSvg {
+  width: 100%;
+  max-width: 600px;
+  height: 200px;
+}
+
+.drawnLine1 {
+  fill: none;
+  stroke: var(--color-brand-red);
+  stroke-width: 2;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawPath 1s cubic-bezier(0.2, 0, 0, 1) forwards 0.2s;
+}
+
+.drawnLine2 {
+  fill: none;
+  stroke: var(--color-line-dark);
+  stroke-width: 2;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: drawPath 0.8s cubic-bezier(0.2, 0, 0, 1) forwards 0.6s;
+}
+
+.drawNode1, .drawNode2, .drawNode3 {
+  fill: var(--color-brand-red);
+  opacity: 0;
+  animation: nodeFade 0.3s ease-out forwards;
+}
+
+.drawNode1 { animation-delay: 0.4s; }
+.drawNode2 { animation-delay: 0.7s; }
+.drawNode3 { animation-delay: 1.1s; }
+
+@keyframes drawPath {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes nodeFade {
+  to { opacity: 1; }
+}
+
+/* Experiment B: Controlled Reveal */
+.revealGrid {
+  padding: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  background: var(--color-ink-900);
+}
+
+@media (min-width: 768px) {
+  .revealGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.revealCard {
+  background: var(--color-ink-800);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-4);
+  border-radius: var(--radius-1);
+  clip-path: inset(0 0 100% 0);
+  animation: clipReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.revealItem1 { animation-delay: 0.1s; }
+.revealItem2 { animation-delay: 0.3s; }
+.revealItem3 { animation-delay: 0.5s; }
+
+@keyframes clipReveal {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+.revealTag {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-brand-red);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+.revealCard h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+
+.revealCard p {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--color-ink-300);
+}
+
+/* Experiment C: Scan */
+.scanContainer {
+  background: #000;
+  height: 240px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scanTarget {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-image: 
+    linear-gradient(to right, #1f1f1f 1px, transparent 1px),
+    linear-gradient(to bottom, #1f1f1f 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.scanLaser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: var(--color-brand-red);
+  box-shadow: 0 0 12px var(--color-brand-red);
+  animation: laserSweep 2.4s linear infinite;
+}
+
+@keyframes laserSweep {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.scanTelemetry {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ink-300);
+  background: rgba(18, 18, 18, 0.8);
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--color-line-dark);
+}
+
+.scanOk {
+  color: var(--color-status-ok);
+  font-weight: 600;
+}
+
+/* Experiment D: Morphing Frame */
+.frameRevealContainer {
+  background: var(--color-ink-900);
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  justify-content: center;
+}
+
+.morphingFrame {
+  border: 2px solid var(--color-brand-red);
+  padding: var(--space-6);
+  max-width: 500px;
+  background: var(--color-ink-800);
+  animation: frameExpand 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+@keyframes frameExpand {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.frameInnerContent h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.frameInnerContent p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--color-ink-300);
+}
+
+/* Experiment E: Wipe */
+.wipeContainer {
+  height: 200px;
+  background: #000;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+.wipeCurtainLeft, .wipeCurtainRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+.wipeCurtainLeft {
+  background: #1a1a1a;
+  border-right: 1px solid var(--color-brand-red);
+  transform: translateX(-100%);
+  animation: wipeLeft 0.5s cubic-bezier(0.2, 0, 0, 1) forwards 0.1s;
+}
+
+.wipeCurtainRight {
+  background: #242424;
+  transform: translateX(100%);
+  animation: wipeRight 0.5s cubic-bezier(0.2, 0, 0, 1) forwards 0.1s;
+}
+
+@keyframes wipeLeft { to { transform: translateX(0); } }
+@keyframes wipeRight { to { transform: translateX(0); } }
+
+/* Experiment F: Telemetry Pulse */
+.pulseContainer {
+  background: var(--color-ink-900);
+  padding: var(--space-8);
+  display: flex;
+  justify-content: center;
+}
+
+.beaconCard {
+  background: var(--color-ink-800);
+  border: 1px solid var(--color-line-dark);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  border-radius: var(--radius-1);
+}
+
+.beaconPing {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.beaconCenter {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-brand-red);
+}
+
+.beaconRing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--color-brand-red);
+  animation: beaconPulse 1.8s cubic-bezier(0.2, 0, 0, 1) infinite;
+}
+
+@keyframes beaconPulse {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.beaconMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.beaconMeta strong {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #fff;
+}
+
+.beaconMeta span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-brand-red);
+}
+
+/* Reduced Motion Emulation */
+.reducedMotionActive * {
+  animation: none !important;
+  transition: none !important;
+  stroke-dashoffset: 0 !important;
+  clip-path: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+}

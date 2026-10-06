@@ -1,0 +1,151 @@
+.rapidForm {
+  background-color: var(--bg-page);
+  border: var(--border-hair);
+  border-left: 4px solid var(--accent-action);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.priorityBar {
+  background-color: var(--color-ink-900);
+  color: var(--color-white);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-bottom: 1px solid var(--color-ink-700);
+}
+
+.pulseDot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-action);
+  flex-shrink: 0;
+}
+
+.priorityText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.priorityHeading {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-action);
+}
+
+.prioritySub {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--text-inverse-muted);
+}
+
+.formBody {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .formBody {
+    padding: var(--space-7);
+  }
+}
+
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .fieldsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+.subLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.disciplineRow {
+  display: flex;
+  flex-direction: column;
+}
+
+.disciplineOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.discPill {
+  background-color: var(--bg-alt);
+  border: var(--border-hair);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-standard);
+  min-height: var(--touch-target);
+}
+
+.discPill:hover {
+  background-color: var(--color-surface-2);
+  border-color: var(--text-primary);
+}
+
+.discPillActive {
+  background-color: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+  color: var(--color-white);
+}
+
+.submitSection {
+  margin-top: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: var(--border-hair);
+}
+
+.rapidSubmitBtn {
+  width: 100%;
+  background-color: var(--accent-action);
+  color: var(--on-accent);
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  padding: var(--space-4) var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+  min-height: var(--touch-target);
+}
+
+.rapidSubmitBtn:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.rapidSubmitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

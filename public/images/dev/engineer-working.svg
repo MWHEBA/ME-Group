@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="engw-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#121417" />
+      <stop offset="100%" stop-color="#1e2229" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#engw-bg)" />
+  
+  <!-- Engineer Silhouette with PPE and Caliper / Scope Tool in Engine Control Room -->
+  <g stroke="#3e4451" stroke-width="2" fill="#21252b">
+    <!-- Engineer outline -->
+    <!-- Helmet / Hardhat -->
+    <path d="M 460 220 C 460 170, 540 170, 540 220 Z" fill="#ed1c24" stroke="#ed1c24" stroke-width="2" />
+    <!-- Head & Ear defenders -->
+    <circle cx="500" cy="240" r="35" fill="#181a1f" />
+    <rect x="465" y="230" width="14" height="24" rx="4" fill="#333" />
+    <rect x="521" y="230" width="14" height="24" rx="4" fill="#333" />
+
+    <!-- Torso in High-Vis Coverall -->
+    <path d="M 440 280 L 560 280 L 580 500 L 420 500 Z" fill="#1c2026" stroke="#444" stroke-width="2" />
+    <!-- High-vis reflective stripes -->
+    <line x1="440" y1="330" x2="560" y2="330" stroke="#ed1c24" stroke-width="8" />
+    <line x1="435" y1="390" x2="565" y2="390" stroke="#e5e5e5" stroke-width="6" />
+
+    <!-- Arms holding diagnostic tablet -->
+    <path d="M 440 310 L 370 420 L 420 440" stroke="#444" stroke-width="18" stroke-linecap="round" fill="none" />
+    <path d="M 560 310 L 630 420 L 580 440" stroke="#444" stroke-width="18" stroke-linecap="round" fill="none" />
+
+    <!-- Rugged Diagnostic Tool / Tablet -->
+    <rect x="400" y="390" width="200" height="130" rx="8" fill="#0d1117" stroke="#ed1c24" stroke-width="3" />
+    <!-- Screen waveform -->
+    <path d="M 420 450 L 450 450 L 470 415 L 490 480 L 510 440 L 530 450 L 580 450" fill="none" stroke="#3fb950" stroke-width="2" />
+  </g>
+
+  <!-- Labels -->
+  <g font-family="monospace" font-size="11" fill="#8b949e">
+    <text x="80" y="70" font-size="16" fill="#fff" font-weight="bold">ME GROUP // CHIEF COMMISSIONING ENGINEER ON-SITE</text>
+    <text x="80" y="95" fill="#ed1c24">CLASS ACCREDITED // 24/7 ATTENDANCE SUEZ CANAL &amp; ARABIAN GULF // ENG-OPS-77</text>
+    
+    <text x="360" y="560" fill="#fff">DIAGNOSTIC TELEMETRY INTERFACE</text>
+    <text x="470" y="210" fill="#fff" font-weight="bold">ME PPE</text>
+  </g>
+
+  <rect x="950" y="40" width="200" height="36" fill="#1f1f1f" stroke="#333" />
+  <text x="1050" y="63" font-family="monospace" font-size="11" fill="#ed1c24" text-anchor="middle" font-weight="bold">DEVELOPMENT MEDIA</text>
+</svg>

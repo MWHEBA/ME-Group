@@ -1,0 +1,63 @@
+.enquiryForm {
+  background-color: var(--bg-page);
+  border: var(--border-hair);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .enquiryForm {
+    padding: var(--space-7);
+  }
+}
+
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .fieldsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+.submitWrap {
+  margin-top: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: var(--border-hair);
+}
+
+.submitButton {
+  width: 100%;
+  background-color: var(--accent-action);
+  color: var(--on-accent);
+  border: none;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  padding: var(--space-4) var(--space-6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-standard);
+  min-height: var(--touch-target);
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
