@@ -44,3 +44,11 @@ next-env.d.ts
 ssh_key
 ssh_key.pub
 
+# deploy logs
+/deploy_logs/
+deploy_logs/
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class

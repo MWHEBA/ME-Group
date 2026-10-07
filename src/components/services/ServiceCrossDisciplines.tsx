@@ -34,7 +34,7 @@ export function ServiceCrossDisciplines({
               <p className={styles.reasonText}>{rel.reason}</p>
               <div className={styles.cardFooter}>
                 <Link href={`/services/${rel.slug}`} className={styles.exploreLink}>
-                  <span>EXPLORE {rel.title.toUpperCase()}</span>
+                  <span>EXPLORE</span>
                   <span aria-hidden="true">→</span>
                 </Link>
               </div>

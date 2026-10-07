@@ -168,7 +168,7 @@ export const serviceTaxonomyGroups: ServiceGroup[] = [
       },
       {
         slug: "vessel-support",
-        title: "Vessel Technical Supplies & Provisioning",
+        title: "Technical Supplies & Provisioning",
         shortTitle: "Vessel Support",
         summary:
           "Technical supplies, engine-room consumables, fresh/frozen food provisions, potable drinking water, and medical supplies.",
@@ -925,7 +925,7 @@ export const SERVICES_DETAIL: Record<string, ServiceDetail> = {
   "vessel-support": {
     slug: "vessel-support",
     number: "06",
-    title: "Vessel Technical Supplies & Provisioning",
+    title: "Technical Supplies & Provisioning",
     shortTitle: "Vessel Support",
     categoryId: "vessel-support",
     categoryTitle: "Vessel Support",

@@ -313,8 +313,9 @@
 }
 
 .scopeItem {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
   color: var(--text-inverse);
   display: flex;
   align-items: center;

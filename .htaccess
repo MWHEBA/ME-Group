@@ -1,0 +1,84 @@
+# ==============================================================================
+# ME GROUP WEBSITE - APACHE / CPANEL PRODUCTION CONFIGURATION
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. DIRECTORY INDEX & CLEAN URLS FOR NEXT.JS STATIC EXPORT
+# ------------------------------------------------------------------------------
+<IfModule mod_dir.c>
+  DirectoryIndex index.html
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 301 Canonical & Legacy Route Redirects
+  RewriteRule ^request-support/?$ /contact/technical-support/ [R=301,L]
+  RewriteRule ^rapid-support/?$ /contact/technical-support/ [R=301,L]
+  RewriteRule ^request-spare-parts/?$ /contact/technical-support/ [R=301,L]
+  RewriteRule ^services/marine-engineering/mechanical/?$ /services/mechanical/ [R=301,L]
+  RewriteRule ^services/marine-engineering/electrical/?$ /services/electrical/ [R=301,L]
+  RewriteRule ^services/marine-engineering/automation/?$ /services/automation/ [R=301,L]
+  RewriteRule ^services/marine-engineering/pneumatic/?$ /services/pneumatic/ [R=301,L]
+  RewriteRule ^services/repair-maintenance/(preventive|corrective|inspection-diagnostics)/?$ /services/repair-maintenance/ [R=301,L]
+  RewriteRule ^services/repair-maintenance/rapid-response/?$ /contact/technical-support/ [R=301,L]
+  RewriteRule ^services/vessel-support/spare-parts/?$ /services/spare-parts/ [R=301,L]
+  RewriteRule ^services/vessel-support/(technical-supplies|provisioning)/?$ /services/vessel-support/ [R=301,L]
+
+  # Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # If route matches directory/index.html, serve it
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^(.*)$ $1/index.html [L]
+
+  # If route matches route.html, serve it
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+
+  # Custom 404 Error Document
+  ErrorDocument 404 /404.html
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 2. SECURITY HEADERS
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+  Header set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 3. GZIP / DEFLATE COMPRESSION
+# ------------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 4. STATIC ASSET CACHING (_next/static & media)
+# ------------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+
+  # Immutable Next.js static bundles (fingerprinted with hash)
+  <FilesMatch "\.(js|css|woff2|woff|ttf|png|jpg|jpeg|gif|webp|svg|ico)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML pages (no-cache or revalidate)
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 0 seconds"
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

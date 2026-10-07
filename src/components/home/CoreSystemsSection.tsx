@@ -109,7 +109,7 @@ export function CoreSystemsSection() {
 
               <div className={styles.panelActions}>
                 <Link href={activeSystem.href} className={styles.primaryLink}>
-                  <span>EXPLORE {activeSystem.title.toUpperCase()}</span>
+                  <span>EXPLORE</span>
                   <span aria-hidden="true">→</span>
                 </Link>
                 <Link

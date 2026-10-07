@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   TechnicalSupportRequest,
   EngineeringDiscipline,
@@ -19,13 +20,26 @@ interface TechnicalSupportFormProps {
   initialSystem?: EngineeringDiscipline;
 }
 
-export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProps) {
+function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps) {
+  const searchParams = useSearchParams();
+  const rawSystem = (searchParams.get("system") || searchParams.get("category") || "").toLowerCase();
+  
+  let resolvedSystem: EngineeringDiscipline = initialSystem || "mechanical";
+  if (
+    rawSystem === "mechanical" ||
+    rawSystem === "electrical" ||
+    rawSystem === "automation" ||
+    rawSystem === "pneumatic"
+  ) {
+    resolvedSystem = rawSystem;
+  }
+
   const [formData, setFormData] = useState<TechnicalSupportRequest>({
     vesselName: "",
     imoNumber: "",
     vesselType: "",
     currentPort: "",
-    systemDiscipline: initialSystem || "mechanical",
+    systemDiscipline: resolvedSystem,
     equipmentMaker: "",
     equipmentModel: "",
     problemDescription: "",
@@ -37,6 +51,12 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
     phone: "",
     preferredContactMethod: "email",
   });
+
+  useEffect(() => {
+    if (resolvedSystem) {
+      setFormData((prev) => ({ ...prev, systemDiscipline: resolvedSystem }));
+    }
+  }, [resolvedSystem]);
 
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -164,8 +184,13 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
       {/* Step 01: Vessel Details */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
-          <span className={styles.stepBadge}>01 / 05</span>
-          <h3 className={styles.sectionTitle}>VESSEL INFORMATION</h3>
+          <div className={styles.titleRow}>
+            <span className={styles.stepBadge}>01 / 05</span>
+            <h3 className={styles.sectionTitle}>VESSEL INFORMATION</h3>
+          </div>
+          <p className={styles.sectionSubtitle}>
+            Specify vessel identification, classification parameters, and current port or anchorage.
+          </p>
         </div>
 
         <div className={styles.fieldsGrid}>
@@ -246,8 +271,13 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
       {/* Step 02: Technical System */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
-          <span className={styles.stepBadge}>02 / 05</span>
-          <h3 className={styles.sectionTitle}>TECHNICAL DISCIPLINE &amp; EQUIPMENT</h3>
+          <div className={styles.titleRow}>
+            <span className={styles.stepBadge}>02 / 05</span>
+            <h3 className={styles.sectionTitle}>TECHNICAL DISCIPLINE &amp; EQUIPMENT</h3>
+          </div>
+          <p className={styles.sectionSubtitle}>
+            Select the primary engineering discipline and specify the machinery maker and model.
+          </p>
         </div>
 
         <div className={styles.disciplineSelector}>
@@ -310,8 +340,13 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
       {/* Step 03: Problem Scope */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
-          <span className={styles.stepBadge}>03 / 05</span>
-          <h3 className={styles.sectionTitle}>PROBLEM DESCRIPTION &amp; URGENCY</h3>
+          <div className={styles.titleRow}>
+            <span className={styles.stepBadge}>03 / 05</span>
+            <h3 className={styles.sectionTitle}>PROBLEM DESCRIPTION &amp; URGENCY</h3>
+          </div>
+          <p className={styles.sectionSubtitle}>
+            Detail the observed operational malfunction, alarm codes, and required response urgency.
+          </p>
         </div>
 
         <FormField
@@ -359,8 +394,13 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
       {/* Step 04: Attachments */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
-          <span className={styles.stepBadge}>04 / 05</span>
-          <h3 className={styles.sectionTitle}>TECHNICAL ATTACHMENTS</h3>
+          <div className={styles.titleRow}>
+            <span className={styles.stepBadge}>04 / 05</span>
+            <h3 className={styles.sectionTitle}>TECHNICAL ATTACHMENTS</h3>
+          </div>
+          <p className={styles.sectionSubtitle}>
+            Attach equipment nameplate photos, alarm logs, electrical schematics, or service history.
+          </p>
         </div>
 
         <FileUploadZone
@@ -372,8 +412,13 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
       {/* Step 05: Contact & Submit */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
-          <span className={styles.stepBadge}>05 / 05</span>
-          <h3 className={styles.sectionTitle}>CONTACT DETAILS</h3>
+          <div className={styles.titleRow}>
+            <span className={styles.stepBadge}>05 / 05</span>
+            <h3 className={styles.sectionTitle}>CONTACT DETAILS</h3>
+          </div>
+          <p className={styles.sectionSubtitle}>
+            Provide superintendent or chief engineer contact coordinates for operational dispatch.
+          </p>
         </div>
 
         <div className={styles.fieldsGrid}>
@@ -483,8 +528,19 @@ export function TechnicalSupportForm({ initialSystem }: TechnicalSupportFormProp
             <span>{isSubmitting ? "PROCESSING REQUEST..." : "SUBMIT TECHNICAL REQUEST"}</span>
             <span aria-hidden="true">→</span>
           </button>
+          <div className={styles.securityNote}>
+            <span>🔒 Confidential technical intake — reviewed by senior marine engineering staff within 2 hours.</span>
+          </div>
         </div>
       </div>
     </form>
+  );
+}
+
+export function TechnicalSupportForm(props: TechnicalSupportFormProps) {
+  return (
+    <Suspense fallback={<div className={styles.formContainer}>Loading form...</div>}>
+      <TechnicalSupportFormInner {...props} />
+    </Suspense>
   );
 }

@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { serviceGroups, serviceHref } from "@/content/services";
 import { getPrimaryNav, isVisible, siteUrl } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 /** Built from confirmed content and enabled feature flags only. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = new Set<string>(["/"]);
