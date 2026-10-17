@@ -193,7 +193,7 @@ export function SparePartsForm() {
               name="partName"
               value={formData.partName}
               onChange={handleInputChange}
-              placeholder="e.g. Mechanical Seal / Fuel Injector Nozzle / AVR Board"
+              placeholder="e.g. Mechanical Seal / Fuel Injector Nozzle / GMDSS Battery / AVR Board"
               aria-required="true"
               aria-invalid={!!errors.partName}
             />
@@ -228,7 +228,7 @@ export function SparePartsForm() {
               name="maker"
               value={formData.maker}
               onChange={handleInputChange}
-              placeholder="e.g. Alfa Laval, Daihatsu, Yanmar, Sperre"
+              placeholder="e.g. Alfa Laval, Yanmar, Sperre, Sailor, Furuno"
             />
           </FormField>
 

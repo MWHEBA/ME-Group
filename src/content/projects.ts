@@ -39,6 +39,7 @@ export const projectFilters: ProjectFilter[] = [
   { id: "electrical", label: "Electrical & Switchboards", systemCode: "02" },
   { id: "automation", label: "Automation & PLCs", systemCode: "03" },
   { id: "pneumatic", label: "Pneumatics & Air", systemCode: "04" },
+  { id: "radio", label: "Radio & Bridge Systems", systemCode: "08" },
 ];
 
 /**

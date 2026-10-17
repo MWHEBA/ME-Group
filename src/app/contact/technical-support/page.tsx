@@ -8,7 +8,7 @@ import styles from "./technical-support.module.css";
 export const metadata: Metadata = {
   title: "Request Technical Support | Marine Engineering & Maintenance | ME Group",
   description:
-    "Submit a structured technical support request for vessel machinery overhaul, power distribution, automation troubleshooting, or pneumatic repairs across Egyptian ports and Suez Canal anchorages.",
+    "Submit a structured technical support request for vessel machinery overhaul, power distribution, automation troubleshooting, pneumatic repairs, or radio & bridge navigation electronics across Egyptian ports and Suez Canal anchorages.",
 };
 
 export default function TechnicalSupportPage() {
@@ -166,9 +166,9 @@ export default function TechnicalSupportPage() {
                   <Link href="/contact/rapid-support" className={styles.urgentLink}>
                     <span>REQUEST RAPID SUPPORT →</span>
                   </Link>
-                  <a href="tel:+201000000000" className={styles.hotlineLink}>
+                  <a href="tel:+201012116108" className={styles.hotlineLink}>
                     <span aria-hidden="true">☎</span>
-                    <span>24/7 HOTLINE: DIRECT DISPATCH</span>
+                    <span>24/7 DISPATCH: +20 1012116108</span>
                   </a>
                 </div>
               </div>

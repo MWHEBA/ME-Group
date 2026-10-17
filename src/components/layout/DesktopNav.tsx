@@ -116,11 +116,11 @@ export function DesktopNav({ items }: DesktopNavProps) {
                         </div>
                       </div>
 
-                      {/* Column 2: Vessel Support, Maintenance & Supplies */}
+                      {/* Column 2: Vessel Support, Maintenance & Communications */}
                       <div className={styles.sectionCol}>
                         <div className={styles.columnHeader}>
-                          <span className={styles.columnTitle}>MAINTENANCE &amp; VESSEL SUPPORT</span>
-                          <span className={styles.columnCode}>GROUP B &amp; C</span>
+                          <span className={styles.columnTitle}>MAINTENANCE, SUPPLIES &amp; BRIDGE</span>
+                          <span className={styles.columnCode}>GROUP B, C &amp; D</span>
                         </div>
                         <div className={styles.cardsList}>
                           {allSupportServices.map((service) => (

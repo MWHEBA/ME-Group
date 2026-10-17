@@ -33,6 +33,7 @@ export function RapidSupportForm() {
     { id: "electrical", label: "Electrical / Blackout" },
     { id: "automation", label: "Control / PLC Fault" },
     { id: "pneumatic", label: "Pneumatic / Air Loss" },
+    { id: "radio", label: "Radio & Bridge Breakdown" },
     { id: "other", label: "Other / Multiple" },
   ];
 

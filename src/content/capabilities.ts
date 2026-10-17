@@ -43,9 +43,9 @@ export const CAPABILITIES_CONTENT: CapabilityPageContent = {
   kicker: "TECHNICAL CAPABILITY MATRIX",
   heroHeading: "WHAT CAN ME GROUP WORK ON?",
   heroSubheading:
-    "An integrated technical navigation layer across shipboard machinery, electrical distribution, automation controllers, and pneumatic systems.",
+    "An integrated technical navigation layer across shipboard machinery, electrical distribution, automation controllers, pneumatic systems, and maritime communications.",
   leadStatement:
-    "Marine equipment rarely operates in isolation. A single operational disturbance in a generator, pump, or air compressor often spans mechanical condition, electrical power, pneumatic actuation, and automated logic. ME Group approaches vessel engineering through this integrated cross-disciplinary perspective.",
+    "Marine equipment rarely operates in isolation. A single operational disturbance in a generator, radio console, pump, or air compressor often spans mechanical condition, electrical power, radio frequency loss, pneumatic actuation, and automated logic. ME Group approaches vessel engineering through this integrated cross-disciplinary perspective.",
   categories: [
     {
       id: "power-propulsion",
@@ -211,6 +211,47 @@ export const CAPABILITIES_CONTENT: CapabilityPageContent = {
         },
       ],
     },
+    {
+      id: "navigation-communication",
+      code: "05",
+      title: "Bridge Navigation & Maritime Communications",
+      summary:
+        "GMDSS radio consoles, satellite terminals, reserve power systems, and emergency bridge electronics.",
+      equipmentList: [
+        {
+          name: "GMDSS Consoles & Multi-Band Radio Stations",
+          primaryDiscipline: "Radio & Bridge",
+          serviceRoute: "/services/radio-equipment",
+          scopeSummary:
+            "MF/HF and VHF DSC transceivers, duplicate emergency power supply changeover, dummy load RF power checks, and audio clarity testing.",
+          relatedDisciplines: ["Electrical", "Automation"],
+        },
+        {
+          name: "Inmarsat-C & Maritime Satellite Terminals",
+          primaryDiscipline: "Radio & Bridge",
+          serviceRoute: "/services/radio-equipment",
+          scopeSummary:
+            "Antenna radome coaxial cable loss checks, GPS receiver position data acquisition, distress button verification, and PV test execution.",
+          relatedDisciplines: ["Electrical"],
+        },
+        {
+          name: "GMDSS Reserve Battery Banks & Smart Chargers",
+          primaryDiscipline: "Radio & Bridge",
+          serviceRoute: "/services/radio-equipment",
+          scopeSummary:
+            "Load testing under Class-mandated discharge duration, automatic AC mains failure changeover, and internal resistance diagnostics.",
+          relatedDisciplines: ["Electrical"],
+        },
+        {
+          name: "Emergency Beacons & Bridge Equipment (EPIRB / SART / NAVTEX)",
+          primaryDiscipline: "Radio & Bridge",
+          serviceRoute: "/services/radio-equipment",
+          scopeSummary:
+            "Hydrostatic release unit expiration verification, 406MHz transmission decoding, radar SART response check, and Class survey preparation.",
+          relatedDisciplines: ["Safety", "Automation"],
+        },
+      ],
+    },
   ],
   crossDisciplineScenarios: [
     {
@@ -291,8 +332,36 @@ export const CAPABILITIES_CONTENT: CapabilityPageContent = {
       integratedResolution:
         "By verifying both the physical cooling flow and the instrumentation sensor loop, we ensure false alarms are distinguished from genuine heat-exchange restrictions.",
     },
+    {
+      id: "gmdss-power-ams-fault",
+      title: "GMDSS Station Power Loss & Bridge AMS Communication Interlock",
+      observedSymptom:
+        "Bridge GMDSS console loses AC mains supply without automatic transfer to reserve batteries, triggering intermittent communication alarms on the wheelhouse Alarm & Monitoring System (AMS).",
+      disciplinesInvolved: [
+        {
+          name: "Radio & Bridge",
+          code: "08",
+          role: "Inspect GMDSS radio console power input, test DC-DC converters, and measure RF transceiver output power under battery backup.",
+          route: "/services/radio-equipment",
+        },
+        {
+          name: "Electrical",
+          code: "02",
+          role: "Trace emergency switchboard (ESB) feeder breaker, inspect automatic transfer switch (ATS) contacts, and test battery charger float/boost voltages.",
+          route: "/services/electrical",
+        },
+        {
+          name: "Automation",
+          code: "03",
+          role: "Interrogate wheelhouse AMS diagnostic buffer, verify digital alarm contact telemetry loop, and eliminate grounding noise on bridge serial data bus.",
+          route: "/services/automation",
+        },
+      ],
+      integratedResolution:
+        "ME Group deploys specialists who understand the critical interplay between emergency switchboards, automated alarm monitoring loops, and sensitive bridge communication hardware, ensuring regulatory compliance and uninterrupted navigation safety.",
+    },
   ],
   seoTitle: "Marine Capabilities & Equipment Matrix | ME Group",
   seoDescription:
-    "Explore ME Group's confirmed technical capabilities across marine main engines, diesel generators, switchboards, PLCs, pumps, and pneumatic compressors.",
+    "Explore ME Group's confirmed technical capabilities across marine main engines, diesel generators, switchboards, PLCs, pumps, pneumatic compressors, and GMDSS bridge radio communications.",
 };

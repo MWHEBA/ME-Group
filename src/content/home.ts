@@ -79,6 +79,22 @@ export const CORE_SYSTEMS: SystemCategory[] = [
     imageSrc: "/images/dev/compressor.svg",
     href: "/services/pneumatic",
   },
+  {
+    id: "radio",
+    code: "COMM / 08",
+    title: "Radio & Bridge Systems",
+    tagline: "GMDSS, Satellite & Bridge Electronics",
+    description:
+      "Comprehensive servicing for marine GMDSS consoles, MF/HF and VHF DSC radios, Inmarsat satellite terminals, reserve battery stations, and emergency beacon certifications.",
+    items: [
+      "GMDSS Consoles & Battery Stations",
+      "VHF & MF/HF DSC Radios",
+      "Inmarsat & Satellite Terminals",
+      "Emergency Beacons (EPIRB / SART)",
+    ],
+    imageSrc: "/images/dev/bridge-radio.svg",
+    href: "/services/radio-equipment",
+  },
 ];
 
 export interface TriageProblem {
@@ -128,6 +144,15 @@ export const TRIAGE_PROBLEMS: TriageProblem[] = [
     href: "/contact/technical-support?category=pneumatic",
   },
   {
+    id: "radio-bridge-fault",
+    code: "COMM / FAULT",
+    title: "Radio & Bridge Systems Fault",
+    summary:
+      "GMDSS station malfunction, VHF/MF transmission failure, satellite terminal offline, or Class radio survey deficiency.",
+    actionText: "Request Radio Squad",
+    href: "/contact/technical-support?category=radio",
+  },
+  {
     id: "technical-inspection",
     code: "INSP / DIAG",
     title: "Technical Inspection & Diagnostics",
@@ -144,6 +169,15 @@ export const TRIAGE_PROBLEMS: TriageProblem[] = [
       "Urgent or scheduled replacement component, seal kit, valve, or hardware enquiry.",
     actionText: "Request Spare Parts",
     href: "/contact/spare-parts",
+  },
+  {
+    id: "rapid-intervention",
+    code: "RAPID / 24-7",
+    title: "Urgent Vessel Breakdown",
+    summary:
+      "Active blackout, propulsion shutdown, or voyage-critical emergency requiring prioritized dispatch.",
+    actionText: "Engage Rapid Support",
+    href: "/contact/rapid-support",
   },
 ];
 
@@ -197,6 +231,7 @@ export const CONFIRMED_EQUIPMENT = [
   { category: "POWER & ELECTRICAL", items: ["Generators", "Electric Motors", "Switchboards", "AVR Units"] },
   { category: "AUTOMATION & LOGIC", items: ["PLC Systems", "Control Panels", "Alarm & Monitoring (AMS)"] },
   { category: "FLUID & PNEUMATICS", items: ["Pumps", "Compressors", "Pneumatic Systems", "Control Valves"] },
+  { category: "COMMUNICATION & BRIDGE", items: ["GMDSS Consoles", "MF/HF & VHF DSC", "Satellite Terminals", "Emergency Beacons"] },
 ];
 
 export const WHY_ME_GROUP = [

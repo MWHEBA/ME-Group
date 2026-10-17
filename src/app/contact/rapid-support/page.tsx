@@ -51,9 +51,9 @@ export default function RapidSupportPage() {
 
                 <div className={styles.contactBlock}>
                   <span className={styles.blockLabel}>OPERATIONAL DISPATCH HOTLINE</span>
-                  <a href="tel:+201000000000" className={styles.hotlineLink}>
+                  <a href="tel:+201012116108" className={styles.hotlineLink}>
                     <span className={styles.phoneIcon} aria-hidden="true">☎</span>
-                    <span>DIRECT DISPATCH PHONE</span>
+                    <span>DISPATCH: +20 1012116108</span>
                   </a>
                 </div>
 

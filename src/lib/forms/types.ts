@@ -10,6 +10,7 @@ export type EngineeringDiscipline =
   | "electrical"
   | "automation"
   | "pneumatic"
+  | "radio"
   | "other";
 
 export type ContactPreference = "email" | "phone" | "whatsapp";

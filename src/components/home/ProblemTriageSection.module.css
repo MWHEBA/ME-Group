@@ -69,8 +69,14 @@
 
 @media (min-width: 1024px) {
   .triageGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--space-5);
+  }
+}
+
+@media (min-width: 1280px) {
+  .triageGrid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 

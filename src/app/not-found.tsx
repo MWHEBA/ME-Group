@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { Container } from "@/components/primitives/Container";
 import { Section } from "@/components/primitives/Section";
 import { Button } from "@/components/primitives/Button";
-import { ctas } from "@/content/site";
 import styles from "./not-found.module.css";
 
 export default function NotFound() {

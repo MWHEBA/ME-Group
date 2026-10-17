@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { Container } from "@/components/primitives/Container";
-import { ctas } from "@/content/site";
 import styles from "./ServiceConversionCta.module.css";
 
 interface ServiceConversionCtaProps {

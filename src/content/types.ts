@@ -17,7 +17,8 @@ export type MediaSlotId =
   | "pneumatic-equipment"
   | "pump-machinery"
   | "technical-inspection"
-  | "spare-parts";
+  | "spare-parts"
+  | "bridge-radio-equipment";
 
 /** Temporary media must be "development-media" and is never ME Group work. */
 export type MediaProvenance = "development-media" | "me-group-confirmed";

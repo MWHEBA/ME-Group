@@ -6,6 +6,7 @@ export type InsightCategory =
   | "electrical"
   | "automation"
   | "pneumatics"
+  | "radio"
   | "maintenance"
   | "technical-guides";
 

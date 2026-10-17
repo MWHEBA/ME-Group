@@ -36,9 +36,9 @@ export function RapidSupportBanner() {
                   <span>REQUEST IMMEDIATE SUPPORT</span>
                   <span aria-hidden="true">→</span>
                 </Link>
-                <a href="tel:+201000000000" className={styles.phoneLink}>
+                <a href="tel:+201012116108" className={styles.phoneLink}>
                   <span className={styles.phoneIcon} aria-hidden="true">☎</span>
-                  <span>DIRECT DISPATCH PHONE</span>
+                  <span>DISPATCH: +20 1012116108</span>
                 </a>
               </div>
             </div>

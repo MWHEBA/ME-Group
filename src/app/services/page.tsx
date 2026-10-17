@@ -31,7 +31,7 @@ export default function ServicesLandingPage() {
             </h1>
 
             <p className={styles.heroLead}>
-              ME Group supports vessel technical systems across mechanical, electrical, automation, and pneumatic disciplines—backed by structured maintenance programs, rapid spare parts sourcing, and comprehensive vessel support.
+              ME Group supports vessel technical systems across mechanical, electrical, automation, and pneumatic disciplines—backed by structured maintenance programs, rapid spare parts sourcing, comprehensive vessel support, and specialized maritime radio &amp; bridge electronics.
             </p>
 
             <div className={styles.heroActions}>
@@ -48,14 +48,14 @@ export default function ServicesLandingPage() {
         </Container>
       </section>
 
-      {/* Discipline Taxonomy (Groups A, B, C) */}
+      {/* Discipline Taxonomy (Groups A, B, C, D) */}
       <section className={styles.taxonomySection} aria-label="Engineering Taxonomy">
         <Container>
           <div className={styles.sectionHeader}>
             <span className={styles.sectionKicker}>SERVICE TAXONOMY</span>
-            <h2 className={styles.sectionTitle}>SEVEN CORE ENGINEERING DISCIPLINES</h2>
+            <h2 className={styles.sectionTitle}>EIGHT CORE DISCIPLINES ACROSS FOUR SPECIALIZED TIERS</h2>
             <p className={styles.sectionSubtitle}>
-              Structured into three operational tiers: core physical systems, maintenance philosophy, and vessel support.
+              Structured into four operational tiers: core engineering systems, structured maintenance, vessel support, and specialized navigation &amp; communications.
             </p>
           </div>
 

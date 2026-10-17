@@ -31,27 +31,41 @@ export const company = {
   tagline: "Keeping vessels moving.",
   descriptor: "Marine Engineering, Maintenance & Vessel Support.",
   description:
-    "Integrated technical support across mechanical, electrical, automation and pneumatic systems, supported by maintenance, rapid response, spare parts and vessel support services.",
+    "Integrated technical support across mechanical, electrical, automation, pneumatic, and navigation & communication systems, supported by maintenance, rapid response, spare parts and vessel support services.",
+  address: "Iskander Ibrahim St., Miami, Alexandria, Egypt",
+  operationsHub: "Alexandria Port Maritime Area, Alexandria, Egypt",
+  phone: "+20 3 5510000",
+  mobile: "+20 1012116108",
+  secondaryMobile: "+20 1223855644",
+  email: "info@MEGroup-eg.com",
+  website: "MEGroup-eg.com",
   status: "confirmed",
 } as const satisfies Gated & Record<string, string>;
 
 /**
- * Support channels. Phone, WhatsApp and email are intentionally absent until
- * confirmed by the client. `responseTime` is typed `never`: no guarantee may
- * be added without deliberately changing this type.
+ * Confirmed Support channels.
+ * `responseTime` is strictly typed `never`: no guarantee may be added.
  */
 export interface SupportInfo extends Gated {
   hours: "24/7";
   phone?: string;
+  mobile?: string;
+  secondaryMobile?: string;
   whatsapp?: string;
   email?: string;
+  website?: string;
   responseTime?: never;
 }
 
 export const support: SupportInfo = {
   status: "confirmed",
   hours: "24/7",
-  note: "Contact channels [CLIENT TO CONFIRM].",
+  phone: "+20 3 5510000",
+  mobile: "+20 1012116108",
+  secondaryMobile: "+20 1223855644",
+  whatsapp: "https://wa.me/201012116108",
+  email: "info@MEGroup-eg.com",
+  website: "https://MEGroup-eg.com",
 };
 
 export const ctas = {

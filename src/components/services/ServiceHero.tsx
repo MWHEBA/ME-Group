@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/primitives/Container";
-import { ctas } from "@/content/site";
 import styles from "./ServiceHero.module.css";
 
 interface ServiceHeroProps {

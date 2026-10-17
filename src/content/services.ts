@@ -1,6 +1,10 @@
 import type { Gated } from "./types";
 
-export type ServiceCategoryId = "engineering-systems" | "repair-maintenance" | "vessel-support";
+export type ServiceCategoryId =
+  | "engineering-systems"
+  | "repair-maintenance"
+  | "vessel-support"
+  | "navigation-communication";
 
 export interface ServiceScopeItem {
   title: string;
@@ -174,6 +178,27 @@ export const serviceTaxonomyGroups: ServiceGroup[] = [
           "Technical supplies, engine-room consumables, fresh/frozen food provisions, potable drinking water, and medical supplies.",
         number: "07",
         href: "/services/vessel-support",
+        status: "confirmed",
+      },
+    ],
+  },
+  {
+    slug: "navigation-communication",
+    categoryId: "navigation-communication",
+    title: "Navigation & Communications",
+    code: "GROUP D",
+    summary:
+      "Specialist marine electronics, GMDSS radio consoles, satellite communications, bridge navigation equipment, and annual radio surveys.",
+    status: "confirmed",
+    services: [
+      {
+        slug: "radio-equipment",
+        title: "Radio & Bridge Equipment Services",
+        shortTitle: "Radio & Bridge Systems",
+        summary:
+          "VHF/UHF marine transceivers, MF/HF DSC radios, GMDSS stations, Inmarsat satellite terminals, EPIRB/SART beacons, and annual safety radio surveys.",
+        number: "08",
+        href: "/services/radio-equipment",
         status: "confirmed",
       },
     ],
@@ -450,6 +475,13 @@ export const SERVICES_DETAIL: Record<string, ServiceDetail> = {
         reason:
           "Power Management Systems (PMS) manage automatic generator start/stop, synchronization, and load sharing.",
       },
+      {
+        slug: "radio-equipment",
+        title: "Radio & Bridge Systems",
+        systemCode: "08",
+        reason:
+          "Emergency switchboards and 24V DC battery rectifiers provide reserve power continuity for GMDSS stations.",
+      },
     ],
     problemScenarios: [
       {
@@ -597,6 +629,13 @@ export const SERVICES_DETAIL: Record<string, ServiceDetail> = {
         systemCode: "01",
         reason:
           "Sensors protect prime movers, detecting high jacket water temperature, low lube oil pressure, and abnormal RPM.",
+      },
+      {
+        slug: "radio-equipment",
+        title: "Radio & Bridge Systems",
+        systemCode: "08",
+        reason:
+          "Bridge navigation interfaces with central Alarm Monitoring Systems (AMS), BNWAS alert loops, and Voyage Data Recorders.",
       },
     ],
     problemScenarios: [
@@ -1195,6 +1234,210 @@ export const SERVICES_DETAIL: Record<string, ServiceDetail> = {
     seoTitle: "Marine Spare Parts | Fast Nameplate Matching & Delivery | ME Group",
     seoDescription:
       "Fast marine spare parts sourcing. Send your part number or equipment nameplate photo for main engines, pumps, switchboards, compressors, and automation gear.",
+    status: "confirmed",
+  },
+  "radio-equipment": {
+    slug: "radio-equipment",
+    number: "08",
+    title: "Radio & Bridge Equipment Services",
+    shortTitle: "Radio & Bridge Systems",
+    categoryId: "navigation-communication",
+    categoryTitle: "Navigation & Communications",
+    kicker: "DISCIPLINE / 08 • GLOBAL MARITIME CONNECTIONS",
+    heroHeading: "GMDSS RADIO STATIONS, SATELLITE COMMUNICATIONS & BRIDGE ELECTRONICS",
+    heroSubheading:
+      "Specialist marine communication engineering, annual radio surveys, GMDSS console overhauls, satellite terminals, and bridge navigation systems across Egyptian ports and offshore anchorages.",
+    leadParagraph:
+      "Operated under ME Group's specialized marine electronics division, Global Maritime Connections delivers comprehensive shipboard radio, GMDSS, satellite communication, and navigation bridge support. Our certified radio service engineers inspect, troubleshoot, overhaul, and facilitate annual class surveys to ensure full SOLAS and flag-state compliance.",
+    disciplinePhilosophy:
+      "Maritime safety and operational continuity demand uninterrupted radio transmission and navigation integrity. Bridge electronics operate in harsh salt-air environments requiring precision RF testing, hermetic antenna sealing, DC power resilience, and methodical telemetry diagnostics rather than quick-fix component swaps.",
+    scopeCategories: [
+      {
+        title: "VHF & UHF Marine Radio Systems",
+        description:
+          "Installation, calibration, and repair of fixed and portable maritime communication transceivers.",
+        items: [
+          "Fixed Class-A VHF radiotelephones with integrated Digital Selective Calling (DSC)",
+          "Portable intrinsically safe VHF/UHF handsets for onboard crew and mooring operations",
+          "Duplex and simplex marine antenna matching, feeder cable renewal, and VSWR measurement",
+          "Audio output distortion testing and microphone handset element replacements",
+        ],
+      },
+      {
+        title: "MF & HF Radio Stations with DSC",
+        description:
+          "Long-range medium and high frequency marine transceivers and automatic antenna tuning units.",
+        items: [
+          "MF/HF SSB transceiver overhauls, power amplifier testing, and frequency calibration",
+          "Automatic Antenna Tuning Units (ATU) diagnostic inspection and weatherproofing",
+          "Radiotelex / Narrow Band Direct Printing (NBDP) terminal testing and printer servicing",
+          "DSC 6-channel scanning receiver functional checks and automated distress alerting tests",
+        ],
+      },
+      {
+        title: "GMDSS Consoles & Reserve Power Integrity",
+        description:
+          "Turnkey GMDSS station maintenance, emergency battery bank testing, and automatic power failover.",
+        items: [
+          "Complete GMDSS A1+A2+A3 console wiring inspection, earth-leakage tracing, and panel servicing",
+          "Dedicated 24V DC emergency radio battery bank capacity and load-discharge testing",
+          "Automatic AC/DC radio battery charger overhaul, rectifier diagnostics, and ripple verification",
+          "Emergency radio console illumination, changeover relays, and alarm buzzer testing",
+        ],
+      },
+      {
+        title: "Satellite & Inmarsat Communications",
+        description:
+          "Shipboard satellite terminals, distress alerting systems, and broadband telemetry.",
+        items: [
+          "Inmarsat-C transceiver alignment, antenna dome inspection, and diagnostic performance tests",
+          "Ship Security Alert System (SSAS) covert button testing and routing verification",
+          "Long-Range Identification and Tracking (LRIT) conformance tests and certificate assistance",
+          "FleetBroadband and marine VSAT antenna gyro-stabilization and modem troubleshooting",
+        ],
+      },
+      {
+        title: "Emergency Beacons & Navigational Safety",
+        description:
+          "Mandatory SOLAS search and rescue alerting devices, beacons, and navigational warning receivers.",
+        items: [
+          "EPIRB 406 MHz satellite beacon annual testing, battery renewal, and hydrostatic release (HRU) replacement",
+          "Search and Rescue Transponder (SART 9 GHz Radar & AIS-SART) functional testing",
+          "NAVTEX receiver sensitivity alignment, antenna matching, and message log verification",
+          "Bridge Navigational Watch Alarm System (BNWAS) sensor loop and stage-alarm verification",
+        ],
+      },
+      {
+        title: "Annual Radio Surveys & Class Certification",
+        description:
+          "End-to-end preparation, testing, and facilitation of annual safety radio surveys.",
+        items: [
+          "Pre-survey operational audit of all bridge GMDSS, satellite, and emergency radio gear",
+          "Live DSC test calls to Alexandria Radio (SUH) and relevant coastal marine stations",
+          "Facilitating Class surveyor attendance (DNV, Lloyd's Register, Bureau Veritas, RINA, ClassNK)",
+          "Survey report compilation, deficiency clearing, and Safety Radio Certificate documentation support",
+        ],
+      },
+      {
+        title: "Bridge Navigation Systems & Field Attendance",
+        description:
+          "24/7 technical boarding at berth, inner/outer anchorages, and offshore waters across Egypt.",
+        items: [
+          "Marine radar magnetron, scanner motor, and performance monitor checks",
+          "GPS / DGPS antenna signal level testing and NMEA telemetry distribution diagnostics",
+          "Echo sounder transducer impedance checks and speed log sensor cleaning and calibration",
+          "Rapid emergency boarding squads deployed across Alexandria, Port Said, Suez, and Damietta",
+        ],
+      },
+    ],
+    equipmentHandled: [
+      {
+        name: "Fixed & Handheld Marine VHF / UHF",
+        category: "Maritime Radiotelephony",
+        notes: "Sailor 6222, Furuno FM-8900S, JRC JHS-770S, Icom IC-M506",
+      },
+      {
+        name: "MF / HF Radiotelephone & DSC Controller",
+        category: "Medium & High Frequency",
+        notes: "Sailor 6310/6320, Furuno FS-1575/2575, JRC JSS-2150",
+      },
+      {
+        name: "Inmarsat-C / SSAS / LRIT Terminals",
+        category: "Satellite Communications",
+        notes: "Sailor 6110, Furuno Felcom 18/19, Thrane & Thrane mini-C",
+      },
+      {
+        name: "EPIRB, SART & AIS Search & Rescue",
+        category: "Distress Alerting",
+        notes: "Jotron Tron 60S/40VDR, McMurdo SmartFind, Ocean Signal SafeSea",
+      },
+      {
+        name: "NAVTEX Receivers & Marine Printers",
+        category: "Maritime Safety Information",
+        notes: "Furuno NX-700, Sailor 6390, JRC NCR-333",
+      },
+      {
+        name: "Marine Radio Battery Chargers & Power Supplies",
+        category: "Reserve Power Systems",
+        notes: "Sailor 6081, Mastervolt Mass 24/50, Victron Skylla-IP44",
+      },
+    ],
+    processSteps: [
+      {
+        step: "01",
+        title: "ONBOARD TELEMETRY & RF ASSESSMENT",
+        detail:
+          "Engineers board at berth or anchorage with calibrated RF wattmeters, spectrum analyzers, and frequency counters to inspect power output and VSWR across all antennas.",
+      },
+      {
+        step: "02",
+        title: "BATTERY BANK & DC RESERVE TESTING",
+        detail:
+          "Executing timed discharge tests on the dedicated GMDSS reserve battery bank, measuring individual cell internal resistance and verifying automatic charger changeover.",
+      },
+      {
+        step: "03",
+        title: "FAULT RECTIFICATION & ANTENNA TUNING",
+        detail:
+          "Replacing degraded coaxial cabling, recrimping N-type/PL-259 connectors, weatherproofing deck feed-throughs, and overhauling damaged transceivers or power supplies.",
+      },
+      {
+        step: "04",
+        title: "ANNUAL SURVEY & LIVE TRANSMISSION TEST",
+        detail:
+          "Conducting simulated distress calls, Class survey check-offs, and live test transmissions with coastal stations to verify flawless DSC receipt and acoustic clarity.",
+      },
+      {
+        step: "05",
+        title: "SERVICE REPORT & CERTIFICATE CLEARANCE",
+        detail:
+          "Compiling comprehensive technical telemetry reports, recording calibration data, and submitting documentation for surveyor sign-off and safety certificate endorsement.",
+      },
+    ],
+    relatedDisciplines: [
+      {
+        slug: "electrical",
+        title: "Electrical Power & Distribution",
+        systemCode: "02",
+        reason: "GMDSS stations depend on the Emergency Switchboard (ESB), 24V DC battery banks, and automatic charging rectifiers.",
+      },
+      {
+        slug: "automation",
+        title: "Automation & Control Systems",
+        systemCode: "03",
+        reason: "Bridge telemetry interfaces with Alarm Monitoring Systems (AMS), BNWAS alert loops, and Voyage Data Recorders (VDR).",
+      },
+    ],
+    problemScenarios: [
+      {
+        symptom: "GMDSS reserve battery alarm sounding with voltage drop below 21.6V DC under load",
+        systemInvolved: "Reserve Power / Battery Charger",
+        action: "Mobilize battery specialist squad with load-bank tester; test individual cells, replace degraded AGM/gel battery block, calibrate charging voltage to 27.6V float.",
+      },
+      {
+        symptom: "MF/HF transmitter fails to tune with high reflected power (VSWR > 3.0:1) on 2182 kHz",
+        systemInvolved: "MF/HF Radio / Antenna Tuning Unit",
+        action: "Inspect deck whip antenna and feed-through insulator for salt encrustation; overhaul ATU relay contacts, re-ground ground copper strap, verify full output power.",
+      },
+      {
+        symptom: "Inmarsat-C terminal shows continuous 'Searching' status with failed login to IOR/AOR",
+        systemInvolved: "Satellite Communications / Antennas",
+        action: "Perform RF cable loss check from bridge terminal to masthead radome; replace corroded antenna coaxial cable, verify GPS position fix, execute successful link test.",
+      },
+      {
+        symptom: "Imminent vessel departure facing Port State Control or Class Annual Radio Survey deficiency",
+        systemInvolved: "Bridge GMDSS & Emergency Beacons",
+        action: "Dispatch certified radio surveyor squad with Class-approved test equipment to perform full pre-survey audit, clear deficiencies, and attend with Class surveyor.",
+      },
+    ],
+    ctaText: "REQUEST RADIO SERVICE SQUAD",
+    ctaParam: "radio",
+    ctaTarget: "/contact/technical-support",
+    imagePath: "/images/services/radio-equipment.jpg",
+    imageAlt: "Commercial ship navigation bridge wheelhouse and GMDSS marine radio communication console",
+    seoTitle: "Marine Radio & Bridge Equipment Services | GMDSS & Satellite | ME Group",
+    seoDescription:
+      "Specialist marine radio, GMDSS, satellite communication, and bridge electronics engineering by ME Group. Fast attendance across Alexandria, Suez, and Port Said.",
     status: "confirmed",
   },
 };

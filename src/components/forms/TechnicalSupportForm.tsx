@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, Suspense, useEffect } from "react";
+import React, { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   TechnicalSupportRequest,
@@ -29,9 +29,23 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
     rawSystem === "mechanical" ||
     rawSystem === "electrical" ||
     rawSystem === "automation" ||
-    rawSystem === "pneumatic"
+    rawSystem === "pneumatic" ||
+    rawSystem === "radio"
   ) {
     resolvedSystem = rawSystem;
+  } else if (
+    rawSystem === "radio-equipment" ||
+    rawSystem === "navigation-communication" ||
+    rawSystem === "bridge" ||
+    rawSystem === "navigation"
+  ) {
+    resolvedSystem = "radio";
+  } else if (
+    rawSystem === "inspection" ||
+    rawSystem === "maintenance" ||
+    rawSystem === "repair"
+  ) {
+    resolvedSystem = "other";
   }
 
   const [formData, setFormData] = useState<TechnicalSupportRequest>({
@@ -52,11 +66,11 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
     preferredContactMethod: "email",
   });
 
-  useEffect(() => {
-    if (resolvedSystem) {
-      setFormData((prev) => ({ ...prev, systemDiscipline: resolvedSystem }));
-    }
-  }, [resolvedSystem]);
+  const [prevSystem, setPrevSystem] = useState(resolvedSystem);
+  if (prevSystem !== resolvedSystem) {
+    setPrevSystem(resolvedSystem);
+    setFormData((prev) => ({ ...prev, systemDiscipline: resolvedSystem }));
+  }
 
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -72,7 +86,8 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
     { id: "electrical", label: "Electrical & MSB", code: "02" },
     { id: "automation", label: "Automation & PLC", code: "03" },
     { id: "pneumatic", label: "Pneumatics & Air", code: "04" },
-    { id: "other", label: "Other / Multiple", code: "05" },
+    { id: "radio", label: "Radio & Bridge Systems", code: "08" },
+    { id: "other", label: "Other / Multiple", code: "—" },
   ];
 
   const urgencyOptions: { id: UrgencyLevel; label: string; note: string }[] = [
@@ -316,7 +331,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="equipmentMaker"
               value={formData.equipmentMaker}
               onChange={handleInputChange}
-              placeholder="e.g. MAN B&amp;W, Wärtsilä, Hyundai, ABB"
+              placeholder="e.g. MAN B&amp;W, Wärtsilä, ABB, Sailor, Furuno"
             />
           </FormField>
 

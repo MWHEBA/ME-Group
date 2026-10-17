@@ -24,6 +24,7 @@ export const mediaSlots: Record<MediaSlotId, MediaSlot> = {
   "pump-machinery": slot("pump-machinery", "Pump / machinery"),
   "technical-inspection": slot("technical-inspection", "Technical inspection"),
   "spare-parts": slot("spare-parts", "Spare parts"),
+  "bridge-radio-equipment": slot("bridge-radio-equipment", "Bridge radio & navigation equipment", "16 / 9"),
 };
 
 export const isDevelopmentMedia = (m: MediaSlot) =>

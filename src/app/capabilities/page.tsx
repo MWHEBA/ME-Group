@@ -109,7 +109,7 @@ export default function CapabilitiesPage() {
             <span className={styles.sectionKicker}>EQUIPMENT PORTFOLIO</span>
             <h2 className={styles.sectionTitle}>TECHNICAL MACHINERY MATRIX</h2>
             <p className={styles.sectionSubtitle}>
-              Confirmed equipment handled across marine propulsion, power generation, switchgear, automation, and fluid lines.
+              Confirmed equipment handled across marine propulsion, power generation, switchgear, automation, fluid lines, and navigation electronics.
             </p>
           </div>
 

@@ -34,7 +34,10 @@ export function Footer() {
                 <span>24/7 TECHNICAL INTAKE ACTIVE</span>
               </div>
               <p className={styles.hqText}>
-                Alexandria Port Maritime Area, Alexandria, Egypt
+                <strong>Operations:</strong> {company.operationsHub}
+              </p>
+              <p className={styles.hqText}>
+                <strong>Head Office:</strong> {company.address}
               </p>
             </div>
           </div>
@@ -73,14 +76,40 @@ export function Footer() {
 
           {/* Column 4: Direct Intake & Communications */}
           <div className={styles.col}>
-            <h3 className={styles.heading}>TECHNICAL INTAKE</h3>
+            <h3 className={styles.heading}>DIRECT COMMUNICATIONS</h3>
             <div className={styles.intakeBlock}>
-              <p className={styles.intakeDesc}>
-                Structured technical support and machinery overhaul intake for vessel superintendents, technical managers, and chief engineers.
-              </p>
+              <div className={styles.contactLines}>
+                <div className={styles.contactRow}>
+                  <span className={styles.contactTag}>TEL</span>
+                  <a href={`tel:${company.phone.replace(/\s+/g, '')}`} className={styles.contactLink}>
+                    {company.phone}
+                  </a>
+                </div>
+                <div className={styles.contactRow}>
+                  <span className={styles.contactTag}>DISPATCH</span>
+                  <a href={`tel:${company.mobile.replace(/\s+/g, '')}`} className={styles.contactLink}>
+                    {company.mobile}
+                  </a>
+                  <a
+                    href="https://wa.me/201012116108"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.whatsAppBadge}
+                    aria-label="Direct WhatsApp Dispatch"
+                  >
+                    WhatsApp ↗
+                  </a>
+                </div>
+                <div className={styles.contactRow}>
+                  <span className={styles.contactTag}>EMAIL</span>
+                  <a href={`mailto:${company.email}`} className={styles.contactLink}>
+                    {company.email}
+                  </a>
+                </div>
+              </div>
 
               <Link href="/contact/technical-support" className={styles.intakeCta}>
-                <span>TECHNICAL SUPPORT</span>
+                <span>TECHNICAL SUPPORT INTAKE</span>
                 <span aria-hidden="true">→</span>
               </Link>
 
@@ -93,9 +122,22 @@ export function Footer() {
 
         {/* Bottom Legal & Compliance Bar */}
         <div className={styles.bottomBar}>
-          <p className={styles.legal}>
-            © {currentYear} {company.fullName} ({company.name}). All rights reserved.
-          </p>
+          <div className={styles.legalGroup}>
+            <p className={styles.legal}>
+              © {currentYear} {company.fullName} ({company.name}). All rights reserved.
+            </p>
+            <p className={styles.credits}>
+              All rights reserved to{' '}
+              <a
+                href="https://mwheba.co.uk/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.creditsLink}
+              >
+                MWHEBA Software Solutions
+              </a>
+            </p>
+          </div>
           <p className={styles.compliance}>
             ISO 9001 / Marine Class Compliance • Alexandria, Egypt
           </p>
