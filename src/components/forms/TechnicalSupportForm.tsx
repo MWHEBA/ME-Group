@@ -18,9 +18,11 @@ import styles from "./TechnicalSupportForm.module.css";
 
 interface TechnicalSupportFormProps {
   initialSystem?: EngineeringDiscipline;
+  locale?: "en" | "ar";
 }
 
-function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps) {
+function TechnicalSupportFormInner({ initialSystem, locale = "en" }: TechnicalSupportFormProps) {
+  const isAr = locale === "ar";
   const searchParams = useSearchParams();
   const rawSystem = (searchParams.get("system") || searchParams.get("category") || "").toLowerCase();
   
@@ -82,24 +84,36 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
   const [globalError, setGlobalError] = useState<string | null>(null);
 
   const disciplines: { id: EngineeringDiscipline; label: string; code: string }[] = [
-    { id: "mechanical", label: "Mechanical Systems", code: "01" },
-    { id: "electrical", label: "Electrical & MSB", code: "02" },
-    { id: "automation", label: "Automation & PLC", code: "03" },
-    { id: "pneumatic", label: "Pneumatics & Air", code: "04" },
-    { id: "radio", label: "Radio & Bridge Systems", code: "08" },
-    { id: "other", label: "Other / Multiple", code: "—" },
+    { id: "mechanical", label: isAr ? "الأنظمة الميكانيكية" : "Mechanical Systems", code: "01" },
+    { id: "electrical", label: isAr ? "الكهرباء ولوحات التوزيع" : "Electrical & MSB", code: "02" },
+    { id: "automation", label: isAr ? "التحكم الآلي والـ PLC" : "Automation & PLC", code: "03" },
+    { id: "pneumatic", label: isAr ? "الأنظمة الهوائية والضواغط" : "Pneumatics & Air", code: "04" },
+    { id: "radio", label: isAr ? "أجهزة الراديو والملاحة" : "Radio & Bridge Systems", code: "08" },
+    { id: "other", label: isAr ? "تخصصات أخرى / متعدد" : "Other / Multiple", code: "—" },
   ];
 
   const urgencyOptions: { id: UrgencyLevel; label: string; note: string }[] = [
-    { id: "normal", label: "Normal Operation", note: "Scheduled maintenance or inspection" },
-    { id: "priority", label: "Priority Schedule", note: "Impending departure or port stay" },
-    { id: "urgent", label: "Urgent Technical Breakdown", note: "Active equipment failure onboard" },
+    {
+      id: "normal",
+      label: isAr ? "تشغيل اعتيادي" : "Normal Operation",
+      note: isAr ? "صيانة مجدولة أو فحص دوري" : "Scheduled maintenance or inspection",
+    },
+    {
+      id: "priority",
+      label: isAr ? "أولوية مجدولة" : "Priority Schedule",
+      note: isAr ? "موعد إبحار قريب أو تراكي محدد" : "Impending departure or port stay",
+    },
+    {
+      id: "urgent",
+      label: isAr ? "عطل طارئ وتوقف للمعدة" : "Urgent Technical Breakdown",
+      note: isAr ? "توقف تشغيلي نشط على متن السفينة" : "Active equipment failure onboard",
+    },
   ];
 
   const contactMethods: { id: ContactPreference; label: string }[] = [
-    { id: "email", label: "Email" },
-    { id: "phone", label: "Direct Phone" },
-    { id: "whatsapp", label: "WhatsApp" },
+    { id: "email", label: isAr ? "البريد الإلكتروني" : "Email" },
+    { id: "phone", label: isAr ? "الهاتف المباشر" : "Direct Phone" },
+    { id: "whatsapp", label: isAr ? "واتساب" : "WhatsApp" },
   ];
 
   const handleInputChange = (
@@ -124,7 +138,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
     e.preventDefault();
     setGlobalError(null);
 
-    const validationErrors = validateTechnicalSupport(formData);
+    const validationErrors = validateTechnicalSupport(formData, locale);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       // Focus the first error field
@@ -136,7 +150,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
     setIsSubmitting(true);
     try {
-      const response = await submitTechnicalSupportAction(formData);
+      const response = await submitTechnicalSupportAction(formData, locale);
       if (response.success) {
         setSubmissionResult({
           isDelivered: response.isDelivered,
@@ -150,7 +164,11 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         setGlobalError(response.message);
       }
     } catch {
-      setGlobalError("A connection issue occurred. Please verify your details and try again.");
+      setGlobalError(
+        isAr
+          ? "حدثت مشكلة في الاتصال. يرجى مراجعة البيانات والمحاولة مرة أخرى."
+          : "A connection issue occurred. Please verify your details and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -159,15 +177,24 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
   if (isSubmitted) {
     return (
       <FormSuccessState
+        locale={locale}
         formType="technical_support"
         isDelivered={submissionResult?.isDelivered}
         deliveryReference={submissionResult?.deliveryReference}
         title={
           submissionResult?.isDelivered
-            ? "TECHNICAL REQUEST DISPATCHED"
+            ? isAr
+              ? "تم إرسال طلب الدعم الفني بنجاح"
+              : "TECHNICAL REQUEST DISPATCHED"
+            : isAr
+            ? "تم تجهيز طلب الدعم الفني"
             : "TECHNICAL REQUEST COMPILED"
         }
-        message={`Technical intake details recorded for vessel "${formData.vesselName}".`}
+        message={
+          isAr
+            ? `تم تسجيل بيانات الاستقبال والفرز الفني للسفينة "${formData.vesselName}".`
+            : `Technical intake details recorded for vessel "${formData.vesselName}".`
+        }
         onReset={() => {
           setIsSubmitted(false);
           setFormData({
@@ -194,24 +221,28 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
   return (
     <form onSubmit={handleSubmit} noValidate className={styles.formContainer}>
-      {globalError && <FormErrorBanner message={globalError} />}
+      {globalError && <FormErrorBanner message={globalError} locale={locale} />}
 
       {/* Step 01: Vessel Details */}
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
           <div className={styles.titleRow}>
             <span className={styles.stepBadge}>01 / 05</span>
-            <h3 className={styles.sectionTitle}>VESSEL INFORMATION</h3>
+            <h3 className={styles.sectionTitle}>
+              {isAr ? "بيانات السفينة" : "VESSEL INFORMATION"}
+            </h3>
           </div>
           <p className={styles.sectionSubtitle}>
-            Specify vessel identification, classification parameters, and current port or anchorage.
+            {isAr
+              ? "حدد بيانات تعريف السفينة، ومعاملات التصنيف، والميناء أو المخطاف الحالي."
+              : "Specify vessel identification, classification parameters, and current port or anchorage."}
           </p>
         </div>
 
         <div className={styles.fieldsGrid}>
           <FormField
             id="vesselName"
-            label="Vessel Name"
+            label={isAr ? "اسم السفينة" : "Vessel Name"}
             required
             error={errors.vesselName}
           >
@@ -221,7 +252,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="vesselName"
               value={formData.vesselName}
               onChange={handleInputChange}
-              placeholder="e.g. MV Mediterranean Star"
+              placeholder={isAr ? "مثال: MV Mediterranean Star" : "e.g. MV Mediterranean Star"}
               aria-required="true"
               aria-invalid={!!errors.vesselName}
               aria-describedby={errors.vesselName ? "vesselName-error" : undefined}
@@ -230,9 +261,9 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
           <FormField
             id="imoNumber"
-            label="IMO Number"
+            label={isAr ? "رقم الـ IMO" : "IMO Number"}
             error={errors.imoNumber}
-            hint="7 digits"
+            hint={isAr ? "7 أرقام" : "7 digits"}
           >
             <input
               type="text"
@@ -249,7 +280,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
           <FormField
             id="vesselType"
-            label="Vessel Type"
+            label={isAr ? "نوع السفينة" : "Vessel Type"}
             error={errors.vesselType}
           >
             <input
@@ -258,13 +289,13 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="vesselType"
               value={formData.vesselType}
               onChange={handleInputChange}
-              placeholder="e.g. Bulk Carrier / Container / Tanker"
+              placeholder={isAr ? "مثال: بضائع عامة / حاويات / بترولية / رورو" : "e.g. Bulk Carrier / Container / Tanker"}
             />
           </FormField>
 
           <FormField
             id="currentPort"
-            label="Current Port / Location"
+            label={isAr ? "الميناء الحالي / المخطاف" : "Current Port / Location"}
             required
             error={errors.currentPort}
           >
@@ -274,7 +305,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="currentPort"
               value={formData.currentPort}
               onChange={handleInputChange}
-              placeholder="e.g. Port Said / Suez / Alexandria"
+              placeholder={isAr ? "مثال: بورسعيد / السويس / الإسكندرية" : "e.g. Port Said / Suez / Alexandria"}
               aria-required="true"
               aria-invalid={!!errors.currentPort}
               aria-describedby={errors.currentPort ? "currentPort-error" : undefined}
@@ -288,15 +319,21 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         <div className={styles.sectionHeader}>
           <div className={styles.titleRow}>
             <span className={styles.stepBadge}>02 / 05</span>
-            <h3 className={styles.sectionTitle}>TECHNICAL DISCIPLINE &amp; EQUIPMENT</h3>
+            <h3 className={styles.sectionTitle}>
+              {isAr ? "التخصص الفني والمنظومة" : "TECHNICAL DISCIPLINE & EQUIPMENT"}
+            </h3>
           </div>
           <p className={styles.sectionSubtitle}>
-            Select the primary engineering discipline and specify the machinery maker and model.
+            {isAr
+              ? "اختر التخصص الهندسي الأساسي وحدد الشركة المصنعة وطراز المعدة."
+              : "Select the primary engineering discipline and specify the machinery maker and model."}
           </p>
         </div>
 
         <div className={styles.disciplineSelector}>
-          <span className={styles.subLabel}>PRIMARY SYSTEM INVOLVED *</span>
+          <span className={styles.subLabel}>
+            {isAr ? "المنظومة الأساسية المعنية *" : "PRIMARY SYSTEM INVOLVED *"}
+          </span>
           <div className={styles.disciplineGrid} role="radiogroup" aria-label="System Discipline">
             {disciplines.map((item) => {
               const isSelected = formData.systemDiscipline === item.id;
@@ -322,7 +359,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         <div className={styles.fieldsGrid} style={{ marginTop: "var(--space-4)" }}>
           <FormField
             id="equipmentMaker"
-            label="Equipment Manufacturer / Maker"
+            label={isAr ? "الشركة المصنعة للمعدة (Maker)" : "Equipment Manufacturer / Maker"}
             error={errors.equipmentMaker}
           >
             <input
@@ -331,13 +368,13 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="equipmentMaker"
               value={formData.equipmentMaker}
               onChange={handleInputChange}
-              placeholder="e.g. MAN B&amp;W, Wärtsilä, ABB, Sailor, Furuno"
+              placeholder="e.g. MAN B&W, Wärtsilä, ABB, Sailor, Furuno"
             />
           </FormField>
 
           <FormField
             id="equipmentModel"
-            label="Model / Serial Type"
+            label={isAr ? "طراز المعدة / الرقم التسلسلي" : "Model / Serial Type"}
             error={errors.equipmentModel}
           >
             <input
@@ -357,16 +394,20 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         <div className={styles.sectionHeader}>
           <div className={styles.titleRow}>
             <span className={styles.stepBadge}>03 / 05</span>
-            <h3 className={styles.sectionTitle}>PROBLEM DESCRIPTION &amp; URGENCY</h3>
+            <h3 className={styles.sectionTitle}>
+              {isAr ? "توصيف العطل ودرجة الأهمية" : "PROBLEM DESCRIPTION & URGENCY"}
+            </h3>
           </div>
           <p className={styles.sectionSubtitle}>
-            Detail the observed operational malfunction, alarm codes, and required response urgency.
+            {isAr
+              ? "وضح تفاصيل العطل التشغيلي، رموز الإنذارات، ودرجة الاستجابة المطلوبة."
+              : "Detail the observed operational malfunction, alarm codes, and required response urgency."}
           </p>
         </div>
 
         <FormField
           id="problemDescription"
-          label="Problem Description &amp; Observed Symptoms"
+          label={isAr ? "توصيف العطل والأعراض المرصودة" : "Problem Description & Observed Symptoms"}
           required
           error={errors.problemDescription}
         >
@@ -375,7 +416,11 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
             name="problemDescription"
             value={formData.problemDescription}
             onChange={handleInputChange}
-            placeholder="Describe the operational fault, alarms triggered, temperatures, pressures, or components affected..."
+            placeholder={
+              isAr
+                ? "صف الأعطال الفنية، إشارات الإنذار، قراءات الضغوط ودرجات الحرارة، أو أسباب التوقف..."
+                : "Describe the operational fault, alarms triggered, temperatures, pressures, or components affected..."
+            }
             rows={5}
             aria-required="true"
             aria-invalid={!!errors.problemDescription}
@@ -386,7 +431,9 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         </FormField>
 
         <div className={styles.urgencySection}>
-          <span className={styles.subLabel}>OPERATIONAL URGENCY</span>
+          <span className={styles.subLabel}>
+            {isAr ? "الأولوية التشغيلية" : "OPERATIONAL URGENCY"}
+          </span>
           <div className={styles.urgencyGrid}>
             {urgencyOptions.map((urg) => {
               const isSelected = formData.urgency === urg.id;
@@ -411,14 +458,20 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         <div className={styles.sectionHeader}>
           <div className={styles.titleRow}>
             <span className={styles.stepBadge}>04 / 05</span>
-            <h3 className={styles.sectionTitle}>TECHNICAL ATTACHMENTS</h3>
+            <h3 className={styles.sectionTitle}>
+              {isAr ? "المستندات الفنية والصور" : "TECHNICAL ATTACHMENTS"}
+            </h3>
           </div>
           <p className={styles.sectionSubtitle}>
-            Attach equipment nameplate photos, alarm logs, electrical schematics, or service history.
+            {isAr
+              ? "أرفق صور لوحة بيانات المعدة، سجلات الإنذارات، المخططات الكهربائية، أو تقارير الخدمة."
+              : "Attach equipment nameplate photos, alarm logs, electrical schematics, or service history."}
           </p>
         </div>
 
         <FileUploadZone
+          locale={locale}
+          label={isAr ? "المخططات الهندسية، صور اللوحات، أو سجلات الفحص (اختياري)" : undefined}
           attachments={formData.attachments}
           onAttachmentsChange={handleAttachmentsChange}
         />
@@ -429,17 +482,21 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         <div className={styles.sectionHeader}>
           <div className={styles.titleRow}>
             <span className={styles.stepBadge}>05 / 05</span>
-            <h3 className={styles.sectionTitle}>CONTACT DETAILS</h3>
+            <h3 className={styles.sectionTitle}>
+              {isAr ? "بيانات مسؤول الاتصال" : "CONTACT DETAILS"}
+            </h3>
           </div>
           <p className={styles.sectionSubtitle}>
-            Provide superintendent or chief engineer contact coordinates for operational dispatch.
+            {isAr
+              ? "بيانات المفتش الفني أو كبير المهندسين لتنسيق التوجيه الفني المباشر."
+              : "Provide superintendent or chief engineer contact coordinates for operational dispatch."}
           </p>
         </div>
 
         <div className={styles.fieldsGrid}>
           <FormField
             id="contactName"
-            label="Contact Full Name"
+            label={isAr ? "اسم مسؤول الاتصال بالكامل" : "Contact Full Name"}
             required
             error={errors.contactName}
           >
@@ -449,7 +506,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="contactName"
               value={formData.contactName}
               onChange={handleInputChange}
-              placeholder="e.g. Chief Engineer / Technical Superintendent"
+              placeholder={isAr ? "مثال: م. أحمد عبد الله (Chief Engineer / Superintendent)" : "e.g. Chief Engineer / Technical Superintendent"}
               autoComplete="name"
               aria-required="true"
               aria-invalid={!!errors.contactName}
@@ -458,7 +515,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
           <FormField
             id="companyName"
-            label="Company / Management Firm"
+            label={isAr ? "اسم الشركة / إدارة الأسطول" : "Company / Management Firm"}
             required
             error={errors.companyName}
           >
@@ -468,7 +525,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
               name="companyName"
               value={formData.companyName}
               onChange={handleInputChange}
-              placeholder="e.g. Shipping Line / Technical Management"
+              placeholder={isAr ? "مثال: شركة الملاحة البحرية / الإدارة الفنية" : "e.g. Shipping Line / Technical Management"}
               autoComplete="organization"
               aria-required="true"
               aria-invalid={!!errors.companyName}
@@ -477,7 +534,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
           <FormField
             id="email"
-            label="Corporate Email Address"
+            label={isAr ? "البريد الإلكتروني للعمل" : "Corporate Email Address"}
             required
             error={errors.email}
           >
@@ -497,7 +554,7 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
 
           <FormField
             id="phone"
-            label="Phone / WhatsApp Number (with Country Code)"
+            label={isAr ? "رقم الهاتف / واتساب (مع كود الدولة)" : "Phone / WhatsApp Number (with Country Code)"}
             required
             error={errors.phone}
           >
@@ -517,7 +574,9 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
         </div>
 
         <div className={styles.preferenceRow}>
-          <span className={styles.subLabel}>PREFERRED CONTACT CHANNEL</span>
+          <span className={styles.subLabel}>
+            {isAr ? "قناة التواصل المفضلة" : "PREFERRED CONTACT CHANNEL"}
+          </span>
           <div className={styles.channelOptions}>
             {contactMethods.map((cm) => (
               <label key={cm.id} className={styles.radioLabel}>
@@ -540,11 +599,23 @@ function TechnicalSupportFormInner({ initialSystem }: TechnicalSupportFormProps)
             disabled={isSubmitting}
             className={styles.submitButton}
           >
-            <span>{isSubmitting ? "PROCESSING REQUEST..." : "SUBMIT TECHNICAL REQUEST"}</span>
-            <span aria-hidden="true">→</span>
+            <span>
+              {isSubmitting
+                ? isAr
+                  ? "جاري تسجيل الطلب..."
+                  : "PROCESSING REQUEST..."
+                : isAr
+                ? "إرسال طلب الدعم الفني"
+                : "SUBMIT TECHNICAL REQUEST"}
+            </span>
+            <span aria-hidden="true">{isAr ? "←" : "→"}</span>
           </button>
           <div className={styles.securityNote}>
-            <span>🔒 Confidential technical intake — reviewed by senior marine engineering staff within 2 hours.</span>
+            <span>
+              {isAr
+                ? "🔒 استقبال فني سري وآمن — تتم مراجعته بواسطة كبار مهندسي البحرية في أقل من ساعتين."
+                : "🔒 Confidential technical intake — reviewed by senior marine engineering staff within 2 hours."}
+            </span>
           </div>
         </div>
       </div>

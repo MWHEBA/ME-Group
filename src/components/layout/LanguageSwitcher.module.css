@@ -1,0 +1,40 @@
+.switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background-color: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 1.2;
+  transition: background-color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.switcher:hover {
+  background-color: var(--bg-alt);
+  border-color: var(--color-ink-500);
+}
+
+.switcher:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.globeIcon {
+  font-size: 0.875rem;
+  line-height: 1;
+  opacity: 0.8;
+}
+
+.label {
+  letter-spacing: 0.04em;
+}

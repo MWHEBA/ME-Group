@@ -5,37 +5,55 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/primitives/Container";
 import { CORE_SYSTEMS, SystemCategory } from "@/content/home";
+import { CORE_SYSTEMS_AR } from "@/content/ar/home";
 import styles from "./CoreSystemsSection.module.css";
 
-export function CoreSystemsSection() {
-  const [activeSystemId, setActiveSystemId] = useState<string>(CORE_SYSTEMS[0].id);
+interface CoreSystemsSectionProps {
+  locale?: "en" | "ar";
+}
+
+export function CoreSystemsSection({ locale = "en" }: CoreSystemsSectionProps) {
+  const isArabic = locale === "ar";
+  const systems = isArabic ? CORE_SYSTEMS_AR : CORE_SYSTEMS;
+
+  const [activeSystemId, setActiveSystemId] = useState<string>(systems[0].id);
 
   const activeSystem =
-    CORE_SYSTEMS.find((sys) => sys.id === activeSystemId) || CORE_SYSTEMS[0];
+    systems.find((sys) => sys.id === activeSystemId) || systems[0];
 
   return (
     <section
       className={styles.systemsSection}
       id="core-systems"
-      aria-label="Core Engineering Systems"
+      aria-label={isArabic ? "الأنظمة الهندسية الأساسية" : "Core Engineering Systems"}
     >
       <Container>
         {/* Section Header */}
         <div className={styles.sectionHeader}>
           <div className={styles.headerLeft}>
-            <span className={styles.kicker}>SYS / CAPABILITIES</span>
-            <h2 className={styles.sectionTitle}>CORE ENGINEERING SYSTEMS</h2>
+            <span className={styles.kicker}>
+              {isArabic ? "SYS / القدرات والأنظمة" : "SYS / CAPABILITIES"}
+            </span>
+            <h2 className={styles.sectionTitle}>
+              {isArabic ? "الأنظمة الهندسية الأساسية" : "CORE ENGINEERING SYSTEMS"}
+            </h2>
           </div>
           <p className={styles.headerDescription}>
-            Dedicated technical teams equipped for troubleshooting, overhaul, and commissioning across primary vessel operating systems.
+            {isArabic
+              ? "فرق فنية هندسية متخصصة ومجهزة لأعمال الفحص والعمرة الشاملة والاختبار والتكليف عبر الأنظمة الرئيسية المشغلة للسفينة."
+              : "Dedicated technical teams equipped for troubleshooting, overhaul, and commissioning across primary vessel operating systems."}
           </p>
         </div>
 
         {/* Interactive Desktop / Responsive Layout */}
         <div className={styles.splitLayout}>
           {/* Left: System Navigation List */}
-          <div className={styles.systemsNav} role="tablist" aria-label="System selector">
-            {CORE_SYSTEMS.map((system: SystemCategory) => {
+          <div
+            className={styles.systemsNav}
+            role="tablist"
+            aria-label={isArabic ? "محدد الأنظمة" : "System selector"}
+          >
+            {systems.map((system: SystemCategory) => {
               const isActive = system.id === activeSystemId;
               return (
                 <button
@@ -51,7 +69,9 @@ export function CoreSystemsSection() {
                   <div className={styles.tabHeader}>
                     <span className={styles.tabCode}>{system.code}</span>
                     <span className={styles.tabStatus} aria-hidden="true">
-                      {isActive ? "ACTIVE SELECTION" : "EXPLORE"}
+                      {isActive
+                        ? isArabic ? "اختيار حالي" : "ACTIVE SELECTION"
+                        : isArabic ? "استعراض" : "EXPLORE"}
                     </span>
                   </div>
                   <h3 className={styles.tabTitle}>{system.title}</h3>
@@ -96,7 +116,9 @@ export function CoreSystemsSection() {
               <p className={styles.panelDescription}>{activeSystem.description}</p>
 
               <div className={styles.capabilitiesList}>
-                <span className={styles.listLabel}>CONFIRMED TECHNICAL SCOPE:</span>
+                <span className={styles.listLabel}>
+                  {isArabic ? "النطاق الفني المعتمد:" : "CONFIRMED TECHNICAL SCOPE:"}
+                </span>
                 <ul className={styles.itemsGrid}>
                   {activeSystem.items.map((item, idx) => (
                     <li key={idx} className={styles.scopeItem}>
@@ -109,14 +131,18 @@ export function CoreSystemsSection() {
 
               <div className={styles.panelActions}>
                 <Link href={activeSystem.href} className={styles.primaryLink}>
-                  <span>EXPLORE</span>
-                  <span aria-hidden="true">→</span>
+                  <span>{isArabic ? "استعراض التفاصيل" : "EXPLORE"}</span>
+                  <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
                 </Link>
                 <Link
-                  href={`/contact/technical-support?system=${activeSystem.id}`}
+                  href={
+                    isArabic
+                      ? `/ar/contact/technical-support?system=${activeSystem.id}`
+                      : `/contact/technical-support?system=${activeSystem.id}`
+                  }
                   className={styles.secondaryLink}
                 >
-                  REQUEST SYSTEM SUPPORT
+                  {isArabic ? "طلب دعم فني للنظام" : "REQUEST SYSTEM SUPPORT"}
                 </Link>
               </div>
             </div>

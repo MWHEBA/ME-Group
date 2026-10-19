@@ -7,27 +7,40 @@ import styles from "./ServiceEquipmentSection.module.css";
 interface ServiceEquipmentSectionProps {
   equipment: EquipmentItem[];
   disciplineTitle: string;
+  locale?: "en" | "ar";
 }
 
 export function ServiceEquipmentSection({
   equipment,
   disciplineTitle,
+  locale = "en",
 }: ServiceEquipmentSectionProps) {
+  const isAr = locale === "ar";
+
   return (
     <section className={styles.equipmentSection} aria-label="Confirmed Equipment Handled">
       <Container>
         <div className={styles.headerRow}>
           <div className={styles.headerLeft}>
-            <span className={styles.kicker}>MACHINERY &amp; SYSTEM TAXONOMY</span>
-            <h2 className={styles.title}>CONFIRMED EQUIPMENT HANDLED</h2>
+            <span className={styles.kicker}>
+              {isAr ? "تصنيف الآلات والمنظومات" : "MACHINERY & SYSTEM TAXONOMY"}
+            </span>
+            <h2 className={styles.title}>
+              {isAr ? "المعدات والآلات المعتمدة" : "CONFIRMED EQUIPMENT HANDLED"}
+            </h2>
             <p className={styles.subtitle}>
-              Technical scope supported across {disciplineTitle}.
+              {isAr
+                ? `النطاق الفني المعتمد في ${disciplineTitle}.`
+                : `Technical scope supported across ${disciplineTitle}.`}
             </p>
           </div>
           <div className={styles.headerRight}>
-            <Link href="/capabilities" className={styles.matrixLink}>
-              <span>VIEW FULL CAPABILITY MATRIX</span>
-              <span aria-hidden="true">→</span>
+            <Link
+              href={isAr ? "/ar/capabilities" : "/capabilities"}
+              className={styles.matrixLink}
+            >
+              <span>{isAr ? "مصفوفة القدرات الفنية الكاملة" : "VIEW FULL CAPABILITY MATRIX"}</span>
+              <span aria-hidden="true">{isAr ? "←" : "→"}</span>
             </Link>
           </div>
         </div>

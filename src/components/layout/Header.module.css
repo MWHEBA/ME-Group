@@ -44,6 +44,12 @@
   display: none;
 }
 
+.mobileRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
 @media (min-width: 1024px) {
   .inner {
     display: grid;
@@ -55,5 +61,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: var(--space-3);
+  }
+
+  .mobileRight {
+    display: none;
   }
 }

@@ -7,20 +7,32 @@ import styles from "./ServiceCrossDisciplines.module.css";
 interface ServiceCrossDisciplinesProps {
   relatedDisciplines: RelatedDisciplineLink[];
   currentDisciplineTitle: string;
+  locale?: "en" | "ar";
 }
 
 export function ServiceCrossDisciplines({
   relatedDisciplines,
   currentDisciplineTitle,
+  locale = "en",
 }: ServiceCrossDisciplinesProps) {
+  const isAr = locale === "ar";
+
   return (
     <section className={styles.crossSection} aria-label="Integrated Cross-Disciplinary Connections">
       <Container>
         <div className={styles.header}>
-          <span className={styles.kicker}>CROSS-DISCIPLINE THINKING</span>
-          <h2 className={styles.title}>HOW {currentDisciplineTitle.toUpperCase()} CONNECTS ACROSS THE VESSEL</h2>
+          <span className={styles.kicker}>
+            {isAr ? "الترابط بين التخصصات" : "CROSS-DISCIPLINE THINKING"}
+          </span>
+          <h2 className={styles.title}>
+            {isAr
+              ? `كيف ترتبط ${currentDisciplineTitle} بباقي منظومات السفينة`
+              : `HOW ${currentDisciplineTitle.toUpperCase()} CONNECTS ACROSS THE VESSEL`}
+          </h2>
           <p className={styles.subtitle}>
-            Shipboard faults do not operate in silos. ME Group engineers cross-examine adjacent systems to resolve root causes.
+            {isAr
+              ? "أعطال السفن لا تحدث في جزر منعزلة؛ يفحص مهندسونا الأنظمة المجاورة لعلاج السبب الجذري."
+              : "Shipboard faults do not operate in silos. ME Group engineers cross-examine adjacent systems to resolve root causes."}
           </p>
         </div>
 
@@ -33,9 +45,12 @@ export function ServiceCrossDisciplines({
               </div>
               <p className={styles.reasonText}>{rel.reason}</p>
               <div className={styles.cardFooter}>
-                <Link href={`/services/${rel.slug}`} className={styles.exploreLink}>
-                  <span>EXPLORE</span>
-                  <span aria-hidden="true">→</span>
+                <Link
+                  href={isAr ? `/ar/services/${rel.slug}` : `/services/${rel.slug}`}
+                  className={styles.exploreLink}
+                >
+                  <span>{isAr ? "استكشف التخصص" : "EXPLORE"}</span>
+                  <span aria-hidden="true">{isAr ? "←" : "→"}</span>
                 </Link>
               </div>
             </div>

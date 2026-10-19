@@ -14,13 +14,17 @@ import {
 import { getDeliveryAdapter } from "./adapter";
 
 export async function submitTechnicalSupportAction(
-  data: TechnicalSupportRequest
+  data: TechnicalSupportRequest,
+  locale: "en" | "ar" = "en"
 ): Promise<SubmissionResponse> {
-  const errors = validateTechnicalSupport(data);
+  const isAr = locale === "ar";
+  const errors = validateTechnicalSupport(data, locale);
   if (Object.keys(errors).length > 0) {
     return {
       success: false,
-      message: "Please complete all required fields correctly.",
+      message: isAr
+        ? "يرجى استكمال جميع الحقول المطلوبة بشكل صحيح."
+        : "Please complete all required fields correctly.",
       formType: "technical_support",
       timestamp: new Date().toISOString(),
       status: "development_pending",
@@ -35,7 +39,9 @@ export async function submitTechnicalSupportAction(
   if (delivery.delivered) {
     return {
       success: true,
-      message: "Technical request dispatched successfully to the engineering queue.",
+      message: isAr
+        ? "تم إرسال طلب الدعم الفني بنجاح إلى الفريق الهندسي."
+        : "Technical request dispatched successfully to the engineering queue.",
       formType: "technical_support",
       timestamp: new Date().toISOString(),
       status: "delivered",
@@ -49,8 +55,12 @@ export async function submitTechnicalSupportAction(
   return {
     success: isDev,
     message: isDev
-      ? "Development mode: Technical request validated. Production backend integration pending client credentials."
-      : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+      ? isAr
+        ? "وضع التطوير: تم التحقق من صحة الطلب الفني بنجاح."
+        : "Development mode: Technical request validated. Production backend integration pending client credentials."
+      : isAr
+        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى استخدام قنوات الاتصال المباشرة."
+        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
     formType: "technical_support",
     timestamp: new Date().toISOString(),
     status: isDev ? "development_pending" : "unconfigured",
@@ -60,13 +70,17 @@ export async function submitTechnicalSupportAction(
 }
 
 export async function submitRapidSupportAction(
-  data: RapidSupportRequest
+  data: RapidSupportRequest,
+  locale: "en" | "ar" = "en"
 ): Promise<SubmissionResponse> {
-  const errors = validateRapidSupport(data);
+  const isAr = locale === "ar";
+  const errors = validateRapidSupport(data, locale);
   if (Object.keys(errors).length > 0) {
     return {
       success: false,
-      message: "Please complete the required information for priority dispatch.",
+      message: isAr
+        ? "يرجى استكمال البيانات المطلوبة للفرز الفني العاجل."
+        : "Please complete the required information for priority dispatch.",
       formType: "rapid_support",
       timestamp: new Date().toISOString(),
       status: "development_pending",
@@ -81,7 +95,9 @@ export async function submitRapidSupportAction(
   if (delivery.delivered) {
     return {
       success: true,
-      message: "Priority rapid support alert dispatched successfully.",
+      message: isAr
+        ? "تم إرسال بلاغ الدعم السريع بنجاح إلى فريق الاستجابة الفورية."
+        : "Priority rapid support alert dispatched successfully.",
       formType: "rapid_support",
       timestamp: new Date().toISOString(),
       status: "delivered",
@@ -94,8 +110,12 @@ export async function submitRapidSupportAction(
   return {
     success: isDev,
     message: isDev
-      ? "Development mode: Rapid support alert validated. Production backend integration pending client credentials."
-      : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+      ? isAr
+        ? "وضع التطوير: تم التحقق من صحة بلاغ الدعم السريع."
+        : "Development mode: Rapid support alert validated. Production backend integration pending client credentials."
+      : isAr
+        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى الاتصال هاتفياً للحالات الحرجة."
+        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
     formType: "rapid_support",
     timestamp: new Date().toISOString(),
     status: isDev ? "development_pending" : "unconfigured",
@@ -105,13 +125,17 @@ export async function submitRapidSupportAction(
 }
 
 export async function submitSparePartsAction(
-  data: SparePartsRequest
+  data: SparePartsRequest,
+  locale: "en" | "ar" = "en"
 ): Promise<SubmissionResponse> {
-  const errors = validateSpareParts(data);
+  const isAr = locale === "ar";
+  const errors = validateSpareParts(data, locale);
   if (Object.keys(errors).length > 0) {
     return {
       success: false,
-      message: "Please complete all required requisition fields.",
+      message: isAr
+        ? "يرجى استكمال جميع حقول طلب التوريد المطلوبة."
+        : "Please complete all required requisition fields.",
       formType: "spare_parts",
       timestamp: new Date().toISOString(),
       status: "development_pending",
@@ -126,7 +150,9 @@ export async function submitSparePartsAction(
   if (delivery.delivered) {
     return {
       success: true,
-      message: "Spare parts requisition dispatched successfully to procurement.",
+      message: isAr
+        ? "تم إرسال طلب قطع الغيار بنجاح إلى قسم المشتريات والتوريد."
+        : "Spare parts requisition dispatched successfully to procurement.",
       formType: "spare_parts",
       timestamp: new Date().toISOString(),
       status: "delivered",
@@ -139,8 +165,12 @@ export async function submitSparePartsAction(
   return {
     success: isDev,
     message: isDev
-      ? "Development mode: Spare parts requisition validated. Production backend integration pending client credentials."
-      : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+      ? isAr
+        ? "وضع التطوير: تم التحقق من صحة طلب قطع الغيار."
+        : "Development mode: Spare parts requisition validated. Production backend integration pending client credentials."
+      : isAr
+        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى استخدام قنوات الاتصال المباشرة."
+        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
     formType: "spare_parts",
     timestamp: new Date().toISOString(),
     status: isDev ? "development_pending" : "unconfigured",
@@ -150,13 +180,17 @@ export async function submitSparePartsAction(
 }
 
 export async function submitGeneralEnquiryAction(
-  data: GeneralEnquiryRequest
+  data: GeneralEnquiryRequest,
+  locale: "en" | "ar" = "en"
 ): Promise<SubmissionResponse> {
-  const errors = validateGeneralEnquiry(data);
+  const isAr = locale === "ar";
+  const errors = validateGeneralEnquiry(data, locale);
   if (Object.keys(errors).length > 0) {
     return {
       success: false,
-      message: "Please complete all required fields.",
+      message: isAr
+        ? "يرجى استكمال جميع الحقول المطلوبة."
+        : "Please complete all required fields.",
       formType: "general_enquiry",
       timestamp: new Date().toISOString(),
       status: "development_pending",
@@ -171,7 +205,9 @@ export async function submitGeneralEnquiryAction(
   if (delivery.delivered) {
     return {
       success: true,
-      message: "Enquiry dispatched successfully.",
+      message: isAr
+        ? "تم إرسال استفساركم بنجاح."
+        : "Enquiry dispatched successfully.",
       formType: "general_enquiry",
       timestamp: new Date().toISOString(),
       status: "delivered",
@@ -184,8 +220,12 @@ export async function submitGeneralEnquiryAction(
   return {
     success: isDev,
     message: isDev
-      ? "Development mode: Message validated. Production backend integration pending client credentials."
-      : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+      ? isAr
+        ? "وضع التطوير: تم التحقق من صحة الرسالة بنجاح."
+        : "Development mode: Message validated. Production backend integration pending client credentials."
+      : isAr
+        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى استخدام قنوات الاتصال المباشرة."
+        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
     formType: "general_enquiry",
     timestamp: new Date().toISOString(),
     status: isDev ? "development_pending" : "unconfigured",

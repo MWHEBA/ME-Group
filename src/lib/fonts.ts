@@ -4,12 +4,19 @@ import {
   IBM_Plex_Mono,
   Chakra_Petch,
   Space_Grotesk,
+  Cairo,
 } from "next/font/google";
 
 /**
  * Typography hypothesis (DESIGN_SYSTEM §3) — NOT frozen until Phase 2 approval.
  * All font loading lives here; swapping a family is a one-file change.
  */
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-cairo",
+  display: "swap",
+});
 const display = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["600", "700"],
@@ -54,5 +61,6 @@ export const fontVariables = [
   mono.variable,
   altDisplay.variable,
   altBody.variable,
+  cairo.variable,
 ].join(" ");
 

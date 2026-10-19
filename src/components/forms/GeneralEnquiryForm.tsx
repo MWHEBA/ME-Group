@@ -8,7 +8,12 @@ import { FormField } from "./FormField";
 import { FormSuccessState, FormErrorBanner } from "./FormFeedback";
 import styles from "./GeneralEnquiryForm.module.css";
 
-export function GeneralEnquiryForm() {
+interface GeneralEnquiryFormProps {
+  locale?: "en" | "ar";
+}
+
+export function GeneralEnquiryForm({ locale = "en" }: GeneralEnquiryFormProps) {
+  const isAr = locale === "ar";
   const [formData, setFormData] = useState<GeneralEnquiryRequest>({
     contactName: "",
     companyName: "",
@@ -41,7 +46,7 @@ export function GeneralEnquiryForm() {
     e.preventDefault();
     setGlobalError(null);
 
-    const validationErrors = validateGeneralEnquiry(formData);
+    const validationErrors = validateGeneralEnquiry(formData, locale);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       const firstErrorKey = Object.keys(validationErrors)[0];
@@ -51,7 +56,7 @@ export function GeneralEnquiryForm() {
 
     setIsSubmitting(true);
     try {
-      const response = await submitGeneralEnquiryAction(formData);
+      const response = await submitGeneralEnquiryAction(formData, locale);
       if (response.success) {
         setIsSubmitted(true);
       } else {
@@ -61,7 +66,11 @@ export function GeneralEnquiryForm() {
         setGlobalError(response.message);
       }
     } catch {
-      setGlobalError("A connection error occurred. Please try again.");
+      setGlobalError(
+        isAr
+          ? "حدث خطأ في الاتصال. يرجى المحاولة مرة أخرى."
+          : "A connection error occurred. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -70,9 +79,14 @@ export function GeneralEnquiryForm() {
   if (isSubmitted) {
     return (
       <FormSuccessState
+        locale={locale}
         formType="general_enquiry"
-        title="ENQUIRY MESSAGE COMPILED"
-        message={`Thank you, ${formData.contactName}. Your commercial enquiry has been compiled.`}
+        title={isAr ? "تم تجهيز رسالة الاستفسار" : "ENQUIRY MESSAGE COMPILED"}
+        message={
+          isAr
+            ? `شكراً لك، ${formData.contactName}. تم استلام استفسارك التجاري بنجاح وسيتم التواصل معك.`
+            : `Thank you, ${formData.contactName}. Your commercial enquiry has been compiled.`
+        }
         onReset={() => {
           setIsSubmitted(false);
           setFormData({
@@ -90,12 +104,12 @@ export function GeneralEnquiryForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className={styles.enquiryForm}>
-      {globalError && <FormErrorBanner message={globalError} />}
+      {globalError && <FormErrorBanner message={globalError} locale={locale} />}
 
       <div className={styles.fieldsGrid}>
         <FormField
           id="contactName"
-          label="Your Full Name"
+          label={isAr ? "الاسم بالكامل" : "Your Full Name"}
           required
           error={errors.contactName}
         >
@@ -105,7 +119,7 @@ export function GeneralEnquiryForm() {
             name="contactName"
             value={formData.contactName}
             onChange={handleInputChange}
-            placeholder="e.g. John Doe"
+            placeholder={isAr ? "مثال: م. أحمد عبد الله" : "e.g. John Doe"}
             autoComplete="name"
             aria-required="true"
             aria-invalid={!!errors.contactName}
@@ -114,7 +128,7 @@ export function GeneralEnquiryForm() {
 
         <FormField
           id="companyName"
-          label="Company"
+          label={isAr ? "الشركة / المؤسسة" : "Company"}
           error={errors.companyName}
         >
           <input
@@ -123,14 +137,14 @@ export function GeneralEnquiryForm() {
             name="companyName"
             value={formData.companyName}
             onChange={handleInputChange}
-            placeholder="e.g. Maritime Logistics Ltd"
+            placeholder={isAr ? "مثال: شركة الملاحة البحرية" : "e.g. Maritime Logistics Ltd"}
             autoComplete="organization"
           />
         </FormField>
 
         <FormField
           id="email"
-          label="Email Address"
+          label={isAr ? "البريد الإلكتروني" : "Email Address"}
           required
           error={errors.email}
         >
@@ -150,7 +164,7 @@ export function GeneralEnquiryForm() {
 
         <FormField
           id="phone"
-          label="Phone Number"
+          label={isAr ? "رقم الهاتف / واتساب" : "Phone Number"}
           error={errors.phone}
         >
           <input
@@ -169,7 +183,7 @@ export function GeneralEnquiryForm() {
 
       <FormField
         id="subject"
-        label="Subject / Topic"
+        label={isAr ? "الموضوع / عنوان الاستفسار" : "Subject / Topic"}
         required
         error={errors.subject}
       >
@@ -179,7 +193,7 @@ export function GeneralEnquiryForm() {
           name="subject"
           value={formData.subject}
           onChange={handleInputChange}
-          placeholder="e.g. Annual Fleet Maintenance Partnership"
+          placeholder={isAr ? "مثال: شراكة صيانة دورية للأسطول" : "e.g. Annual Fleet Maintenance Partnership"}
           aria-required="true"
           aria-invalid={!!errors.subject}
         />
@@ -187,7 +201,7 @@ export function GeneralEnquiryForm() {
 
       <FormField
         id="message"
-        label="Your Message"
+        label={isAr ? "رسالتك أو تفاصيل الاستفسار" : "Your Message"}
         required
         error={errors.message}
       >
@@ -196,7 +210,7 @@ export function GeneralEnquiryForm() {
           name="message"
           value={formData.message}
           onChange={handleInputChange}
-          placeholder="Enter your message or enquiry details..."
+          placeholder={isAr ? "اكتب تفاصيل استفسارك أو متطلبات العمل..." : "Enter your message or enquiry details..."}
           rows={5}
           aria-required="true"
           aria-invalid={!!errors.message}
@@ -209,8 +223,16 @@ export function GeneralEnquiryForm() {
           disabled={isSubmitting}
           className={styles.submitButton}
         >
-          <span>{isSubmitting ? "SENDING..." : "SEND ENQUIRY"}</span>
-          <span aria-hidden="true">→</span>
+          <span>
+            {isSubmitting
+              ? isAr
+                ? "جاري الإرسال..."
+                : "SENDING..."
+              : isAr
+              ? "إرسال الاستفسار"
+              : "SEND ENQUIRY"}
+          </span>
+          <span aria-hidden="true">{isAr ? "←" : "→"}</span>
         </button>
       </div>
     </form>

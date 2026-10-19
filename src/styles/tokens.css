@@ -50,6 +50,7 @@
   --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
   --font-body: Arial, Helvetica, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-arabic: var(--font-cairo), "Segoe UI", Tahoma, sans-serif;
 
   /* ---- Typography (Hypothesis 2: Comparison Alternative) ---- */
   --font-alt-display: var(--font-chakra-petch), sans-serif;

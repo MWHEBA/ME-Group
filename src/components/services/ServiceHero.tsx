@@ -16,6 +16,7 @@ interface ServiceHeroProps {
   ctaParam?: string;
   imagePath: string;
   imageAlt: string;
+  locale?: "en" | "ar";
 }
 
 export function ServiceHero({
@@ -30,7 +31,9 @@ export function ServiceHero({
   ctaParam,
   imagePath,
   imageAlt,
+  locale = "en",
 }: ServiceHeroProps) {
+  const isAr = locale === "ar";
   const primaryHref = ctaParam
     ? `${ctaTarget}?system=${ctaParam}`
     : ctaTarget;
@@ -58,7 +61,7 @@ export function ServiceHero({
               <Link href={primaryHref} className={styles.primaryBtn}>
                 <span>{ctaText}</span>
                 <span className={styles.btnArrow} aria-hidden="true">
-                  →
+                  {isAr ? "←" : "→"}
                 </span>
               </Link>
             </div>
@@ -69,7 +72,9 @@ export function ServiceHero({
             <div className={styles.visualFrame}>
               <div className={styles.frameHeader}>
                 <span className={styles.frameCode}>SYS / {number}</span>
-                <span className={styles.frameStatus}>CONFIRMED CAPABILITY</span>
+                <span className={styles.frameStatus}>
+                  {isAr ? "قدرة تشغيلية معتمدة" : "CONFIRMED CAPABILITY"}
+                </span>
               </div>
               <div className={styles.imageWrap}>
                 <Image
@@ -82,7 +87,9 @@ export function ServiceHero({
                 />
               </div>
               <div className={styles.frameFooter}>
-                <span className={styles.footerNote}>ME GROUP ENGINEERING ARCHITECTURE</span>
+                <span className={styles.footerNote}>
+                  {isAr ? "الهندسة البحرية المتكاملة ME GROUP" : "ME GROUP ENGINEERING ARCHITECTURE"}
+                </span>
               </div>
             </div>
           </div>

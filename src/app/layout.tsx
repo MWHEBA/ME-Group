@@ -5,6 +5,7 @@ import { MobileSupportBar } from "@/components/layout/MobileSupportBar";
 import { company } from "@/content/site";
 import { fontVariables } from "@/lib/fonts";
 import { isIndexable, siteUrl } from "@/lib/site";
+import { LocaleSync } from "@/components/layout/LocaleSync";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -16,6 +17,10 @@ export const metadata: Metadata = {
   description: `${company.descriptor} ${company.description}`,
   alternates: {
     canonical: "./",
+    languages: {
+      en: "/",
+      ar: "/ar",
+    },
   },
   robots: isIndexable
     ? { index: true, follow: true }
@@ -67,11 +72,17 @@ export default function RootLayout({
     <html lang="en" dir="ltr" className={fontVariables}>
       <head>
         <script
+          dangerouslySetInnerHTML={{
+            __html: `if(typeof window!=='undefined'&&(window.location.pathname==='/ar'||window.location.pathname.startsWith('/ar/'))){document.documentElement.lang='ar';document.documentElement.dir='rtl';}`,
+          }}
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
       <body>
+        <LocaleSync />
         <a href="#main" className="skip-link">
           Skip to main content
         </a>

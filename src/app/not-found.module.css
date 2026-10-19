@@ -10,8 +10,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-5);
-  border-left: 2px solid var(--accent-action);
-  padding-left: var(--space-6);
+  border-inline-start: 2px solid var(--accent-action);
+  padding-inline-start: var(--space-6);
 }
 
 .code {

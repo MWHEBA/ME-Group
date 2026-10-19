@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { type NavItem } from "@/content/navigation";
 import { serviceTaxonomyGroups } from "@/content/services";
+import { serviceTaxonomyGroupsAR } from "@/content/ar/services";
 import styles from "./DesktopNav.module.css";
 
 interface DesktopNavProps {
@@ -16,7 +17,8 @@ function isActive(pathname: string, href: string) {
 }
 
 export function DesktopNav({ items }: DesktopNavProps) {
-  const pathname = usePathname();
+  const pathname = usePathname() || "/";
+  const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
   const panelId = useId();
@@ -32,16 +34,17 @@ export function DesktopNav({ items }: DesktopNavProps) {
     return () => document.removeEventListener("pointerdown", onPointerDown);
   }, [open]);
 
-  // Separate Group A (Core Engineering Systems) and Group B + C (Support & Supplies)
-  const coreEngineeringGroup = serviceTaxonomyGroups[0];
-  const supportGroups = serviceTaxonomyGroups.slice(1);
+  // Separate Group A (Core Engineering Systems) and Group B, C, D (Support, Supplies & Bridge)
+  const currentTaxonomy = isArabic ? serviceTaxonomyGroupsAR : serviceTaxonomyGroups;
+  const coreEngineeringGroup = currentTaxonomy[0];
+  const supportGroups = currentTaxonomy.slice(1);
   const allSupportServices = supportGroups.flatMap((g) => g.services);
 
   return (
     <nav
       ref={wrapRef}
       className={styles.nav}
-      aria-label="Primary"
+      aria-label={isArabic ? "القائمة الرئيسية" : "Primary"}
       onKeyDown={(e) => {
         if (e.key === "Escape" && open) {
           setOpenOn(null);
@@ -90,8 +93,12 @@ export function DesktopNav({ items }: DesktopNavProps) {
                       {/* Column 1: Core Shipboard Engineering Disciplines */}
                       <div className={styles.sectionCol}>
                         <div className={styles.columnHeader}>
-                          <span className={styles.columnTitle}>ENGINEERING DISCIPLINES</span>
-                          <span className={styles.columnCode}>GROUP A</span>
+                          <span className={styles.columnTitle}>
+                            {isArabic ? "منظومات الهندسة البحرية" : "ENGINEERING DISCIPLINES"}
+                          </span>
+                          <span className={styles.columnCode}>
+                            {isArabic ? "المجموعة أ" : "GROUP A"}
+                          </span>
                         </div>
                         <div className={styles.cardsList}>
                           {coreEngineeringGroup.services.map((service) => (
@@ -119,8 +126,12 @@ export function DesktopNav({ items }: DesktopNavProps) {
                       {/* Column 2: Vessel Support, Maintenance & Communications */}
                       <div className={styles.sectionCol}>
                         <div className={styles.columnHeader}>
-                          <span className={styles.columnTitle}>MAINTENANCE, SUPPLIES &amp; BRIDGE</span>
-                          <span className={styles.columnCode}>GROUP B, C &amp; D</span>
+                          <span className={styles.columnTitle}>
+                            {isArabic ? "الصيانة والتجهيز والملاحة" : "MAINTENANCE, SUPPLIES & BRIDGE"}
+                          </span>
+                          <span className={styles.columnCode}>
+                            {isArabic ? "المجموعات ب، ج، د" : "GROUP B, C & D"}
+                          </span>
                         </div>
                         <div className={styles.cardsList}>
                           {allSupportServices.map((service) => (
@@ -148,35 +159,50 @@ export function DesktopNav({ items }: DesktopNavProps) {
                       {/* Column 3: Featured Technical Support Intake Card */}
                       <div className={styles.featuredCard}>
                         <div className={styles.featuredTop}>
-                          <span className={styles.featuredKicker}>TECHNICAL INTAKE</span>
+                          <span className={styles.featuredKicker}>
+                            {isArabic ? "الفرز والاستقبال الهندسي" : "TECHNICAL INTAKE"}
+                          </span>
                           <h3 className={styles.featuredTitle}>
-                            DIRECT ENGINEERING MOBILIZATION
+                            {isArabic ? "تحرك هندسي بحري مباشر" : "DIRECT ENGINEERING MOBILIZATION"}
                           </h3>
                           <p className={styles.featuredDesc}>
-                            Submit vessel machinery parameters, fault symptoms, and port schedule for immediate engineering triage.
+                            {isArabic
+                              ? "أدخل بيانات آلات السفينة، والأعراض المرصودة، ومواعيد التراكي للفرز الفني والتشخيص الفوري."
+                              : "Submit vessel machinery parameters, fault symptoms, and port schedule for immediate engineering triage."}
                           </p>
                         </div>
 
                         <Link
-                          href="/contact/technical-support"
+                          href={isArabic ? "/ar/contact/technical-support" : "/contact/technical-support"}
                           className={styles.featuredBtn}
                         >
-                          <span>REQUEST TECHNICAL SUPPORT</span>
-                          <span aria-hidden="true">→</span>
+                          <span>{isArabic ? "طلب دعم فني فوري" : "REQUEST TECHNICAL SUPPORT"}</span>
+                          <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
                         </Link>
                       </div>
                     </div>
 
                     {/* Bottom Utility Bar */}
                     <div className={styles.panelFooter}>
-                      <Link href="/services" className={styles.allServicesLink}>
-                        <span>Browse Full Services Catalog &amp; Scopes</span>
-                        <span aria-hidden="true">→</span>
+                      <Link
+                        href={isArabic ? "/ar/services" : "/services"}
+                        className={styles.allServicesLink}
+                      >
+                        <span>
+                          {isArabic
+                            ? "استعراض دليل الخدمات والحلول بالكامل"
+                            : "Browse Full Services Catalog & Scopes"}
+                        </span>
+                        <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
                       </Link>
 
                       <div className={styles.panelStatus}>
                         <span className={styles.statusDot} aria-hidden="true" />
-                        <span>24/7 ACTIVE DISPATCH ACROSS ALL PORTS</span>
+                        <span>
+                          {isArabic
+                            ? "استقبال وفرز تشغيلي 24/7 في كافة الموانئ المصرية"
+                            : "24/7 ACTIVE DISPATCH ACROSS ALL PORTS"}
+                        </span>
                       </div>
                     </div>
                   </div>

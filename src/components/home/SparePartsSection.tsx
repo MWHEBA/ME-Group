@@ -3,40 +3,78 @@ import Link from "next/link";
 import { Container } from "@/components/primitives/Container";
 import styles from "./SparePartsSection.module.css";
 
-export function SparePartsSection() {
-  const requisitionFields = [
-    { label: "PART IDENTIFIER", detail: "Exact Part Name or Description" },
-    { label: "PART NUMBER", detail: "Maker OEM Code or Drawing Ref" },
-    { label: "EQUIPMENT MAKER", detail: "Manufacturer & Brand" },
-    { label: "EQUIPMENT MODEL", detail: "Serial & Type Spec" },
-    { label: "QUANTITY & DATE", detail: "Units Required & Target Delivery" },
-    { label: "NAMEPLATE PHOTO", detail: "Direct Photo of Equipment Plate" },
-  ];
+interface SparePartsSectionProps {
+  locale?: "en" | "ar";
+}
+
+export function SparePartsSection({ locale = "en" }: SparePartsSectionProps) {
+  const isArabic = locale === "ar";
+
+  const requisitionFields = isArabic
+    ? [
+        { label: "توصيف القطعة", detail: "الاسم الدقيق أو الوصف الفني للقطعة" },
+        { label: "الرقم الكودي", detail: "كود المصنّع OEM أو رقم الرسم الهندسي" },
+        { label: "الشركة المصنعة", detail: "اسم المصنّع والعلامة التجارية" },
+        { label: "طراز المعدة", detail: "الرقم التسلسلي ومواصفات الطراز" },
+        { label: "الكمية وموعد التسليم", detail: "العدد المطلوب وميناء التسليم المستهدف" },
+        { label: "صورة لوحة البيانات", detail: "صورة مباشرة للوحة بيانات الماكينة (Nameplate)" },
+      ]
+    : [
+        { label: "PART IDENTIFIER", detail: "Exact Part Name or Description" },
+        { label: "PART NUMBER", detail: "Maker OEM Code or Drawing Ref" },
+        { label: "EQUIPMENT MAKER", detail: "Manufacturer & Brand" },
+        { label: "EQUIPMENT MODEL", detail: "Serial & Type Spec" },
+        { label: "QUANTITY & DATE", detail: "Units Required & Target Delivery" },
+        { label: "NAMEPLATE PHOTO", detail: "Direct Photo of Equipment Plate" },
+      ];
 
   return (
-    <section className={styles.partsSection} aria-label="Marine Spare Parts Sourcing">
+    <section
+      className={styles.partsSection}
+      aria-label={isArabic ? "توريد قطع الغيار البحرية" : "Marine Spare Parts Sourcing"}
+    >
       <Container>
         <div className={styles.partsGrid}>
           {/* Left Column: Commercial Statement */}
           <div className={styles.statementCol}>
-            <span className={styles.kicker}>SUPPLY / SPARES</span>
+            <span className={styles.kicker}>
+              {isArabic ? "توريد / قطع غيار بحرية" : "SUPPLY / SPARES"}
+            </span>
             <h2 className={styles.headline}>
-              KNOW THE PART?<br />
-              SEND THE NUMBER.<br />
-              <span className={styles.subHeadline}>
-                DON&apos;T KNOW THE PART?<br />
-                SEND THE NAMEPLATE.
-              </span>
+              {isArabic ? (
+                <>
+                  تعرف رقم القطعة؟<br />
+                  أرسل الرقم الكودي.<br />
+                  <span className={styles.subHeadline}>
+                    لا تعرف رقم القطعة؟<br />
+                    أرسل صورة لوحة البيانات (Nameplate).
+                  </span>
+                </>
+              ) : (
+                <>
+                  KNOW THE PART?<br />
+                  SEND THE NUMBER.<br />
+                  <span className={styles.subHeadline}>
+                    DON&apos;T KNOW THE PART?<br />
+                    SEND THE NAMEPLATE.
+                  </span>
+                </>
+              )}
             </h2>
 
             <p className={styles.description}>
-              We streamline marine equipment spare part procurement. Whether you possess exact OEM drawing numbers or only an onboard machinery nameplate photo, our technical sourcing team identifies, verifies, and dispatches the correct components.
+              {isArabic
+                ? "نُبسّط إجراءات توفير وشحن قطع الغيار البحرية. سواء كنت تملك الأرقام الكودية الأصلية لرسومات المصنّع (OEM) أو فقط صورة للوحة البيانات المثبتة على الماكينة، يتولى فريقنا الهندسي الفحص الفني والمطابقة والتوريد السريع لأدق المكونات."
+                : "We streamline marine equipment spare part procurement. Whether you possess exact OEM drawing numbers or only an onboard machinery nameplate photo, our technical sourcing team identifies, verifies, and dispatches the correct components."}
             </p>
 
             <div className={styles.actionWrap}>
-              <Link href="/contact/spare-parts" className={styles.primaryBtn}>
-                <span>REQUEST SPARE PARTS</span>
-                <span aria-hidden="true">→</span>
+              <Link
+                href={isArabic ? "/ar/contact/spare-parts" : "/contact/spare-parts"}
+                className={styles.primaryBtn}
+              >
+                <span>{isArabic ? "طلب قطع غيار بحرية" : "REQUEST SPARE PARTS"}</span>
+                <span aria-hidden="true">{isArabic ? "←" : "→"}</span>
               </Link>
             </div>
           </div>
@@ -45,8 +83,12 @@ export function SparePartsSection() {
           <div className={styles.protocolCol}>
             <div className={styles.protocolCard}>
               <div className={styles.cardHeader}>
-                <span className={styles.headerTag}>REQUISITION PROTOCOL</span>
-                <span className={styles.headerCode}>PROCURE / 09</span>
+                <span className={styles.headerTag}>
+                  {isArabic ? "بروتوكول طلب التوريد" : "REQUISITION PROTOCOL"}
+                </span>
+                <span className={styles.headerCode}>
+                  {isArabic ? "توريد / 09" : "PROCURE / 09"}
+                </span>
               </div>
 
               <div className={styles.fieldsGrid}>
@@ -63,7 +105,9 @@ export function SparePartsSection() {
 
               <div className={styles.protocolFooter}>
                 <span className={styles.footerNote}>
-                  Nameplate photos and technical drawings accepted via secure inquiry.
+                  {isArabic
+                    ? "نستقبل صور لوحات البيانات والرسومات الهندسية مباشرة عبر نموذج الاستفسار الآمن."
+                    : "Nameplate photos and technical drawings accepted via secure inquiry."}
                 </span>
               </div>
             </div>

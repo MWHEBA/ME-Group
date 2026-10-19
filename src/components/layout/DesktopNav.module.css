@@ -206,7 +206,7 @@
 .featuredCard {
   background-color: var(--color-ink-900);
   border: 1px solid var(--border-inverse);
-  border-left: 4px solid var(--color-brand-red);
+  border-inline-start: 4px solid var(--color-brand-red);
   border-radius: var(--radius-btn);
   padding: var(--space-6);
   display: flex;

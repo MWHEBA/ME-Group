@@ -4,17 +4,22 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/primitives/Button";
 import { ctas } from "@/content/site";
+import { ctasAr } from "@/content/ar/site";
 import { getPrimaryNav } from "@/lib/site";
 import { DesktopNav } from "./DesktopNav";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import styles from "./Header.module.css";
 
 export function Header() {
-  const items = getPrimaryNav();
-  const pathname = usePathname();
-  const isHomePage = pathname === "/";
+  const pathname = usePathname() || "/";
+  const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
+  const items = getPrimaryNav(isArabic ? "ar" : "en");
+  const isHomePage = pathname === "/" || pathname === "/ar" || pathname === "/ar/";
   const [scrolled, setScrolled] = useState(false);
+
+  const cta = isArabic ? ctasAr.technicalSupport : ctas.technicalSupport;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,11 +43,15 @@ export function Header() {
         <Logo scrolled={scrolled} isHomePage={isHomePage} />
         <DesktopNav items={items} />
         <div className={styles.actions}>
-          <Button href={ctas.technicalSupport.href}>
-            {ctas.technicalSupport.label}
+          <LanguageSwitcher />
+          <Button href={cta.href}>
+            {cta.label}
           </Button>
         </div>
-        <MobileNav items={items} />
+        <div className={styles.mobileRight}>
+          <LanguageSwitcher />
+          <MobileNav items={items} />
+        </div>
       </div>
     </header>
   );

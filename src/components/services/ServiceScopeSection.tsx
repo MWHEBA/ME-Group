@@ -7,20 +7,28 @@ interface ServiceScopeSectionProps {
   disciplinePhilosophy?: string;
   scopeCategories: ServiceScopeItem[];
   disciplineNumber: string;
+  locale?: "en" | "ar";
 }
 
 export function ServiceScopeSection({
   disciplinePhilosophy,
   scopeCategories,
   disciplineNumber,
+  locale = "en",
 }: ServiceScopeSectionProps) {
+  const isAr = locale === "ar";
+
   return (
     <section className={styles.scopeSection} aria-label="Technical Scope & Capabilities">
       <Container>
         {disciplinePhilosophy && (
           <div className={styles.philosophyBox}>
             <div className={styles.philosophyHeader}>
-              <span className={styles.philosophyBadge}>ENGINEERING PRINCIPLE / {disciplineNumber}</span>
+              <span className={styles.philosophyBadge}>
+                {isAr
+                  ? `مبدأ هندسي / ${disciplineNumber}`
+                  : `ENGINEERING PRINCIPLE / ${disciplineNumber}`}
+              </span>
             </div>
             <p className={styles.philosophyText}>{disciplinePhilosophy}</p>
           </div>
@@ -28,11 +36,17 @@ export function ServiceScopeSection({
 
         <div className={styles.sectionHeading}>
           <div className={styles.kickerRow}>
-            <span className={styles.kicker}>CONFIRMED TECHNICAL SCOPE</span>
+            <span className={styles.kicker}>
+              {isAr ? "النطاق الفني المعتمد" : "CONFIRMED TECHNICAL SCOPE"}
+            </span>
             <span className={styles.kickerDivider}>/</span>
-            <span className={styles.kickerDetail}>WHAT WE HANDLE &amp; EXECUTE</span>
+            <span className={styles.kickerDetail}>
+              {isAr ? "ما ننفذه ونتعامل معه" : "WHAT WE HANDLE & EXECUTE"}
+            </span>
           </div>
-          <h2 className={styles.title}>ENGINEERING DELIVERABLES &amp; INTERVENTIONS</h2>
+          <h2 className={styles.title}>
+            {isAr ? "مخرجات التدخل الهندسي ونطاق العمل" : "ENGINEERING DELIVERABLES & INTERVENTIONS"}
+          </h2>
         </div>
 
         <div className={styles.categoriesGrid}>

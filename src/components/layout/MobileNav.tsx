@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { Logo } from "./Logo";
 import { Button } from "@/components/primitives/Button";
 import { ctas } from "@/content/site";
+import { ctasAr } from "@/content/ar/site";
 import { intentEntry, type NavItem } from "@/content/navigation";
 import { serviceGroups, serviceHref } from "@/content/services";
+import { serviceTaxonomyGroupsAR } from "@/content/ar/services";
 import { isVisible } from "@/lib/site";
 import styles from "./MobileNav.module.css";
 
@@ -20,6 +23,12 @@ interface MobileNavProps {
  * menu button.
  */
 export function MobileNav({ items }: MobileNavProps) {
+  const pathname = usePathname() || "/";
+  const isArabic = pathname === "/ar" || pathname.startsWith("/ar/");
+  const cta = isArabic ? ctasAr.technicalSupport : ctas.technicalSupport;
+
+  const currentServiceGroups = isArabic ? serviceTaxonomyGroupsAR : serviceGroups;
+
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [expanded, setExpanded] = useState(false);
 
@@ -38,13 +47,13 @@ export function MobileNav({ items }: MobileNavProps) {
         aria-expanded={expanded}
         onClick={openMenu}
       >
-        Menu
+        {isArabic ? "القائمة" : "Menu"}
       </button>
 
       <dialog
         ref={dialogRef}
         className={styles.dialog}
-        aria-label="Main menu"
+        aria-label={isArabic ? "القائمة الرئيسية" : "Main menu"}
         onClose={() => setExpanded(false)}
         onClick={(e) => {
           if ((e.target as HTMLElement).closest("a")) closeMenu();
@@ -58,11 +67,11 @@ export function MobileNav({ items }: MobileNavProps) {
             onClick={closeMenu}
             autoFocus
           >
-            Close
+            {isArabic ? "إغلاق" : "Close"}
           </button>
         </div>
 
-        <nav aria-label="Primary mobile" className={styles.nav}>
+        <nav aria-label={isArabic ? "القائمة الرئيسية للجوال" : "Primary mobile"} className={styles.nav}>
           <ul>
             {items.map((item) => (
               <li key={item.id} className={styles.item}>
@@ -70,14 +79,14 @@ export function MobileNav({ items }: MobileNavProps) {
                   <details className={styles.details}>
                     <summary className={styles.summary}>{item.label}</summary>
                     <div className={styles.groups}>
-                      {serviceGroups.filter(isVisible).map((group) => (
+                      {currentServiceGroups.filter(isVisible).map((group) => (
                         <div key={group.slug}>
                           <p className={styles.groupTitle}>{group.title}</p>
                           <ul>
                             {group.services.filter(isVisible).map((service) => (
                               <li key={service.slug}>
                                 <Link
-                                  href={serviceHref(group, service)}
+                                  href={isArabic ? service.href : serviceHref(group, service)}
                                   className={styles.subLink}
                                 >
                                   {service.title}
@@ -87,11 +96,14 @@ export function MobileNav({ items }: MobileNavProps) {
                           </ul>
                         </div>
                       ))}
-                      <Link href="/services" className={styles.subLink}>
-                        All services
+                      <Link href={isArabic ? "/ar/services" : "/services"} className={styles.subLink}>
+                        {isArabic ? "جميع الخدمات والحلول الهندسية" : "All services"}
                       </Link>
-                      <Link href={intentEntry.href} className={styles.subLink}>
-                        {intentEntry.label}
+                      <Link
+                        href={isArabic ? "/ar/contact/technical-support" : intentEntry.href}
+                        className={styles.subLink}
+                      >
+                        {isArabic ? "ما الذي تحتاجه سفينتك الآن؟" : intentEntry.label}
                       </Link>
                     </div>
                   </details>
@@ -106,8 +118,8 @@ export function MobileNav({ items }: MobileNavProps) {
         </nav>
 
         <div className={styles.actions}>
-          <Button href={ctas.technicalSupport.href} size="lg">
-            {ctas.technicalSupport.label}
+          <Button href={cta.href} size="lg">
+            {cta.label}
           </Button>
         </div>
       </dialog>

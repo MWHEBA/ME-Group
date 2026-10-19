@@ -9,7 +9,12 @@ import { FileUploadZone } from "./FileUploadZone";
 import { FormSuccessState, FormErrorBanner } from "./FormFeedback";
 import styles from "./RapidSupportForm.module.css";
 
-export function RapidSupportForm() {
+interface RapidSupportFormProps {
+  locale?: "en" | "ar";
+}
+
+export function RapidSupportForm({ locale = "en" }: RapidSupportFormProps) {
+  const isAr = locale === "ar";
   const [formData, setFormData] = useState<RapidSupportRequest>({
     vesselName: "",
     currentPort: "",
@@ -29,12 +34,12 @@ export function RapidSupportForm() {
   const [globalError, setGlobalError] = useState<string | null>(null);
 
   const disciplines: { id: EngineeringDiscipline; label: string }[] = [
-    { id: "mechanical", label: "Mechanical Breakdown" },
-    { id: "electrical", label: "Electrical / Blackout" },
-    { id: "automation", label: "Control / PLC Fault" },
-    { id: "pneumatic", label: "Pneumatic / Air Loss" },
-    { id: "radio", label: "Radio & Bridge Breakdown" },
-    { id: "other", label: "Other / Multiple" },
+    { id: "mechanical", label: isAr ? "عطل ميكانيكي / محركات" : "Mechanical Breakdown" },
+    { id: "electrical", label: isAr ? "عطل كهربائي / إظلام" : "Electrical / Blackout" },
+    { id: "automation", label: isAr ? "عطل تحكم / PLC" : "Control / PLC Fault" },
+    { id: "pneumatic", label: isAr ? "عطل هوائي / ضواغط" : "Pneumatic / Air Loss" },
+    { id: "radio", label: isAr ? "عطل راديو وملاحة" : "Radio & Bridge Breakdown" },
+    { id: "other", label: isAr ? "أخرى / متعدد" : "Other / Multiple" },
   ];
 
   const handleInputChange = (
@@ -59,7 +64,7 @@ export function RapidSupportForm() {
     e.preventDefault();
     setGlobalError(null);
 
-    const validationErrors = validateRapidSupport(formData);
+    const validationErrors = validateRapidSupport(formData, locale);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       const firstErrorKey = Object.keys(validationErrors)[0];
@@ -69,7 +74,7 @@ export function RapidSupportForm() {
 
     setIsSubmitting(true);
     try {
-      const response = await submitRapidSupportAction(formData);
+      const response = await submitRapidSupportAction(formData, locale);
       if (response.success) {
         setSubmissionResult({
           isDelivered: response.isDelivered,
@@ -83,7 +88,11 @@ export function RapidSupportForm() {
         setGlobalError(response.message);
       }
     } catch {
-      setGlobalError("A connection error occurred. Please call dispatch directly if urgent.");
+      setGlobalError(
+        isAr
+          ? "حدث خطأ في الاتصال. يرجى الاتصال بهاتف الفرز مباشرة في الحالات الحرجة."
+          : "A connection error occurred. Please call dispatch directly if urgent."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -92,15 +101,24 @@ export function RapidSupportForm() {
   if (isSubmitted) {
     return (
       <FormSuccessState
+        locale={locale}
         formType="rapid_support"
         isDelivered={submissionResult?.isDelivered}
         deliveryReference={submissionResult?.deliveryReference}
         title={
           submissionResult?.isDelivered
-            ? "RAPID ALERT DISPATCHED"
+            ? isAr
+              ? "تم إرسال بلاغ الدعم السريع"
+              : "RAPID ALERT DISPATCHED"
+            : isAr
+            ? "تم تجهيز ملف الدعم الفني العاجل"
             : "RAPID SUPPORT PACKAGE PREPARED"
         }
-        message={`Priority dispatch details compiled for vessel "${formData.vesselName}".`}
+        message={
+          isAr
+            ? `تم استلام بيانات الفرز الفني ذات الأولوية للسفينة "${formData.vesselName}".`
+            : `Priority dispatch details compiled for vessel "${formData.vesselName}".`
+        }
         onReset={() => {
           setIsSubmitted(false);
           setFormData({
@@ -118,14 +136,20 @@ export function RapidSupportForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className={styles.rapidForm}>
-      {globalError && <FormErrorBanner message={globalError} />}
+      {globalError && <FormErrorBanner message={globalError} locale={locale} />}
 
       {/* Priority Banner Header */}
       <div className={styles.priorityBar}>
         <div className={styles.pulseDot} aria-hidden="true" />
         <div className={styles.priorityText}>
-          <span className={styles.priorityHeading}>STREAMLINED URGENT INTAKE</span>
-          <span className={styles.prioritySub}>Direct operational queue for active breakdowns &amp; blackouts.</span>
+          <span className={styles.priorityHeading}>
+            {isAr ? "فرز فني عاجل وفوري" : "STREAMLINED URGENT INTAKE"}
+          </span>
+          <span className={styles.prioritySub}>
+            {isAr
+              ? "طابور تشغيلي مباشر للأعطال الحرجة وحالات الإظلام التام (Blackout)."
+              : "Direct operational queue for active breakdowns & blackouts."}
+          </span>
         </div>
       </div>
 
@@ -133,7 +157,7 @@ export function RapidSupportForm() {
         <div className={styles.fieldsGrid}>
           <FormField
             id="vesselName"
-            label="Vessel Name"
+            label={isAr ? "اسم السفينة" : "Vessel Name"}
             required
             error={errors.vesselName}
           >
@@ -143,7 +167,7 @@ export function RapidSupportForm() {
               name="vesselName"
               value={formData.vesselName}
               onChange={handleInputChange}
-              placeholder="e.g. MV Red Sea Pioneer"
+              placeholder={isAr ? "مثال: MV Red Sea Pioneer" : "e.g. MV Red Sea Pioneer"}
               aria-required="true"
               aria-invalid={!!errors.vesselName}
             />
@@ -151,7 +175,7 @@ export function RapidSupportForm() {
 
           <FormField
             id="currentPort"
-            label="Current Port / Location"
+            label={isAr ? "الميناء الحالي / المخطاف" : "Current Port / Location"}
             required
             error={errors.currentPort}
           >
@@ -161,7 +185,7 @@ export function RapidSupportForm() {
               name="currentPort"
               value={formData.currentPort}
               onChange={handleInputChange}
-              placeholder="e.g. Suez Anchorage / Port Said"
+              placeholder={isAr ? "مثال: مخطاف السويس / بورسعيد / الإسكندرية" : "e.g. Suez Anchorage / Port Said"}
               aria-required="true"
               aria-invalid={!!errors.currentPort}
             />
@@ -170,7 +194,7 @@ export function RapidSupportForm() {
 
         <FormField
           id="problemSummary"
-          label="Urgent Fault &amp; Operational Impact"
+          label={isAr ? "توصيف العطل العاجل والأثر التشغيلي" : "Urgent Fault & Operational Impact"}
           required
           error={errors.problemSummary}
         >
@@ -179,7 +203,11 @@ export function RapidSupportForm() {
             name="problemSummary"
             value={formData.problemSummary}
             onChange={handleInputChange}
-            placeholder="State the active fault (e.g. Generator 2 tripping on reverse power, Main engine cooling pump seized, steering gear hydraulic loss)..."
+            placeholder={
+              isAr
+                ? "حدد العطل النشط (مثال: فصل المولد 2 على Reverse Power، توقف مضخة تبريد المحرك، فقدان الضغط الهيدروليكي للتوجيه)..."
+                : "State the active fault (e.g. Generator 2 tripping on reverse power, Main engine cooling pump seized, steering gear hydraulic loss)..."
+            }
             rows={4}
             aria-required="true"
             aria-invalid={!!errors.problemSummary}
@@ -188,7 +216,9 @@ export function RapidSupportForm() {
 
         {/* Optional Discipline */}
         <div className={styles.disciplineRow}>
-          <span className={styles.subLabel}>SYSTEM CATEGORY (OPTIONAL)</span>
+          <span className={styles.subLabel}>
+            {isAr ? "تخصص المنظومة (اختياري)" : "SYSTEM CATEGORY (OPTIONAL)"}
+          </span>
           <div className={styles.disciplineOptions}>
             {disciplines.map((d) => {
               const isSelected = formData.systemDiscipline === d.id;
@@ -213,10 +243,10 @@ export function RapidSupportForm() {
 
         <FormField
           id="phone"
-          label="Direct Dispatch Phone / WhatsApp (with Country Code)"
+          label={isAr ? "رقم الفرز المباشر / واتساب (مع كود الدولة)" : "Direct Dispatch Phone / WhatsApp (with Country Code)"}
           required
           error={errors.phone}
-          hint="We will contact this number immediately"
+          hint={isAr ? "سيتواصل معك مهندس الفرز فوراً عبر هذا الرقم" : "We will contact this number immediately"}
         >
           <input
             type="tel"
@@ -233,8 +263,13 @@ export function RapidSupportForm() {
         </FormField>
 
         <FileUploadZone
-          label="FAULT PHOTO OR NAMEPLATE (OPTIONAL)"
-          description="If you have an immediate photo of the alarm panel or defective component, attach it below."
+          locale={locale}
+          label={isAr ? "صورة لوحة الإنذارات أو لوحة بيانات المعدة (اختياري)" : "FAULT PHOTO OR NAMEPLATE (OPTIONAL)"}
+          description={
+            isAr
+              ? "إذا توفرت لديك صورة فورية للوحة الإنذارات أو القطعة التالفة، يرجى إرفاقها أدناه."
+              : "If you have an immediate photo of the alarm panel or defective component, attach it below."
+          }
           attachments={formData.attachments || []}
           onAttachmentsChange={handleAttachmentsChange}
         />
@@ -245,8 +280,16 @@ export function RapidSupportForm() {
             disabled={isSubmitting}
             className={styles.rapidSubmitBtn}
           >
-            <span>{isSubmitting ? "DISPATCHING REQUEST..." : "REQUEST RAPID SUPPORT"}</span>
-            <span aria-hidden="true">→</span>
+            <span>
+              {isSubmitting
+                ? isAr
+                  ? "جاري إرسال البلاغ..."
+                  : "DISPATCHING REQUEST..."
+                : isAr
+                ? "إرسال طلب الدعم العاجل"
+                : "REQUEST RAPID SUPPORT"}
+            </span>
+            <span aria-hidden="true">{isAr ? "←" : "→"}</span>
           </button>
         </div>
       </div>

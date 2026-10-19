@@ -178,3 +178,61 @@ hr {
   color: var(--text-secondary);
 }
 
+/* ---- RTL & Arabic Typography System ---- */
+.arabic-scope,
+[dir="rtl"],
+html[lang="ar"],
+:root[dir="rtl"] {
+  --font-display: var(--font-arabic);
+  --font-body: var(--font-arabic);
+}
+
+.arabic-scope,
+[dir="rtl"] body,
+html[lang="ar"] body {
+  font-family: var(--font-arabic);
+  letter-spacing: normal;
+  text-align: start;
+}
+
+.arabic-scope h1,
+.arabic-scope h2,
+.arabic-scope h3,
+.arabic-scope h4,
+.arabic-scope h5,
+.arabic-scope h6,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6,
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3,
+html[lang="ar"] h4,
+html[lang="ar"] h5,
+html[lang="ar"] h6 {
+  font-family: var(--font-arabic);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+[dir="rtl"] .capsule,
+[dir="rtl"] .badge-capsule,
+html[lang="ar"] .capsule,
+html[lang="ar"] .badge-capsule {
+  font-family: var(--font-arabic);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* RTL Arrow Flipping */
+[dir="rtl"] .arrow-icon,
+[dir="rtl"] .arrow,
+html[lang="ar"] .arrow-icon,
+html[lang="ar"] .arrow {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+

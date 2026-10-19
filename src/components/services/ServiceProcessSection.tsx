@@ -11,20 +11,30 @@ interface ProcessStep {
 interface ServiceProcessSectionProps {
   steps: ProcessStep[];
   disciplineTitle: string;
+  locale?: "en" | "ar";
 }
 
 export function ServiceProcessSection({
   steps,
   disciplineTitle,
+  locale = "en",
 }: ServiceProcessSectionProps) {
+  const isAr = locale === "ar";
+
   return (
     <section className={styles.processSection} aria-label="Technical Engineering Process">
       <Container>
         <div className={styles.header}>
-          <span className={styles.kicker}>ENGINEERING PROTOCOL</span>
-          <h2 className={styles.title}>HOW WE EXECUTE &amp; VERIFY</h2>
+          <span className={styles.kicker}>
+            {isAr ? "البروتوكول الهندسي" : "ENGINEERING PROTOCOL"}
+          </span>
+          <h2 className={styles.title}>
+            {isAr ? "كيف ننفذ ونتحقق من الجودة" : "HOW WE EXECUTE & VERIFY"}
+          </h2>
           <p className={styles.subtitle}>
-            Standardized operational methodology applied during {disciplineTitle} interventions.
+            {isAr
+              ? `منهجية عمل قياسية مطبقة في كافة تدخلات ${disciplineTitle}.`
+              : `Standardized operational methodology applied during ${disciplineTitle} interventions.`}
           </p>
         </div>
 

@@ -1,5 +1,6 @@
 import { features } from "@/content/site";
 import { primaryNav, type NavItem } from "@/content/navigation";
+import { primaryNavAr } from "@/content/ar/navigation";
 
 export const isProduction = process.env.NODE_ENV === "production";
 
@@ -12,8 +13,9 @@ export function isVisible(item: {
   return !isProduction || item.status === "confirmed";
 }
 
-export function getPrimaryNav(): NavItem[] {
-  return primaryNav.filter(isVisible);
+export function getPrimaryNav(locale: "en" | "ar" = "en"): NavItem[] {
+  const items = locale === "ar" ? primaryNavAr : primaryNav;
+  return items.filter(isVisible);
 }
 
 export const siteUrl =

@@ -5,7 +5,12 @@ import Link from "next/link";
 import { Container } from "@/components/primitives/Container";
 import styles from "./HomeHero.module.css";
 
-export function HomeHero() {
+interface HomeHeroProps {
+  locale?: "en" | "ar";
+}
+
+export function HomeHero({ locale = "en" }: HomeHeroProps) {
+  const isArabic = locale === "ar";
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -62,50 +67,79 @@ export function HomeHero() {
       <Container>
         <div className={styles.heroContent}>
           <h1 className={styles.heroHeadline}>
-            <span>KEEPING</span>
-            <span className={styles.headlineAccent}>VESSELS</span>
-            <span>MOVING.</span>
+            {isArabic ? (
+              <>
+                <span>استمرار </span>
+                <span className={styles.headlineAccent}>إبحار السفن</span>
+                <span> بكفاءة.</span>
+              </>
+            ) : (
+              <>
+                <span>KEEPING</span>
+                <span className={styles.headlineAccent}>VESSELS</span>
+                <span>MOVING.</span>
+              </>
+            )}
           </h1>
 
           <div className={styles.heroSubtitle}>
-            Marine Engineering, Maintenance &amp; Vessel Support.
+            {isArabic
+              ? "الهندسة البحرية، الصيانة، ودعم السفن المتكامل."
+              : "Marine Engineering, Maintenance & Vessel Support."}
           </div>
 
           <p className={styles.heroSupporting}>
-            Integrated technical support across mechanical, electrical, automation and pneumatic systems.
+            {isArabic
+              ? "دعم فني هندسي متكامل يغطي الأنظمة الميكانيكية، الكهربائية، التحكم الآلي، والأنظمة الهوائية."
+              : "Integrated technical support across mechanical, electrical, automation and pneumatic systems."}
           </p>
 
           <div className={styles.ctaGroup}>
-            <Link href="/contact/technical-support" className={styles.ctaPrimary}>
-              <span>REQUEST TECHNICAL SUPPORT</span>
-              <span className={styles.arrowIcon}>→</span>
+            <Link
+              href={isArabic ? "/ar/contact/technical-support" : "/contact/technical-support"}
+              className={styles.ctaPrimary}
+            >
+              <span>{isArabic ? "طلب دعم فني بحري" : "REQUEST TECHNICAL SUPPORT"}</span>
+              <span className={styles.arrowIcon}>{isArabic ? "←" : "→"}</span>
             </Link>
-            <Link href="#systems" className={styles.ctaSecondary}>
-              <span>EXPLORE CAPABILITIES</span>
+            <Link href="#core-systems" className={styles.ctaSecondary}>
+              <span>{isArabic ? "استعراض الأنظمة الهندسية" : "EXPLORE CAPABILITIES"}</span>
               <span className={styles.arrowIcon}>↓</span>
             </Link>
           </div>
 
           {/* 4-System Category Rail */}
           <div className={styles.systemRail}>
-            <Link href="/services/mechanical" className={styles.railItem}>
-              <span className={styles.railCode}>MECH / 01</span>
-              <span className={styles.railName}>MECHANICAL</span>
+            <Link
+              href={isArabic ? "/ar/services/mechanical" : "/services/mechanical"}
+              className={styles.railItem}
+            >
+              <span className={styles.railCode}>{isArabic ? "ميكانيكا / 01" : "MECH / 01"}</span>
+              <span className={styles.railName}>{isArabic ? "ميكانيكا" : "MECHANICAL"}</span>
             </Link>
             <div className={styles.railDivider} />
-            <Link href="/services/electrical" className={styles.railItem}>
-              <span className={styles.railCode}>ELEC / 02</span>
-              <span className={styles.railName}>ELECTRICAL</span>
+            <Link
+              href={isArabic ? "/ar/services/electrical" : "/services/electrical"}
+              className={styles.railItem}
+            >
+              <span className={styles.railCode}>{isArabic ? "كهرباء / 02" : "ELEC / 02"}</span>
+              <span className={styles.railName}>{isArabic ? "طاقة كهربائية" : "ELECTRICAL"}</span>
             </Link>
             <div className={styles.railDivider} />
-            <Link href="/services/automation" className={styles.railItem}>
-              <span className={styles.railCode}>AUTO / 03</span>
-              <span className={styles.railName}>AUTOMATION</span>
+            <Link
+              href={isArabic ? "/ar/services/automation" : "/services/automation"}
+              className={styles.railItem}
+            >
+              <span className={styles.railCode}>{isArabic ? "تحكم / 03" : "AUTO / 03"}</span>
+              <span className={styles.railName}>{isArabic ? "تحكم آلي" : "AUTOMATION"}</span>
             </Link>
             <div className={styles.railDivider} />
-            <Link href="/services/pneumatic" className={styles.railItem}>
-              <span className={styles.railCode}>PNEU / 04</span>
-              <span className={styles.railName}>PNEUMATIC</span>
+            <Link
+              href={isArabic ? "/ar/services/pneumatic" : "/services/pneumatic"}
+              className={styles.railItem}
+            >
+              <span className={styles.railCode}>{isArabic ? "هوائيات / 04" : "PNEU / 04"}</span>
+              <span className={styles.railName}>{isArabic ? "أنظمة هوائية" : "PNEUMATIC"}</span>
             </Link>
           </div>
         </div>

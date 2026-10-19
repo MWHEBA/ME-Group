@@ -21,7 +21,7 @@ export const features: FeatureFlags = {
   insights: false,
   certifications: false,
   vesselTypes: false,
-  arabic: false,
+  arabic: true,
   analytics: false,
 };
 
@@ -32,8 +32,8 @@ export const company = {
   descriptor: "Marine Engineering, Maintenance & Vessel Support.",
   description:
     "Integrated technical support across mechanical, electrical, automation, pneumatic, and navigation & communication systems, supported by maintenance, rapid response, spare parts and vessel support services.",
-  address: "Iskander Ibrahim St., Miami, Alexandria, Egypt",
-  operationsHub: "Alexandria Port Maritime Area, Alexandria, Egypt",
+  address: "Mandara Bahari, Montaza 2nd District, Alexandria, Egypt",
+  operationsHub: "Alexandria Port Maritime Area and all ports All over Egypt",
   phone: "+20 3 5510000",
   mobile: "+20 1012116108",
   secondaryMobile: "+20 1223855644",

@@ -9,6 +9,7 @@ interface ServiceConversionCtaProps {
   ctaTarget: string;
   ctaParam?: string;
   systemCode: string;
+  locale?: "en" | "ar";
 }
 
 export function ServiceConversionCta({
@@ -17,7 +18,9 @@ export function ServiceConversionCta({
   ctaTarget,
   ctaParam,
   systemCode,
+  locale = "en",
 }: ServiceConversionCtaProps) {
+  const isAr = locale === "ar";
   const primaryHref = ctaParam
     ? `${ctaTarget}?system=${ctaParam}`
     : ctaTarget;
@@ -27,17 +30,25 @@ export function ServiceConversionCta({
       <Container>
         <div className={styles.ctaCard}>
           <div className={styles.headerRow}>
-            <span className={styles.kicker}>TECHNICAL INTAKE &amp; DISPATCH</span>
-            <span className={styles.code}>DISCIPLINE / {systemCode}</span>
+            <span className={styles.kicker}>
+              {isAr ? "الاستقبال والفرز الفني" : "TECHNICAL INTAKE & DISPATCH"}
+            </span>
+            <span className={styles.code}>
+              {isAr ? `التخصص / ${systemCode}` : `DISCIPLINE / ${systemCode}`}
+            </span>
           </div>
 
           <div className={styles.bodyGrid}>
             <div className={styles.textCol}>
               <h2 className={styles.title}>
-                REQUIRE TECHNICAL SUPPORT FOR {disciplineTitle.toUpperCase()}?
+                {isAr
+                  ? `هل تحتاج إلى دعم فني في ${disciplineTitle}؟`
+                  : `REQUIRE TECHNICAL SUPPORT FOR ${disciplineTitle.toUpperCase()}?`}
               </h2>
               <p className={styles.description}>
-                Submit your vessel details, observed equipment parameters, and port schedule. Our marine engineering triage team reviews the technical scope immediately.
+                {isAr
+                  ? "أرسل بيانات سفينتك، والمعاملات المرصودة للمعدة، وجدول تراكي السفينة. يراجع فريق الفرز الهندسي النطاق فوراً."
+                  : "Submit your vessel details, observed equipment parameters, and port schedule. Our marine engineering triage team reviews the technical scope immediately."}
               </p>
             </div>
 
@@ -45,7 +56,7 @@ export function ServiceConversionCta({
               <Link href={primaryHref} className={styles.primaryBtn}>
                 <span>{ctaText}</span>
                 <span className={styles.btnArrow} aria-hidden="true">
-                  →
+                  {isAr ? "←" : "→"}
                 </span>
               </Link>
             </div>

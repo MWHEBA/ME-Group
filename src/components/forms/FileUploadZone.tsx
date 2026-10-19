@@ -11,16 +11,26 @@ interface FileUploadZoneProps {
   onAttachmentsChange: (attachments: AttachmentMetadata[]) => void;
   maxFileSizeMB?: number;
   acceptedExtensions?: string;
+  locale?: "en" | "ar";
 }
 
 export function FileUploadZone({
-  label = "TECHNICAL ATTACHMENTS & DOCUMENTATION",
-  description = "Attach nameplate photos, fault screenshots, or technical documents (PDF, JPG, PNG, WEBP up to 10MB).",
+  label,
+  description,
   attachments,
   onAttachmentsChange,
   maxFileSizeMB = 10,
   acceptedExtensions = ".pdf,.jpg,.jpeg,.png,.webp",
+  locale = "en",
 }: FileUploadZoneProps) {
+  const isAr = locale === "ar";
+  const resolvedLabel = label ?? (isAr ? "المرفقات الفنية والمستندات" : "TECHNICAL ATTACHMENTS & DOCUMENTATION");
+  const resolvedDesc = description ?? (
+    isAr
+      ? "أرفق صور لوحة البيانات أو لقطات الأعطال أو المستندات الفنية (PDF, JPG, PNG, WEBP حتى 10 ميجابايت)."
+      : "Attach nameplate photos, fault screenshots, or technical documents (PDF, JPG, PNG, WEBP up to 10MB)."
+  );
+
   const [isDragging, setIsDragging] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,7 +45,11 @@ export function FileUploadZone({
 
     Array.from(files).forEach((file) => {
       if (file.size > maxSizeBytes) {
-        setErrorMessage(`"${file.name}" exceeds the maximum allowed size (${maxFileSizeMB}MB).`);
+        setErrorMessage(
+          isAr
+            ? `الملف "${file.name}" تجاوز الحد الأقصى المسموح به (${maxFileSizeMB} ميجابايت).`
+            : `"${file.name}" exceeds the maximum allowed size (${maxFileSizeMB}MB).`
+        );
         return;
       }
 
@@ -64,19 +78,19 @@ export function FileUploadZone({
   };
 
   const formatFileSize = (bytes: number): string => {
-    if (bytes < 1024) return `${bytes} B`;
-    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    if (bytes < 1024) return isAr ? `${bytes} بايت` : `${bytes} B`;
+    if (bytes < 1024 * 1024) return isAr ? `${(bytes / 1024).toFixed(1)} ك.ب` : `${(bytes / 1024).toFixed(1)} KB`;
+    return isAr ? `${(bytes / (1024 * 1024)).toFixed(1)} م.ب` : `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
   return (
     <div className={styles.uploadContainer}>
       <div className={styles.headerRow}>
-        <span className={styles.sectionLabel}>{label}</span>
-        <span className={styles.optionalBadge}>OPTIONAL</span>
+        <span className={styles.sectionLabel}>{resolvedLabel}</span>
+        <span className={styles.optionalBadge}>{isAr ? "اختياري" : "OPTIONAL"}</span>
       </div>
 
-      <p className={styles.uploadDesc}>{description}</p>
+      <p className={styles.uploadDesc}>{resolvedDesc}</p>
 
       {/* Drag & Drop Zone */}
       <div
@@ -96,7 +110,7 @@ export function FileUploadZone({
             fileInputRef.current?.click();
           }
         }}
-        aria-label="Upload technical document or photo"
+        aria-label={isAr ? "رفع مستند فني أو صورة" : "Upload technical document or photo"}
       >
         <input
           ref={fileInputRef}
@@ -110,8 +124,14 @@ export function FileUploadZone({
         <div className={styles.dropContent}>
           <span className={styles.uploadIcon} aria-hidden="true">⬆</span>
           <div className={styles.dropText}>
-            <span className={styles.primaryAction}>CHOOSE FILE OR DRAG &amp; DROP</span>
-            <span className={styles.formatHint}>Supported: Photos (JPG, PNG, WEBP), Documents (PDF, DOCX, TXT)</span>
+            <span className={styles.primaryAction}>
+              {isAr ? "اختر ملفاً أو اسحبه هنا" : "CHOOSE FILE OR DRAG & DROP"}
+            </span>
+            <span className={styles.formatHint}>
+              {isAr
+                ? "الصيغ المدعومة: صور (JPG, PNG, WEBP)، مستندات (PDF, DOCX, TXT)"
+                : "Supported: Photos (JPG, PNG, WEBP), Documents (PDF, DOCX, TXT)"}
+            </span>
           </div>
         </div>
       </div>
@@ -126,7 +146,9 @@ export function FileUploadZone({
       {/* Attached Files List */}
       {attachments.length > 0 && (
         <div className={styles.fileList}>
-          <span className={styles.listHeading}>ATTACHED FILES ({attachments.length}):</span>
+          <span className={styles.listHeading}>
+            {isAr ? `الملفات المرفقة (${attachments.length}):` : `ATTACHED FILES (${attachments.length}):`}
+          </span>
           <ul className={styles.filesGrid}>
             {attachments.map((att) => (
               <li key={att.id} className={styles.fileCard}>
@@ -144,7 +166,7 @@ export function FileUploadZone({
                     removeAttachment(att.id);
                   }}
                   className={styles.removeBtn}
-                  aria-label={`Remove file ${att.name}`}
+                  aria-label={isAr ? `حذف الملف ${att.name}` : `Remove file ${att.name}`}
                 >
                   ✕
                 </button>

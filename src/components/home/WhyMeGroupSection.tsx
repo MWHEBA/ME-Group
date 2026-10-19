@@ -1,26 +1,43 @@
 import React from "react";
 import { Container } from "@/components/primitives/Container";
 import { WHY_ME_GROUP } from "@/content/home";
+import { WHY_ME_GROUP_AR } from "@/content/ar/home";
 import styles from "./WhyMeGroupSection.module.css";
 
-export function WhyMeGroupSection() {
+interface WhyMeGroupSectionProps {
+  locale?: "en" | "ar";
+}
+
+export function WhyMeGroupSection({ locale = "en" }: WhyMeGroupSectionProps) {
+  const isArabic = locale === "ar";
+  const pillars = isArabic ? WHY_ME_GROUP_AR : WHY_ME_GROUP;
+
   return (
-    <section className={styles.whySection} aria-label="Why Choose ME Group">
+    <section
+      className={styles.whySection}
+      aria-label={isArabic ? "لماذا تختار مجموعة الهندسة البحرية" : "Why Choose ME Group"}
+    >
       <Container>
         {/* Section Header */}
         <div className={styles.sectionHeader}>
           <div className={styles.headerLeft}>
-            <span className={styles.kicker}>OPERATIONAL CREDIBILITY</span>
-            <h2 className={styles.title}>WHY PARTNER WITH ME GROUP</h2>
+            <span className={styles.kicker}>
+              {isArabic ? "المصداقية والاعتمادية التشغيلية" : "OPERATIONAL CREDIBILITY"}
+            </span>
+            <h2 className={styles.title}>
+              {isArabic ? "لماذا تختار الشراكة مع ME GROUP" : "WHY PARTNER WITH ME GROUP"}
+            </h2>
           </div>
           <p className={styles.subtitle}>
-            A dedicated marine engineering organisation delivering multidisciplinary competence, rapid field response, and technical integrity.
+            {isArabic
+              ? "مؤسسة هندسية بحرية متخصصة تقدم كفاءات فنية متعددة التخصصات، استجابة ميدانية فورية، ونزاهة هندسية موثوقة."
+              : "A dedicated marine engineering organisation delivering multidisciplinary competence, rapid field response, and technical integrity."}
           </p>
         </div>
 
         {/* 4 Pillars Editorial Grid */}
         <div className={styles.pillarsGrid}>
-          {WHY_ME_GROUP.map((pillar, idx) => (
+          {pillars.map((pillar, idx) => (
             <div key={idx} className={styles.pillarCard}>
               <div className={styles.pillarHeader}>
                 <span className={styles.pillarCode}>{pillar.code}</span>

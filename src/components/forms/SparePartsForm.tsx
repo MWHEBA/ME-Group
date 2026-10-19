@@ -13,7 +13,12 @@ import { FileUploadZone } from "./FileUploadZone";
 import { FormSuccessState, FormErrorBanner } from "./FormFeedback";
 import styles from "./SparePartsForm.module.css";
 
-export function SparePartsForm() {
+interface SparePartsFormProps {
+  locale?: "en" | "ar";
+}
+
+export function SparePartsForm({ locale = "en" }: SparePartsFormProps) {
+  const isAr = locale === "ar";
   const [formData, setFormData] = useState<SparePartsRequest>({
     identificationPath: "known_part",
     partName: "",
@@ -74,7 +79,7 @@ export function SparePartsForm() {
     e.preventDefault();
     setGlobalError(null);
 
-    const validationErrors = validateSpareParts(formData);
+    const validationErrors = validateSpareParts(formData, locale);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       const firstErrorKey = Object.keys(validationErrors)[0];
@@ -84,7 +89,7 @@ export function SparePartsForm() {
 
     setIsSubmitting(true);
     try {
-      const response = await submitSparePartsAction(formData);
+      const response = await submitSparePartsAction(formData, locale);
       if (response.success) {
         setSubmissionResult({
           isDelivered: response.isDelivered,
@@ -98,7 +103,11 @@ export function SparePartsForm() {
         setGlobalError(response.message);
       }
     } catch {
-      setGlobalError("A connection error occurred. Please verify your details and try again.");
+      setGlobalError(
+        isAr
+          ? "حدث خطأ في الاتصال. يرجى مراجعة البيانات والمحاولة مرة أخرى."
+          : "A connection error occurred. Please verify your details and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -107,15 +116,24 @@ export function SparePartsForm() {
   if (isSubmitted) {
     return (
       <FormSuccessState
+        locale={locale}
         formType="spare_parts"
         isDelivered={submissionResult?.isDelivered}
         deliveryReference={submissionResult?.deliveryReference}
         title={
           submissionResult?.isDelivered
-            ? "REQUISITION DISPATCHED"
+            ? isAr
+              ? "تم إرسال طلب التوريد بنجاح"
+              : "REQUISITION DISPATCHED"
+            : isAr
+            ? "تم تجهيز طلب قطع الغيار"
             : "SPARE PARTS REQUISITION PREPARED"
         }
-        message={`Requisition package compiled for "${formData.partName}" (${formData.quantity} units).`}
+        message={
+          isAr
+            ? `تم تجميع حزمة طلب التوريد لـ "${formData.partName}" (${formData.quantity}).`
+            : `Requisition package compiled for "${formData.partName}" (${formData.quantity} units).`
+        }
         onReset={() => {
           setIsSubmitted(false);
           setFormData({
@@ -143,20 +161,28 @@ export function SparePartsForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className={styles.partsForm}>
-      {globalError && <FormErrorBanner message={globalError} />}
+      {globalError && <FormErrorBanner message={globalError} locale={locale} />}
 
       {/* Path Toggle Header */}
       <div className={styles.pathToggleCard}>
-        <span className={styles.toggleKicker}>SELECT IDENTIFICATION METHOD</span>
+        <span className={styles.toggleKicker}>
+          {isAr ? "حدد أسلوب تحديد القطعة" : "SELECT IDENTIFICATION METHOD"}
+        </span>
         <div className={styles.toggleButtons}>
           <button
             type="button"
             className={`${styles.toggleBtn} ${isKnownPath ? styles.toggleBtnActive : ""}`}
             onClick={() => handlePathChange("known_part")}
           >
-            <span className={styles.toggleCode}>PATH A</span>
-            <span className={styles.toggleTitle}>I KNOW THE PART NUMBER</span>
-            <span className={styles.toggleSub}>OEM drawing number, catalogue or maker reference available</span>
+            <span className={styles.toggleCode}>{isAr ? "المسار أ" : "PATH A"}</span>
+            <span className={styles.toggleTitle}>
+              {isAr ? "أعرف رقم القطعة (PART NUMBER)" : "I KNOW THE PART NUMBER"}
+            </span>
+            <span className={styles.toggleSub}>
+              {isAr
+                ? "رقم رسم المصنّع، الكتالوج، أو المرجع الفني متاح لدي"
+                : "OEM drawing number, catalogue or maker reference available"}
+            </span>
           </button>
 
           <button
@@ -164,9 +190,15 @@ export function SparePartsForm() {
             className={`${styles.toggleBtn} ${!isKnownPath ? styles.toggleBtnActive : ""}`}
             onClick={() => handlePathChange("need_identification")}
           >
-            <span className={styles.toggleCode}>PATH B</span>
-            <span className={styles.toggleTitle}>I NEED HELP IDENTIFYING</span>
-            <span className={styles.toggleSub}>Machinery nameplate photo, equipment model or dimensions</span>
+            <span className={styles.toggleCode}>{isAr ? "المسار ب" : "PATH B"}</span>
+            <span className={styles.toggleTitle}>
+              {isAr ? "أحتاج لمساعدة في تحديد القطعة" : "I NEED HELP IDENTIFYING"}
+            </span>
+            <span className={styles.toggleSub}>
+              {isAr
+                ? "صورة لوحة بيانات المعدة (Nameplate)، أو طراز المعدة وأبعادها"
+                : "Machinery nameplate photo, equipment model or dimensions"}
+            </span>
           </button>
         </div>
       </div>
@@ -176,14 +208,20 @@ export function SparePartsForm() {
         <div className={styles.sectionHeader}>
           <span className={styles.stepBadge}>01 / 03</span>
           <h3 className={styles.sectionTitle}>
-            {isKnownPath ? "PART & OEM SPECIFICATION" : "EQUIPMENT & COMPONENT DETAILS"}
+            {isKnownPath
+              ? isAr
+                ? "مواصفات القطعة والشركة المصنعة"
+                : "PART & OEM SPECIFICATION"
+              : isAr
+              ? "بيانات المعدة والمكون المطلوب"
+              : "EQUIPMENT & COMPONENT DETAILS"}
           </h3>
         </div>
 
         <div className={styles.fieldsGrid}>
           <FormField
             id="partName"
-            label="Part / Component Name"
+            label={isAr ? "اسم القطعة / المكون" : "Part / Component Name"}
             required
             error={errors.partName}
           >
@@ -193,7 +231,11 @@ export function SparePartsForm() {
               name="partName"
               value={formData.partName}
               onChange={handleInputChange}
-              placeholder="e.g. Mechanical Seal / Fuel Injector Nozzle / GMDSS Battery / AVR Board"
+              placeholder={
+                isAr
+                  ? "مثال: ميكانيكال سيل / رشاش وقود / بطارية GMDSS / كارت AVR"
+                  : "e.g. Mechanical Seal / Fuel Injector Nozzle / GMDSS Battery / AVR Board"
+              }
               aria-required="true"
               aria-invalid={!!errors.partName}
             />
@@ -201,7 +243,15 @@ export function SparePartsForm() {
 
           <FormField
             id="partNumber"
-            label={isKnownPath ? "Part Number / Drawing Ref" : "Part Number (If visible)"}
+            label={
+              isKnownPath
+                ? isAr
+                  ? "رقم القطعة / رقم الرسم (Part Number)"
+                  : "Part Number / Drawing Ref"
+                : isAr
+                ? "رقم القطعة (إذا كان ظاهراً)"
+                : "Part Number (If visible)"
+            }
             required={isKnownPath}
             error={errors.partNumber}
           >
@@ -211,7 +261,13 @@ export function SparePartsForm() {
               name="partNumber"
               value={formData.partNumber}
               onChange={handleInputChange}
-              placeholder={isKnownPath ? "e.g. 512.040-02 / 12345-AB" : "Leave blank if not visible"}
+              placeholder={
+                isKnownPath
+                  ? "e.g. 512.040-02 / 12345-AB"
+                  : isAr
+                  ? "اتركه فارغاً إن لم يكن ظاهراً"
+                  : "Leave blank if not visible"
+              }
               aria-required={isKnownPath}
               aria-invalid={!!errors.partNumber}
             />
@@ -219,7 +275,7 @@ export function SparePartsForm() {
 
           <FormField
             id="maker"
-            label="Equipment Maker / Brand"
+            label={isAr ? "الشركة المصنعة للمعدة / الماركة" : "Equipment Maker / Brand"}
             error={errors.maker}
           >
             <input
@@ -234,7 +290,7 @@ export function SparePartsForm() {
 
           <FormField
             id="model"
-            label="Equipment Model / Type"
+            label={isAr ? "طراز المعدة / النوع" : "Equipment Model / Type"}
             error={errors.model}
           >
             <input
@@ -251,7 +307,7 @@ export function SparePartsForm() {
         <div className={styles.fieldsGrid}>
           <FormField
             id="quantity"
-            label="Quantity Required"
+            label={isAr ? "الكمية المطلوبة" : "Quantity Required"}
             required
             error={errors.quantity}
           >
@@ -261,7 +317,7 @@ export function SparePartsForm() {
               name="quantity"
               value={formData.quantity}
               onChange={handleInputChange}
-              placeholder="e.g. 2 Units / 1 Full Set"
+              placeholder={isAr ? "مثال: عدد 2 / طقم كامل (1 Set)" : "e.g. 2 Units / 1 Full Set"}
               aria-required="true"
               aria-invalid={!!errors.quantity}
             />
@@ -269,7 +325,7 @@ export function SparePartsForm() {
 
           <FormField
             id="deliveryLocation"
-            label="Target Delivery Port / Destination"
+            label={isAr ? "ميناء / وجهة التسليم المستهدفة" : "Target Delivery Port / Destination"}
             required
             error={errors.deliveryLocation}
           >
@@ -279,7 +335,7 @@ export function SparePartsForm() {
               name="deliveryLocation"
               value={formData.deliveryLocation}
               onChange={handleInputChange}
-              placeholder="e.g. Port Said / Suez Anchorage / Alexandria"
+              placeholder={isAr ? "مثال: بورسعيد / غاطس السويس / الإسكندرية" : "e.g. Port Said / Suez Anchorage / Alexandria"}
               aria-required="true"
               aria-invalid={!!errors.deliveryLocation}
             />
@@ -288,7 +344,7 @@ export function SparePartsForm() {
 
         <FormField
           id="notes"
-          label="Additional Technical Notes"
+          label={isAr ? "ملاحظات فنية إضافية" : "Additional Technical Notes"}
           error={errors.notes}
         >
           <textarea
@@ -296,7 +352,11 @@ export function SparePartsForm() {
             name="notes"
             value={formData.notes}
             onChange={handleInputChange}
-            placeholder="Special material requirements, voltage ratings, or vessel delivery timeline..."
+            placeholder={
+              isAr
+                ? "اشتراطات خامات معينة، جهود كهربائية، أو موعد إبحار السفينة..."
+                : "Special material requirements, voltage ratings, or vessel delivery timeline..."
+            }
             rows={3}
           />
         </FormField>
@@ -307,15 +367,34 @@ export function SparePartsForm() {
         <div className={styles.sectionHeader}>
           <span className={styles.stepBadge}>02 / 03</span>
           <h3 className={styles.sectionTitle}>
-            {!isKnownPath ? "NAMEPLATE OR DEFECTIVE PART PHOTO" : "TECHNICAL DRAWING OR SPEC SHEET"}
+            {!isKnownPath
+              ? isAr
+                ? "صورة لوحة البيانات (Nameplate) أو القطعة التالفة"
+                : "NAMEPLATE OR DEFECTIVE PART PHOTO"
+              : isAr
+              ? "الرسم الفني أو ورقة البيانات"
+              : "TECHNICAL DRAWING OR SPEC SHEET"}
           </h3>
         </div>
 
         <FileUploadZone
-          label={!isKnownPath ? "NAMEPLATE & PART PHOTOS (RECOMMENDED)" : "DRAWING OR DOCUMENTATION (OPTIONAL)"}
+          locale={locale}
+          label={
+            !isKnownPath
+              ? isAr
+                ? "صور لوحة البيانات والقطعة (موصى به بشدة)"
+                : "NAMEPLATE & PART PHOTOS (RECOMMENDED)"
+              : isAr
+              ? "الرسم الهندسي أو المستندات (اختياري)"
+              : "DRAWING OR DOCUMENTATION (OPTIONAL)"
+          }
           description={
             !isKnownPath
-              ? "A clear photo of the machinery nameplate allows our sourcing team to identify the exact OEM catalog and part numbers."
+              ? isAr
+                ? "صورة واضحة للوحة بيانات المعدة تمكن مهندسي التوريد من مطابقة الكتالوج وتحديد الأرقام الأصلية بدقة."
+                : "A clear photo of the machinery nameplate allows our sourcing team to identify the exact OEM catalog and part numbers."
+              : isAr
+              ? "أرفق الرسومات أو المخططات أو النشرات الفنية للتحقق من التفاوتات والأبعاد الدقيقة."
               : "Attach drawings, schematics, or maker technical sheets to verify exact dimensional tolerance."
           }
           attachments={formData.attachments}
@@ -327,13 +406,15 @@ export function SparePartsForm() {
       <div className={styles.sectionCard}>
         <div className={styles.sectionHeader}>
           <span className={styles.stepBadge}>03 / 03</span>
-          <h3 className={styles.sectionTitle}>BUYER / TECHNICAL CONTACT</h3>
+          <h3 className={styles.sectionTitle}>
+            {isAr ? "مسؤول المشتريات / جهة الاتصال الفنية" : "BUYER / TECHNICAL CONTACT"}
+          </h3>
         </div>
 
         <div className={styles.fieldsGrid}>
           <FormField
             id="contactName"
-            label="Contact Full Name"
+            label={isAr ? "اسم مسؤول الاتصال بالكامل" : "Contact Full Name"}
             required
             error={errors.contactName}
           >
@@ -343,7 +424,7 @@ export function SparePartsForm() {
               name="contactName"
               value={formData.contactName}
               onChange={handleInputChange}
-              placeholder="e.g. Technical Buyer / Superintendent"
+              placeholder={isAr ? "مثال: م. فادي كامل (Superintendent)" : "e.g. Technical Buyer / Superintendent"}
               autoComplete="name"
               aria-required="true"
               aria-invalid={!!errors.contactName}
@@ -352,7 +433,7 @@ export function SparePartsForm() {
 
           <FormField
             id="companyName"
-            label="Company Name"
+            label={isAr ? "اسم الشركة / المؤسسة" : "Company Name"}
             required
             error={errors.companyName}
           >
@@ -362,7 +443,7 @@ export function SparePartsForm() {
               name="companyName"
               value={formData.companyName}
               onChange={handleInputChange}
-              placeholder="e.g. Marine Operations / Shipping Co"
+              placeholder={isAr ? "مثال: شركة الملاحة البحرية" : "e.g. Marine Operations / Shipping Co"}
               autoComplete="organization"
               aria-required="true"
               aria-invalid={!!errors.companyName}
@@ -371,7 +452,7 @@ export function SparePartsForm() {
 
           <FormField
             id="email"
-            label="Corporate Email"
+            label={isAr ? "البريد الإلكتروني للعمل" : "Corporate Email"}
             required
             error={errors.email}
           >
@@ -391,7 +472,7 @@ export function SparePartsForm() {
 
           <FormField
             id="phone"
-            label="Phone / WhatsApp (with Country Code)"
+            label={isAr ? "رقم الهاتف / واتساب (مع كود الدولة)" : "Phone / WhatsApp (with Country Code)"}
             required
             error={errors.phone}
           >
@@ -416,8 +497,16 @@ export function SparePartsForm() {
             disabled={isSubmitting}
             className={styles.submitButton}
           >
-            <span>{isSubmitting ? "PROCESSING REQUISITION..." : "REQUEST SPARE PARTS"}</span>
-            <span aria-hidden="true">→</span>
+            <span>
+              {isSubmitting
+                ? isAr
+                  ? "جاري معالجة الطلب..."
+                  : "PROCESSING REQUISITION..."
+                : isAr
+                ? "إرسال طلب قطع الغيار"
+                : "REQUEST SPARE PARTS"}
+            </span>
+            <span aria-hidden="true">{isAr ? "←" : "→"}</span>
           </button>
         </div>
       </div>

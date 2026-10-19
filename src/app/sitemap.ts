@@ -4,20 +4,60 @@ import { getPrimaryNav, isVisible, siteUrl } from "@/lib/site";
 
 export const dynamic = "force-static";
 
-/** Built from confirmed content and enabled feature flags only. */
+/** Built from confirmed content and enabled feature flags with bilingual hreflang alternates. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = new Set<string>(["/"]);
-  getPrimaryNav().forEach((item) => paths.add(item.href));
+  const englishPaths = new Set<string>(["/"]);
+  getPrimaryNav("en").forEach((item) => englishPaths.add(item.href));
   [
     "/contact/technical-support",
+    "/contact/rapid-support",
+    "/contact/spare-parts",
     "/company/about",
     "/company/approach",
     "/company/quality-safety",
-  ].forEach((p) => paths.add(p));
+  ].forEach((p) => englishPaths.add(p));
+
   serviceGroups
     .filter(isVisible)
     .forEach((g) =>
-      g.services.filter(isVisible).forEach((s) => paths.add(serviceHref(g, s))),
+      g.services.filter(isVisible).forEach((s) => englishPaths.add(serviceHref(g, s))),
     );
-  return [...paths].map((p) => ({ url: `${siteUrl}${p}` }));
+
+  const sitemapEntries: MetadataRoute.Sitemap = [];
+
+  englishPaths.forEach((path) => {
+    const enUrl = `${siteUrl}${path}`;
+    const arPath = path === "/" ? "/ar" : `/ar${path}`;
+    const arUrl = `${siteUrl}${arPath}`;
+
+    // English entry with Arabic alternate
+    sitemapEntries.push({
+      url: enUrl,
+      lastModified: new Date(),
+      changeFrequency: path === "/" ? "daily" : "weekly",
+      priority: path === "/" ? 1.0 : 0.8,
+      alternates: {
+        languages: {
+          en: enUrl,
+          ar: arUrl,
+        },
+      },
+    });
+
+    // Arabic entry with English alternate
+    sitemapEntries.push({
+      url: arUrl,
+      lastModified: new Date(),
+      changeFrequency: path === "/" ? "daily" : "weekly",
+      priority: path === "/" ? 1.0 : 0.8,
+      alternates: {
+        languages: {
+          en: enUrl,
+          ar: arUrl,
+        },
+      },
+    });
+  });
+
+  return sitemapEntries;
 }
