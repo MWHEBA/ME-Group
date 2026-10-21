@@ -4,6 +4,7 @@
  * 
  * Target Environment: Apache / cPanel / PHP 8.x
  * Location: public/api/send-mail.php (copied to out/api/send-mail.php on export)
+ * Last Updated: 2026-10-21 (PHP 8.x modern OOP MIME verification)
  * 
  * Features:
  * - CORS protection (restricted to megroup-eg.com, www.megroup-eg.com, and localhost)
@@ -109,7 +110,7 @@ if (!is_dir($rateLimitDir)) {
 $rateFile = $rateLimitDir . '/rate_' . md5($clientIp) . '.json';
 $currentTime = time();
 $windowSeconds = 600; // 10 minutes
-$maxRequests = 5;
+$maxRequests = 20; // Generous ceiling for corporate offices, port networks, and active testing
 
 $rateData = ['count' => 0, 'first_request' => $currentTime];
 if (file_exists($rateFile)) {
@@ -119,6 +120,9 @@ if (file_exists($rateFile)) {
         if (is_array($decoded) && isset($decoded['first_request'], $decoded['count'])) {
             if ($currentTime - $decoded['first_request'] < $windowSeconds) {
                 $rateData = $decoded;
+            } else {
+                // Window expired: start fresh period
+                $rateData = ['count' => 0, 'first_request' => $currentTime];
             }
         }
     }
@@ -294,10 +298,14 @@ if (!empty($_FILES['attachments'])) {
 
         if ($size > $maxFileSizeBytes) continue;
 
-        // Verify real MIME type using finfo
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $detectedMime = finfo_file($finfo, $tmpName);
-        finfo_close($finfo);
+        // Verify real MIME type using modern finfo object (PHP 8.x compatible)
+        $detectedMime = 'application/octet-stream';
+        if (class_exists('finfo')) {
+            $finfoObj = new finfo(FILEINFO_MIME_TYPE);
+            $detectedMime = $finfoObj->file($tmpName) ?: 'application/octet-stream';
+        } elseif (function_exists('mime_content_type')) {
+            $detectedMime = mime_content_type($tmpName) ?: 'application/octet-stream';
+        }
 
         $ext = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
         if (isset($allowedMimes[$detectedMime]) || in_array($ext, ['pdf', 'jpg', 'jpeg', 'png', 'webp', 'docx', 'txt'], true)) {
