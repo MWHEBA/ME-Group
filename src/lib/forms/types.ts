@@ -21,6 +21,7 @@ export interface AttachmentMetadata {
   size: number;
   type: string;
   lastModified: number;
+  file?: File;
 }
 
 export interface TechnicalSupportRequest {

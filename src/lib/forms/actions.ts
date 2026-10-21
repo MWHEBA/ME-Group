@@ -34,7 +34,7 @@ export async function submitTechnicalSupportAction(
   }
 
   const adapter = getDeliveryAdapter();
-  const delivery = await adapter.deliverTechnicalSupport(data);
+  const delivery = await adapter.deliverTechnicalSupport(data, locale);
 
   if (delivery.delivered) {
     return {
@@ -50,20 +50,16 @@ export async function submitTechnicalSupportAction(
     };
   }
 
-  // Handle unconfigured or development mode safely
-  const isDev = process.env.NODE_ENV !== "production";
   return {
-    success: isDev,
-    message: isDev
-      ? isAr
-        ? "وضع التطوير: تم التحقق من صحة الطلب الفني بنجاح."
-        : "Development mode: Technical request validated. Production backend integration pending client credentials."
-      : isAr
-        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى استخدام قنوات الاتصال المباشرة."
-        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+    success: false,
+    message:
+      delivery.error ||
+      (isAr
+        ? "تعذر إرسال الطلب في الوقت الحالي. يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة."
+        : "Submission could not be completed. Please try again or contact us directly."),
     formType: "technical_support",
     timestamp: new Date().toISOString(),
-    status: isDev ? "development_pending" : "unconfigured",
+    status: "unconfigured",
     isDelivered: false,
     deliveryReference: delivery.referenceId,
   };
@@ -90,7 +86,7 @@ export async function submitRapidSupportAction(
   }
 
   const adapter = getDeliveryAdapter();
-  const delivery = await adapter.deliverRapidSupport(data);
+  const delivery = await adapter.deliverRapidSupport(data, locale);
 
   if (delivery.delivered) {
     return {
@@ -106,19 +102,16 @@ export async function submitRapidSupportAction(
     };
   }
 
-  const isDev = process.env.NODE_ENV !== "production";
   return {
-    success: isDev,
-    message: isDev
-      ? isAr
-        ? "وضع التطوير: تم التحقق من صحة بلاغ الدعم السريع."
-        : "Development mode: Rapid support alert validated. Production backend integration pending client credentials."
-      : isAr
-        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى الاتصال هاتفياً للحالات الحرجة."
-        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+    success: false,
+    message:
+      delivery.error ||
+      (isAr
+        ? "تعذر إرسال البلاغ في الوقت الحالي. يرجى الاتصال هاتفياً للحالات الحرجة."
+        : "Rapid support dispatch could not be completed. Please call our direct line."),
     formType: "rapid_support",
     timestamp: new Date().toISOString(),
-    status: isDev ? "development_pending" : "unconfigured",
+    status: "unconfigured",
     isDelivered: false,
     deliveryReference: delivery.referenceId,
   };
@@ -145,7 +138,7 @@ export async function submitSparePartsAction(
   }
 
   const adapter = getDeliveryAdapter();
-  const delivery = await adapter.deliverSpareParts(data);
+  const delivery = await adapter.deliverSpareParts(data, locale);
 
   if (delivery.delivered) {
     return {
@@ -161,19 +154,16 @@ export async function submitSparePartsAction(
     };
   }
 
-  const isDev = process.env.NODE_ENV !== "production";
   return {
-    success: isDev,
-    message: isDev
-      ? isAr
-        ? "وضع التطوير: تم التحقق من صحة طلب قطع الغيار."
-        : "Development mode: Spare parts requisition validated. Production backend integration pending client credentials."
-      : isAr
-        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى استخدام قنوات الاتصال المباشرة."
-        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+    success: false,
+    message:
+      delivery.error ||
+      (isAr
+        ? "تعذر إرسال طلب قطع الغيار في الوقت الحالي. يرجى المحاولة لاحقاً أو مراسلتنا مباشرة."
+        : "Spare parts requisition could not be completed. Please contact us directly."),
     formType: "spare_parts",
     timestamp: new Date().toISOString(),
-    status: isDev ? "development_pending" : "unconfigured",
+    status: "unconfigured",
     isDelivered: false,
     deliveryReference: delivery.referenceId,
   };
@@ -200,7 +190,7 @@ export async function submitGeneralEnquiryAction(
   }
 
   const adapter = getDeliveryAdapter();
-  const delivery = await adapter.deliverGeneralEnquiry(data);
+  const delivery = await adapter.deliverGeneralEnquiry(data, locale);
 
   if (delivery.delivered) {
     return {
@@ -216,19 +206,16 @@ export async function submitGeneralEnquiryAction(
     };
   }
 
-  const isDev = process.env.NODE_ENV !== "production";
   return {
-    success: isDev,
-    message: isDev
-      ? isAr
-        ? "وضع التطوير: تم التحقق من صحة الرسالة بنجاح."
-        : "Development mode: Message validated. Production backend integration pending client credentials."
-      : isAr
-        ? "الإرسال الإلكتروني قيد التهيئة حالياً. يرجى استخدام قنوات الاتصال المباشرة."
-        : "Electronic submission is temporarily unavailable pending backend delivery configuration. Please use direct contact channels.",
+    success: false,
+    message:
+      delivery.error ||
+      (isAr
+        ? "تعذر إرسال الاستفسار في الوقت الحالي. يرجى استخدام قنوات الاتصال المباشرة."
+        : "Enquiry could not be sent. Please use our direct contact channels."),
     formType: "general_enquiry",
     timestamp: new Date().toISOString(),
-    status: isDev ? "development_pending" : "unconfigured",
+    status: "unconfigured",
     isDelivered: false,
     deliveryReference: delivery.referenceId,
   };

@@ -36,31 +36,58 @@ export function FileUploadZone({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const maxSizeBytes = maxFileSizeMB * 1024 * 1024;
+  const maxTotalSizeBytes = 10 * 1024 * 1024; // 10MB total cap
 
   const handleFiles = (files: FileList | null) => {
     if (!files || files.length === 0) return;
     setErrorMessage(null);
 
-    const newAttachments: AttachmentMetadata[] = [];
+    const allowedExts = acceptedExtensions
+      .split(",")
+      .map((ext) => ext.trim().toLowerCase());
 
-    Array.from(files).forEach((file) => {
+    const newAttachments: AttachmentMetadata[] = [];
+    let currentTotal = attachments.reduce((sum, a) => sum + a.size, 0);
+
+    for (const file of Array.from(files)) {
+      const ext = "." + file.name.split(".").pop()?.toLowerCase();
+      if (!allowedExts.includes(ext)) {
+        setErrorMessage(
+          isAr
+            ? `نوع الملف "${file.name}" غير مدعوم. الصيغ المسموحة: ${acceptedExtensions}`
+            : `File type for "${file.name}" is not supported. Allowed: ${acceptedExtensions}`
+        );
+        continue;
+      }
+
       if (file.size > maxSizeBytes) {
         setErrorMessage(
           isAr
             ? `الملف "${file.name}" تجاوز الحد الأقصى المسموح به (${maxFileSizeMB} ميجابايت).`
             : `"${file.name}" exceeds the maximum allowed size (${maxFileSizeMB}MB).`
         );
-        return;
+        continue;
       }
 
+      if (currentTotal + file.size > maxTotalSizeBytes) {
+        setErrorMessage(
+          isAr
+            ? "إجمالي حجم المرفقات تجاوز الحد الأقصى المسموح به (10 ميجابايت)."
+            : "Total attachment size exceeds maximum allowed limit (10MB)."
+        );
+        break;
+      }
+
+      currentTotal += file.size;
       newAttachments.push({
-        id: `att_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
+        id: `att_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
         name: file.name,
         size: file.size,
         type: file.type || "application/octet-stream",
         lastModified: file.lastModified,
+        file: file,
       });
-    });
+    }
 
     if (newAttachments.length > 0) {
       onAttachmentsChange([...attachments, ...newAttachments]);
@@ -118,7 +145,10 @@ export function FileUploadZone({
           multiple
           accept={acceptedExtensions}
           className={styles.hiddenInput}
-          onChange={(e) => handleFiles(e.target.files)}
+          onChange={(e) => {
+            handleFiles(e.target.files);
+            e.target.value = "";
+          }}
         />
 
         <div className={styles.dropContent}>
