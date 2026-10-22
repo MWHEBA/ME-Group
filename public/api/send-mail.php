@@ -440,8 +440,23 @@ function renderClientConfirmationHtml(string $refId, string $contactName, string
 // -----------------------------------------------------------------------------
 
 $toAdmin = 'info@megroup-eg.com';
-$fromAdmin = 'ME Group Technical Dispatch <info@megroup-eg.com>';
-$replyTo = !empty($email) ? sanitizeHeader($email) : 'info@megroup-eg.com';
+
+// Use client's name in From display header while sending through official domain for SPF/DKIM/DMARC alignment
+$fromDisplayName = !empty($contactName) 
+    ? sanitizeHeader($contactName) . ' via ME Group Web' 
+    : 'ME Group Technical Dispatch';
+$fromAdmin = "{$fromDisplayName} <info@megroup-eg.com>";
+
+// Direct reply to the client's email so clicking Reply in the email client immediately addresses the user
+if (!empty($email)) {
+    $cleanClientName = sanitizeHeader($contactName);
+    $replyTo = !empty($cleanClientName) 
+        ? "{$cleanClientName} <" . sanitizeHeader($email) . ">" 
+        : sanitizeHeader($email);
+} else {
+    $replyTo = 'info@megroup-eg.com';
+}
+
 $fullSubject = sanitizeHeader("{$emailSubjectPrefix} — Ref: {$refId}");
 
 $htmlAdminBody = renderAdminEmailHtml($refId, $detailsTable, count($attachments));
@@ -453,6 +468,7 @@ $boundaryAlt = '==_Alt_Boundary_' . md5(uniqid((string)time(), true));
 $headers = [];
 $headers[] = 'From: ' . $fromAdmin;
 $headers[] = 'Reply-To: ' . $replyTo;
+$headers[] = 'Return-Path: <info@megroup-eg.com>';
 $headers[] = 'X-Mailer: MEGroup-Dispatch/1.0';
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: multipart/mixed; boundary="' . $boundaryMixed . '"';
